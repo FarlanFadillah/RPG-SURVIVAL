@@ -1,6 +1,12 @@
 package com.main;
 
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferStrategy;
+
+import com.input.KeyInput;
 
 public class Game extends Canvas implements Runnable{
     
@@ -10,6 +16,7 @@ public class Game extends Canvas implements Runnable{
     public static final int WIDTH = HEIGHT * 16/9;
 
     private boolean running;
+    public Handler handler = new Handler(this);
 
     //Game State Section
     public int gameState = 0;
@@ -22,6 +29,7 @@ public class Game extends Canvas implements Runnable{
 
     public Game(){
 		frame = new Frame(WIDTH, HEIGHT, "RPG SURVIVAL", this);
+        addKeyListener(new KeyInput(this));
         start();
     }
     public static void main(String[] args) {
@@ -37,10 +45,28 @@ public class Game extends Canvas implements Runnable{
     }
 
     private void render() {
-		
+		BufferStrategy bs = getBufferStrategy();
+        if(bs == null){
+            this.requestFocus();
+            createBufferStrategy(3);
+            return;
+        }
+        Graphics g = bs.getDrawGraphics();
+        Graphics2D g2d = (Graphics2D) g;
+        g.setColor(Color.black);
+		g.fillRect(0,0, getWidth(), getHeight());
+        /////////////////////////////////////////
+        
+        handler.render(g);
+        
+        
+        //////////////////////////////////////
+        g.dispose();
+        bs.show();
     }
 
     private void tick() {
+        handler.tick();
     }
 
     @Override

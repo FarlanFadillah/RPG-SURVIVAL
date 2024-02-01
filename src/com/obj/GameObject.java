@@ -1,12 +1,14 @@
 package com.obj;
 
+import java.awt.*;
+
 import com.id.*;
 
 public abstract class GameObject {
-    int x, y;
+    public int x, y;
     ID id;
     public abstract void tick();
-    public abstract void render();
+    public abstract void render(Graphics g);
 
     public GameObject(int x, int y, ID id){
         this.x = x;
@@ -25,5 +27,9 @@ public abstract class GameObject {
     }
     public void setY(int y){
         this.y = y;
+    }
+
+    public ID getID(){
+        return id;
     }
 }
