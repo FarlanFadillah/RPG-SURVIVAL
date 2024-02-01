@@ -1,13 +1,17 @@
 package com.obj;
 
+import com.id.*;
+
 public abstract class GameObject {
     int x, y;
+    ID id;
     public abstract void tick();
     public abstract void render();
 
-    public GameObject(int x, int y){
+    public GameObject(int x, int y, ID id){
         this.x = x;
         this.y = y;
+        this.id = id;
     }
 
     public int getX(){
