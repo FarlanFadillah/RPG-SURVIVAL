@@ -1,5 +1,5 @@
 package com.id;
 
 public enum EntityType {
-    Archer(), Fighter(), PasifNPC(), MercantNPC(), QuestNPC(), Mob(), Boss();
+    Archer(), Fighter(), Caster(), PasifNPC(), MercantNPC(), QuestNPC(), Mob(), Boss();
 }
