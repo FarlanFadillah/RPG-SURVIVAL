@@ -22,7 +22,7 @@ public class Archer extends Entity{
 		stamina = 100;
 		speed = 4;
 	}
-
+	
 	public void tick() {
 		x += velX;
 		y += velY;

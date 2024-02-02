@@ -1,8 +1,9 @@
 package com.obj;
 
 import java.awt.*;
-import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
+import com.filehandler.SpriteSheet;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
@@ -17,6 +18,23 @@ public abstract class Entity extends GameObject {
     public EntityType et;
     public Game game;
 	protected EntityClass ec;
+
+	public SpriteSheet ss;
+	public String arah; //tanda arah
+	public BufferedImage[] runDown = new BufferedImage[6];
+	public BufferedImage[] runUp = new BufferedImage[6];
+	public BufferedImage[] runRight = new BufferedImage[6];
+	public BufferedImage[] runLeft = new BufferedImage[6];
+
+	public BufferedImage[] idleDown = new BufferedImage[6];
+	public BufferedImage[] idleUp = new BufferedImage[6];
+	public BufferedImage[] idleRight = new BufferedImage[6];
+	public BufferedImage[] idleLeft = new BufferedImage[6];
+
+
+	int spriteNum = 1 ; // Counter Animation
+	int spriteCounter = 0;
+
     public Entity(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
         super(x, y, id);
         this.et = et;
@@ -24,11 +42,14 @@ public abstract class Entity extends GameObject {
         this.game = game;
     }
 
-    public abstract void tick();
+    public void tick(){
+		spriteCounter();
+	}
     public abstract void render(Graphics g);
     public abstract Rectangle getBound();
     public abstract Rectangle renderOrder();
     public abstract void Collision();
+	public abstract void getImage();
 
     public void playerControl(){
 		if(isUp()) {
@@ -88,5 +109,28 @@ public abstract class Entity extends GameObject {
     public EntityClass getEntityClass(){
         return ec;
     }
+
+	public void spriteCounter(){
+
+			spriteCounter++;
+			if(spriteCounter > 6) {
+				if(spriteNum == 1) {
+					spriteNum =2;
+				}else if(spriteNum ==2) {
+					spriteNum =3;
+				}else if(spriteNum ==3) {
+					spriteNum =4;
+				}else if(spriteNum ==4) {
+					spriteNum =5;
+				}else if(spriteNum ==5) {
+					spriteNum =6;
+				}else if(spriteNum ==6) {
+					spriteNum =1;
+				}
+				
+				spriteCounter =0;
+			}
+			
+	}
     
 }

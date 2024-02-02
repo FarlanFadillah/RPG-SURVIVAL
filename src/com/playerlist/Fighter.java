@@ -44,4 +44,10 @@ public class Fighter extends Entity{
 		
 	}
 
+	@Override
+	public void getImage() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getImage'");
+	}
+
 }
