@@ -3,6 +3,7 @@ package com.obj;
 import java.awt.*;
 import java.awt.Rectangle;
 
+import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
 import com.main.Game;
@@ -15,9 +16,11 @@ public abstract class Entity extends GameObject {
     public float velX=0, velY=0;
     public EntityType et;
     public Game game;
-    public Entity(int x, int y, ID id, EntityType et, Game game) {
+	protected EntityClass ec;
+    public Entity(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
         super(x, y, id);
         this.et = et;
+		this.ec = ec;
         this.game = game;
     }
 
@@ -80,6 +83,10 @@ public abstract class Entity extends GameObject {
 
     public EntityType getEntityType(){
         return et;
+    }
+    
+    public EntityClass getEntityClass(){
+        return ec;
     }
     
 }

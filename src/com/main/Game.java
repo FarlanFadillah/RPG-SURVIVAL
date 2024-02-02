@@ -35,7 +35,6 @@ public class Game extends Canvas implements Runnable{
     public static void main(String[] args) {
         new Game();
     }
-
     public void start(){
         running = true;
         new Thread(this).start();

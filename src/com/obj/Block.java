@@ -19,6 +19,8 @@ public abstract class Block extends GameObject {
     public abstract void render();
     public abstract Rectangle getBound();
     public abstract Rectangle renderOrder();
-
+    public BlockType getBlockType(){
+        return bt;
+    }
     
 }

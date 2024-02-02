@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
 import com.main.Game;
@@ -13,8 +14,8 @@ public class Archer extends Entity{
 
 
 
-	public Archer(int x, int y, ID id, EntityType et, Game game) {
-		super(x, y, id, et, game);
+	public Archer(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
+		super(x, y, id, et, ec, game);
 		//TODO Auto-generated constructor stub
 		hp = 100;
 		mana = 100;

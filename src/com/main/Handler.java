@@ -3,6 +3,7 @@ package com.main;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
 import com.obj.GameObject;
@@ -17,9 +18,9 @@ public class Handler {
     Caster caster;
     Fighter fighter;
     public Handler(Game game){
-        caster = new Caster(50, 50, ID.Entity, EntityType.Player, game);
-        fighter = new Fighter(100, 100, ID.Entity, EntityType.Player, game);
-        archer = new Archer(10, 10, ID.Entity, EntityType.Player, game);
+        caster = new Caster(50, 50, ID.Entity, EntityType.PasifNPC, EntityClass.Caster, game);
+        fighter = new Fighter(100, 100, ID.Entity, EntityType.Player, EntityClass.Fighter, game);
+        archer = new Archer(10, 10, ID.Entity, EntityType.Player, EntityClass.Archer, game);
         objects.add(caster);
         objects.add(fighter);
         objects.add(archer);
