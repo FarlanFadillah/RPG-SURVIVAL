@@ -46,8 +46,6 @@ public abstract class Entity extends GameObject {
 		spriteCounter();
 	}
     public abstract void render(Graphics g);
-    public abstract Rectangle getBound();
-    public abstract Rectangle renderOrder();
     public abstract void Collision();
 	public abstract void getImage();
 

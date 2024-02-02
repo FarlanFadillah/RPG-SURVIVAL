@@ -2,7 +2,11 @@ package com.main;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
+import com.blockList.Tree;
+import com.id.BlockType;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
@@ -22,6 +26,7 @@ public class Handler {
         // fighter = new Fighter(100, 100, ID.Entity, EntityType.Player, EntityClass.Fighter, game);
         archer = new Archer(100, 100, ID.Entity, EntityType.Player, EntityClass.Archer, game);
         objects.add(archer);
+        objects.add(new Tree(50, 50, ID.Block, BlockType.DestroyAble, game));
         // objects.add(caster);
         // objects.add(fighter);
     }
@@ -34,6 +39,21 @@ public class Handler {
     }
 
     public void render(Graphics g, double xx, double yy){
+        try {
+            Collections.sort(objects, new Comparator<GameObject>() {
+    
+                @Override
+                public int compare(GameObject o1, GameObject o2) {
+                    int y1 = (int) o1.renderOrder().getY();
+                    int y2 = (int) o2.renderOrder().getY();
+                    return Integer.compare(y1, y2);
+                }
+                
+            });
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
         for (int i = 0; i < objects.size(); i++) {
             int x1 = objects.get(i).getX();
             int y1 = objects.get(i).getY();

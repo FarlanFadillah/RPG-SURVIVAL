@@ -9,6 +9,7 @@ import com.id.EntityType;
 import com.id.ID;
 import com.main.Game;
 import com.obj.Entity;
+import com.obj.GameObject;
 
 public class Archer extends Entity{
 
@@ -28,6 +29,7 @@ public class Archer extends Entity{
 	public void tick() {
 		x += velX;
 		y += velY;
+		Collision();
 		playerControl();
 		spriteCounter();	
 	}
@@ -38,15 +40,21 @@ public class Archer extends Entity{
 	}
 
 	public Rectangle getBound() {
-		return new Rectangle();
+		return new Rectangle(x+48, y +64, 32, 32 );
 	}
 
 	public Rectangle renderOrder() {
-		return new Rectangle();
+		return new Rectangle(x+48, y +64, 32, 32 );
 	}
 
 	public void Collision() {
-		
+		for (int i = 0; i < game.handler.objects.size(); i++) {
+			GameObject temp = game.handler.objects.get(i);
+			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Block){
+				x += velX * -1;
+				y += velY * -1;
+			}
+		}
 	}
 	
 	public void animatedSprite(){

@@ -11,6 +11,8 @@ public abstract class GameObject {
     ID id;
     public abstract void tick();
     public abstract void render(Graphics g);
+    public abstract Rectangle getBound();
+    public abstract Rectangle renderOrder();
 
     public GameObject(int x, int y, ID id){
         this.x = x;
@@ -34,4 +36,6 @@ public abstract class GameObject {
     public ID getID(){
         return id;
     }
+
+    
 }
