@@ -32,8 +32,9 @@ public abstract class Entity extends GameObject {
 	public BufferedImage[] idleLeft = new BufferedImage[6];
 
 
-	int spriteNum = 1 ; // Counter Animation
-	int spriteCounter = 0;
+	public int spriteNum = 1 ; // Counter Animation
+	public int spriteCounter = 0;
+	public BufferedImage image;
 
     public Entity(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
         super(x, y, id);
@@ -54,25 +55,25 @@ public abstract class Entity extends GameObject {
     public void playerControl(){
 		if(isUp()) {
 			velY=-speed;
-			// arah = "atas"; 
+			arah = "atas"; 
 		}
 		else velY=0;
 		
 		if(isDown()) {
 			velY=speed;
-			// arah = "bawah"; 
+			arah = "bawah"; 
 		}
 		else if(!isUp())velY=0;
 		
 		if(isRight()) {
 			velX=speed;
-			// arah = "kanan";
+			arah = "kanan";
 		}
 		else if(!isLeft())velX=0;
 		
 		if(isLeft()) {
 			velX=-speed;
-			// arah = "kiri";
+			arah = "kiri";
 		}
 		else if(!isRight()) velX=0;
 	}

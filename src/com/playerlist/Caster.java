@@ -35,15 +35,19 @@ public class Caster extends Entity{
 	}
 
 	public Rectangle getBound() {
-		return null;
+		return new Rectangle();
 	}
 
 	public Rectangle renderOrder() {
-		return null;
+		return new Rectangle();
 	}
 
 	public void Collision() {
 		
+	}
+
+	public void getImage() {
+
 	}
 
 }
