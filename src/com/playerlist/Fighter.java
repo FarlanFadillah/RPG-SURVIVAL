@@ -13,7 +13,7 @@ import com.obj.Entity;
 
 public class Fighter extends Entity{
 	
-	public SpriteSheet ss = new SpriteSheet("/assetsentity/Fighter.png");
+	public SpriteSheet ss = new SpriteSheet("/assets/assetsentity/Fighter.png");
 	
 	public Fighter(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
 		super(x, y, id, et, ec, game);
@@ -21,9 +21,11 @@ public class Fighter extends Entity{
 		mana = 100;
 		stamina = 100;
 		speed = 4;
-		arah = "down";
-		
+
 		getImage();
+		image = idleRight[0];
+		arah = "kanan";
+		
 	}
 
 	public void tick() {

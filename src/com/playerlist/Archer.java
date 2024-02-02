@@ -1,11 +1,7 @@
 package com.playerlist;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import com.filehandler.SpriteSheet;
 import com.id.EntityClass;
@@ -16,7 +12,7 @@ import com.obj.Entity;
 
 public class Archer extends Entity{
 
-	public SpriteSheet ss = new SpriteSheet("/assetsentity/Archer.png");
+	public SpriteSheet ss = new SpriteSheet("/assets/assetsentity/Archer.png");
 	
 	public Archer(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
 		super(x, y, id, et, ec, game);
@@ -24,9 +20,9 @@ public class Archer extends Entity{
 		mana = 100;
 		stamina = 100;
 		speed = 4;
-		arah = "down";
-		
 		getImage();
+		image = idleRight[0];
+		arah = "kanan";
 	}
 	
 	public void tick() {

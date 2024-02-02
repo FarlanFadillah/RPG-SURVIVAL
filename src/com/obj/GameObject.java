@@ -1,10 +1,12 @@
 package com.obj;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import com.id.*;
 
 public abstract class GameObject {
+    public BufferedImage image;
     public int x, y;
     ID id;
     public abstract void tick();

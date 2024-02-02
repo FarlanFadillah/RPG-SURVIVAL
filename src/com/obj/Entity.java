@@ -34,7 +34,6 @@ public abstract class Entity extends GameObject {
 
 	public int spriteNum = 1 ; // Counter Animation
 	public int spriteCounter = 0;
-	public BufferedImage image;
 
     public Entity(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
         super(x, y, id);

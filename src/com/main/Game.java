@@ -6,17 +6,20 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
+import com.input.Camera;
 import com.input.KeyInput;
+import com.map.BaseBiome;
 
 public class Game extends Canvas implements Runnable{
     
 	private static final long serialVersionUID = 1L;
 	
-	public static final int HEIGHT = 720; // ukuran frame
+	public static final int HEIGHT = 480; // ukuran frame
     public static final int WIDTH = HEIGHT * 16/9;
 
     private boolean running;
     public Handler handler = new Handler(this);
+    public KeyInput key = new KeyInput(this);
 
     //Game State Section
     public int gameState = 0;
@@ -26,10 +29,16 @@ public class Game extends Canvas implements Runnable{
 
 	public Frame frame;
 
+    //Camera
+    public Camera cam = new Camera(0, 0);
+
+    //Biome list
+    public BaseBiome base = new BaseBiome(this);
+
 
     public Game(){
 		frame = new Frame(WIDTH, HEIGHT, "RPG SURVIVAL", this);
-        addKeyListener(new KeyInput(this));
+        addKeyListener(key);
         start();
     }
     public static void main(String[] args) {
@@ -55,9 +64,13 @@ public class Game extends Canvas implements Runnable{
         g.setColor(Color.black);
 		g.fillRect(0,0, getWidth(), getHeight());
         /////////////////////////////////////////
+        g2d.translate(-cam.getX(), -cam.getY());
+
         
-        handler.render(g);
-        
+        base.draw(g2d, cam.getX(), cam.getY());
+        handler.render(g, cam.getX(), cam.getY());
+
+        g2d.translate(cam.getX(), cam.getY());
         
         //////////////////////////////////////
         g.dispose();
@@ -66,6 +79,7 @@ public class Game extends Canvas implements Runnable{
 
     private void tick() {
         handler.tick();
+        cam.tick(this);
     }
 
     @Override
