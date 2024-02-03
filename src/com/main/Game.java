@@ -1,7 +1,6 @@
 package com.main;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
@@ -21,6 +20,9 @@ public class Game extends Canvas implements Runnable{
     public Handler handler = new Handler(this);
     public KeyInput key = new KeyInput(this);
 
+    //Biome list
+    public BaseBiome base = new BaseBiome(this);
+
     //Game State Section
     public int gameState = 0;
     public int playState = 1;
@@ -32,8 +34,6 @@ public class Game extends Canvas implements Runnable{
     //Camera
     public Camera cam = new Camera(0, 0);
 
-    //Biome list
-    public BaseBiome base = new BaseBiome(this);
 
 
     public Game(){
@@ -61,13 +61,11 @@ public class Game extends Canvas implements Runnable{
         }
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
-        g.setColor(Color.black);
-		g.fillRect(0,0, getWidth(), getHeight());
         /////////////////////////////////////////
         g2d.translate(-cam.getX(), -cam.getY());
 
         
-        base.draw(g2d, cam.getX(), cam.getY());
+        base.draw(g2d, g, cam.getX(), cam.getY());
         handler.render(g, cam.getX(), cam.getY());
 
         g2d.translate(cam.getX(), cam.getY());
@@ -78,6 +76,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     private void tick() {
+        base.tick();
         handler.tick();
         cam.tick(this);
     }

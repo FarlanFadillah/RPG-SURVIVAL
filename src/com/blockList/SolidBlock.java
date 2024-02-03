@@ -2,6 +2,7 @@ package com.blockList;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import com.id.BlockType;
 import com.id.ID;
@@ -10,17 +11,15 @@ import com.obj.Block;
 
 public class SolidBlock extends Block {
 
-    public SolidBlock(int x, int y, ID id, BlockType bt, Game game, int type) {
+    public SolidBlock(int x, int y, ID id, BlockType bt, Game game, BufferedImage image) {
         super(x, y, id, bt, game);
-        getImage();
-        image = game.base.layer1[type].image;
+        this.image = image;
         //TODO Auto-generated constructor stub
     }
 
     @Override
     public void tick() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tick'");
     }
 
     @Override
@@ -32,7 +31,7 @@ public class SolidBlock extends Block {
     @Override
     public Rectangle renderOrder() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'renderOrder'");
+        return new Rectangle();
     }
 
     @Override
@@ -44,7 +43,7 @@ public class SolidBlock extends Block {
     @Override
     public Rectangle getBound() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBound'");
+        return new Rectangle();
     }
     
 }

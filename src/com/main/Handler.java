@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import com.blockList.Tree;
-import com.id.BlockType;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
@@ -18,7 +16,7 @@ import com.playerlist.Fighter;
 public class Handler {
 
     public ArrayList<GameObject> objects = new ArrayList<>();
-    Archer archer;
+    public Archer archer;
     Caster caster;
     Fighter fighter;
     public Handler(Game game){
@@ -26,7 +24,6 @@ public class Handler {
         // fighter = new Fighter(100, 100, ID.Entity, EntityType.Player, EntityClass.Fighter, game);
         archer = new Archer(100, 100, ID.Entity, EntityType.Player, EntityClass.Archer, game);
         objects.add(archer);
-        objects.add(new Tree(50, 50, ID.Block, BlockType.DestroyAble, game));
         // objects.add(caster);
         // objects.add(fighter);
     }
@@ -57,7 +54,7 @@ public class Handler {
         for (int i = 0; i < objects.size(); i++) {
             int x1 = objects.get(i).getX();
             int y1 = objects.get(i).getY();
-                if( x1 < xx+ Game.WIDTH*2 && x1 > xx - objects.get(i).image.getWidth() && y1 <yy+Game.HEIGHT*2 && y1 > yy - objects.get(i).image.getHeight()){
+                if( x1 < xx+ Game.WIDTH && x1 > xx - objects.get(i).image.getWidth() && y1 <yy+Game.HEIGHT && y1 > yy - objects.get(i).image.getHeight()){
                     objects.get(i).render(g);           
                 }
         }

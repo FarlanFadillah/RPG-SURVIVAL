@@ -35,13 +35,13 @@ public class Tree extends Block {
     @Override
     public Rectangle getBound() {
         // TODO Auto-generated method stub
-        return new Rectangle(x+80, y+160, 32, 32);
+        return new Rectangle(x+80, y+144, 32, 32);
     }
 
     @Override
     public Rectangle renderOrder() {
         // TODO Auto-generated method stub
-        return new Rectangle(x+80, y+160, 32, 32);
+        return new Rectangle(x+80, y+144, 32, 32);
     }
 
     public void animatedSprite(){
@@ -65,6 +65,23 @@ public class Tree extends Block {
         } catch (Exception e) {
             // TODO: handle exception
         }
+    }
+
+    public void spriteCounter(){
+
+        spriteCounter++;
+        if(spriteCounter > 10) {
+            if(spriteNum == 1) {
+                spriteNum =2;
+            }else if(spriteNum ==2) {
+                spriteNum =3;
+            }else if(spriteNum ==3) {
+                spriteNum =1;
+            }
+            
+            spriteCounter =0;
+        }
+        
     }
 
     

@@ -3,23 +3,29 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
+import com.blockList.SolidBlock;
+import com.blockList.Tree;
+import com.id.BlockType;
+import com.id.ID;
 import com.main.Game;
+import com.obj.GameObject;
 
 public class BlockManager {
     private int WIDTHMAP, HEIGHTMAP;
     public int[][] blocktile_layer1 = new int[0][0];
     public int[][] blocktile_layer2 = new int[0][0];
-    int tile_w = 32;
-	int tile_h = 32;
-	int pixels = 32;
+    int tile_w = 64;
+	int tile_h = 64;
+	int pixels = 64;
     Game game;
     public BlockManager(Game game){
         this.game = game;
         
     }
 
-    public void loadBlock(int[][] arrays){
+    public void loadBlock(int[][] arrays, TileMap[] layer1, ArrayList<GameObject> objects){
         System.out.println("Load Object!!");
         int col = 0;
         int row = 0;
@@ -29,7 +35,7 @@ public class BlockManager {
 				int tile = arrays[col][row];
 
                 if(tile > 0){
-                    game.hand.object.add(new PermanentBlock(col*pixels, row*pixels, ID.Block, tile, game));
+                    objects.add(new SolidBlock(col*pixels, row*pixels, ID.Block, BlockType.unDestroyAble, game, layer1[tile].image));
                 }
 				
                 col++;
@@ -41,7 +47,6 @@ public class BlockManager {
 		}
     }
     public int[][] TMXFileReaderBlock(String path, String layer, int[][] arrays){
-        System.out.println("Read Object!!");
         String keyword = layer;  // Ganti dengan kata kunci yang ingin dicari
 		InputStream in = getClass().getResourceAsStream(path);
 
@@ -106,30 +111,18 @@ public class BlockManager {
             }
             if (keywordFound) {
 				while((line = br.readLine()) != null && line.contains("name")) {
-					if(extractValueStr(line, "name").contains("yellow_tree_1") ){
+					if(extractValueStr(line, "name").contains("tree") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        game.hand.object.add(new YellowTree_1(x, y-h, ID.Block, game));
-                    }else if(extractValueStr(line, "name").contains("yellow_tree_2")){
-                        int x = extractValueInt(line, "x");
-                        int y = extractValueInt(line, "y");
-                        int h =  extractValueInt(line, "height");
-                        game.hand.object.add(new YellowTree_2(x, y-h, ID.Block, game));
-                    }else if(extractValueStr(line, "name").contains("CaveDoor")){
-                        int x = extractValueInt(line, "x");
-                        int y = extractValueInt(line, "y");
-                        int h =  extractValueInt(line, "height");
-                        CaveGate cg = new CaveGate(x, y-h, ID.Block, game);
-                        cg.classObject = extractValueStr(line, "type");
-                        game.hand.object.add(cg);
+                        game.handler.objects.add(new Tree(x, y-h, ID.Block, BlockType.DestroyAble, game));
                     }else if(extractValueStr(line, "name").contains("player")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        game.hand.player.arah = "bawah";
-                        game.hand.player.setX(x);
-                        game.hand.player.setY(y-h);
+                        game.handler.archer.arah = "bawah";
+                        game.handler.archer.setX(x);
+                        game.handler.archer.setY(y-h);
                     }
 				}
             } else {

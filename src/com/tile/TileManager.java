@@ -17,9 +17,9 @@ public class TileManager {
     int pixels = 64;
     int tile_w = 64;
 	int tile_h = 64;
-    
-
+	public Game game;
     public TileManager(Game game){
+		this.game = game;
     }
     public void getTiles(String path, TileMap[] map, int size) {
         ss = new SpriteSheet(path);
@@ -61,7 +61,10 @@ public class TileManager {
 			while(col<WIDTHMAP) {
 				int tile = maptile[col][row];
 				if(col*pixels< xx +Game.WIDTH && col*pixels> xx - pixels && row*pixels< yy + Game.HEIGHT&& row*pixels > yy - pixels) {
-					g2.drawImage(map[tile].image, col*pixels, row*pixels, tile_w, tile_h, null);
+					if(tile == 42){
+					}else{
+						g2.drawImage(map[tile].image, col*pixels, row*pixels, tile_w, tile_h, null);
+					}
 				}	
 			    col++;
 			}
@@ -73,7 +76,8 @@ public class TileManager {
 		
 	}
 
-    public int[][] TMXFileReader(String path, String keyword, int[][] maptile){
+    
+	public int[][] TMXFileReader(String path, String keyword, int[][] maptile){
 		System.out.println("Read Map");
 		InputStream in = getClass().getResourceAsStream(path);
 

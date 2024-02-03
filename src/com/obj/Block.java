@@ -13,7 +13,7 @@ public abstract class Block extends GameObject {
 
     public int spriteNum = 1 ; // Counter Animation
 	public int spriteCounter = 0;
-    public BufferedImage[] idle = new BufferedImage[6];
+    public BufferedImage[] idle = new BufferedImage[10];
     public Block(int x, int y, ID id, BlockType bt, Game game) {
         super(x, y, id);
         this.bt = bt;
@@ -29,21 +29,6 @@ public abstract class Block extends GameObject {
         return bt;
     }
 
-    public void spriteCounter(){
-
-        spriteCounter++;
-        if(spriteCounter > 10) {
-            if(spriteNum == 1) {
-                spriteNum =2;
-            }else if(spriteNum ==2) {
-                spriteNum =3;
-            }else if(spriteNum ==3) {
-                spriteNum =1;
-            }
-            
-            spriteCounter =0;
-        }
-        
-}
+    
     
 }
