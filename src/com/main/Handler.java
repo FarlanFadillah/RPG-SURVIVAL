@@ -13,6 +13,8 @@ import com.playerlist.Archer;
 import com.playerlist.Caster;
 import com.playerlist.Fighter;
 
+import projectile.ArrowProjectile;
+
 public class Handler {
 
     public ArrayList<GameObject> objects = new ArrayList<>();
@@ -59,4 +61,9 @@ public class Handler {
                 }
         }
     }
+
+	public void addObject(ArrowProjectile arrowProjectile) {
+		// TODO Auto-generated method stub
+		
+	}
 }

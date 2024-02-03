@@ -1,5 +1,5 @@
 package com.id;
 
 public enum BlockType {
-    DestroyAble(), unDestroyAble();
+    DestroyAble(), unDestroyAble(), Projectile();
 }

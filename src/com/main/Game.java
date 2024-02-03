@@ -7,6 +7,7 @@ import java.awt.image.BufferStrategy;
 
 import com.input.Camera;
 import com.input.KeyInput;
+import com.input.MouseInput;
 import com.map.BaseBiome;
 
 public class Game extends Canvas implements Runnable{
@@ -32,13 +33,14 @@ public class Game extends Canvas implements Runnable{
 	public Frame frame;
 
     //Camera
-    public Camera cam = new Camera(0, 0);
+    public Camera camera = new Camera(0, 0);
 
 
 
     public Game(){
 		frame = new Frame(WIDTH, HEIGHT, "RPG SURVIVAL", this);
         addKeyListener(key);
+		this.addMouseListener(new MouseInput(handler, camera));
         start();
     }
     public static void main(String[] args) {
@@ -62,13 +64,13 @@ public class Game extends Canvas implements Runnable{
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
         /////////////////////////////////////////
-        g2d.translate(-cam.getX(), -cam.getY());
+        g2d.translate(-camera.getX(), -camera.getY());
 
         
-        base.draw(g2d, g, cam.getX(), cam.getY());
-        handler.render(g, cam.getX(), cam.getY());
+        base.draw(g2d, g, camera.getX(), camera.getY());
+        handler.render(g, camera.getX(), camera.getY());
 
-        g2d.translate(cam.getX(), cam.getY());
+        g2d.translate(camera.getX(), camera.getY());
         
         //////////////////////////////////////
         g.dispose();
@@ -78,7 +80,7 @@ public class Game extends Canvas implements Runnable{
     private void tick() {
         base.tick();
         handler.tick();
-        cam.tick(this);
+        camera.tick(this);
     }
 
     @Override
