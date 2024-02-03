@@ -17,15 +17,15 @@ public class Handler {
 
     public ArrayList<GameObject> objects = new ArrayList<>();
     public Archer archer;
-    Caster caster;
-    Fighter fighter;
+    public Caster caster;
+    public Fighter fighter;
     public Handler(Game game){
         // caster = new Caster(50, 50, ID.Entity, EntityType.PasifNPC, EntityClass.Caster, game);
-        // fighter = new Fighter(100, 100, ID.Entity, EntityType.Player, EntityClass.Fighter, game);
-        archer = new Archer(100, 100, ID.Entity, EntityType.Player, EntityClass.Archer, game);
+        fighter = new Fighter(100, 100, ID.Entity, EntityType.Player, EntityClass.Fighter, game);
+        archer = new Archer(100, 100, ID.Entity, EntityType.PasifNPC, EntityClass.Archer, game);
         objects.add(archer);
         // objects.add(caster);
-        // objects.add(fighter);
+        objects.add(fighter);
     }
 
     public void tick(){

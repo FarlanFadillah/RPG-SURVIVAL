@@ -120,9 +120,9 @@ public class BlockManager {
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        game.handler.archer.arah = "bawah";
-                        game.handler.archer.setX(x);
-                        game.handler.archer.setY(y-h);
+                        game.handler.fighter.arah = "bawah";
+                        game.handler.fighter.setX(x);
+                        game.handler.fighter.setY(y-h);
                     }
 				}
             } else {

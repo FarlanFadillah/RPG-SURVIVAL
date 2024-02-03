@@ -14,7 +14,7 @@ public class KeyInput implements KeyListener{
     public KeyInput(Game game){
 		this.game = game;
         getPlayerObject();
-        // getPlayer2();
+        getPlayer2();
 	}
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -56,14 +56,14 @@ public class KeyInput implements KeyListener{
         }
     }
 
-    // public void getPlayer2(){
-    //     for (int i = 0; i < game.handler.objects.size(); i++) {
-    //         Entity temp = (Entity) game.handler.objects.get(i);
-    //         if(temp.getEntityType() == EntityType.PasifNPC){
-    //             player2 = temp;
-    //             break;
-    //         }
-    //     }
-    // }
+    public void getPlayer2(){
+        for (int i = 0; i < game.handler.objects.size(); i++) {
+            Entity temp = (Entity) game.handler.objects.get(i);
+            if(temp.getEntityType() == EntityType.PasifNPC){
+                player2 = temp;
+                break;
+            }
+        }
+    }
 
 }
