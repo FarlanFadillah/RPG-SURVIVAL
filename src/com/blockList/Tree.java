@@ -87,6 +87,12 @@ public class Tree extends Block {
         
     }
 
+    @Override
+    public Rectangle getSize() {
+        // TODO Auto-generated method stub
+        return new Rectangle(x, y, image.getWidth(), image.getHeight());
+    }
+
     
     
 }

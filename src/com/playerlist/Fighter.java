@@ -59,6 +59,7 @@ public class Fighter extends Entity{
 				y += velY * -1;
 			}
 		}
+		
 	}
 	
 	public void animatedSprite(){
@@ -301,6 +302,12 @@ public class Fighter extends Entity{
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public Rectangle getSize() {
+		// TODO Auto-generated method stub
+		return new Rectangle(x, y, image.getWidth(), image.getHeight());
 	}
 
 }

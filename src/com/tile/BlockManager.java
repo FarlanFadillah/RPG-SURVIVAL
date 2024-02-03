@@ -3,14 +3,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 import com.blockList.SolidBlock;
 import com.blockList.Tree;
 import com.id.BlockType;
 import com.id.ID;
 import com.main.Game;
-import com.obj.GameObject;
 
 public class BlockManager {
     private int WIDTHMAP, HEIGHTMAP;
@@ -25,7 +23,7 @@ public class BlockManager {
         
     }
 
-    public void loadBlock(int[][] arrays, TileMap[] layer1, ArrayList<GameObject> objects){
+    public void loadBlock(int[][] arrays, TileMap[] layer1){
         System.out.println("Load Object!!");
         int col = 0;
         int row = 0;
@@ -35,7 +33,7 @@ public class BlockManager {
 				int tile = arrays[col][row];
 
                 if(tile > 0){
-                    objects.add(new SolidBlock(col*pixels, row*pixels, ID.Block, BlockType.unDestroyAble, game, layer1[tile].image));
+                    // game.handler.objects.add();
                 }
 				
                 col++;
@@ -123,6 +121,12 @@ public class BlockManager {
                         game.handler.fighter.arah = "bawah";
                         game.handler.fighter.setX(x);
                         game.handler.fighter.setY(y-h);
+                    }else if(extractValueStr(line, "name").contains("solid")){
+                        int x = extractValueInt(line, "x");
+                        int y = extractValueInt(line, "y");
+                        int h =  extractValueInt(line, "height");
+                        int w =  extractValueInt(line, "width");
+                        game.handler.objects.add(new SolidBlock(x, y, ID.Block, BlockType.unDestroyAble, game, w, h));
                     }
 				}
             } else {

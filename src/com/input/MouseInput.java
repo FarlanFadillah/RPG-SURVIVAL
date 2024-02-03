@@ -12,7 +12,6 @@ import projectile.ArrowProjectile;
 import com.id.BlockType;
 import com.id.EntityType;
 import com.id.ID;
-import com.input.Camera;
 
 public class MouseInput extends MouseAdapter{
 	

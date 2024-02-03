@@ -1,6 +1,5 @@
 package projectile;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -52,6 +51,12 @@ public class ArrowProjectile extends Block{
 
 	public Rectangle getBound() {
 		return new Rectangle(x, y, 64, 64);
+	}
+
+	@Override
+	public Rectangle getSize() {
+		// TODO Auto-generated method stub
+		return new Rectangle(x, y, image.getWidth(), image.getHeight());
 	}
 
 }

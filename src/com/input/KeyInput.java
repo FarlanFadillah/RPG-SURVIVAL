@@ -30,8 +30,9 @@ public class KeyInput implements KeyListener{
 		if(key == KeyEvent.VK_DOWN) player2.setDown(true);
 		if(key == KeyEvent.VK_RIGHT) player2.setRight(true);
 		if(key == KeyEvent.VK_LEFT) player2.setLeft(true);
-        
+
     }
+
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();

@@ -13,6 +13,7 @@ public abstract class GameObject {
     public abstract void render(Graphics g);
     public abstract Rectangle getBound();
     public abstract Rectangle renderOrder();
+    public abstract Rectangle getSize();
 
     public GameObject(int x, int y, ID id){
         this.x = x;

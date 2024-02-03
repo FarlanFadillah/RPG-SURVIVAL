@@ -3,11 +3,9 @@ package com.map;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import com.anim.Foam;
 import com.main.Game;
-import com.obj.GameObject;
 import com.tile.BlockManager;
 import com.tile.TileManager;
 import com.tile.TileMap;
@@ -26,7 +24,9 @@ public class BaseBiome {
     public int spriteCounter = 0;
     public int spriteNum = 1;
     BufferedImage foam;
-    ArrayList<GameObject> objects = new ArrayList<>();
+    private String mapPath = "/assets/Terrain/Base.tmx";
+    private String imagePath = "/assets/Terrain/Tilemap_Flat.png";
+
     public BaseBiome(Game game){
         this.game = game;
         tilem = new TileManager(game);
@@ -35,21 +35,22 @@ public class BaseBiome {
         foam = foams.idle[0];
         loadTerrain();
         loadBlock();
+        solidLayer();
     }
 
     public void loadBlock(){
-        bm.TMXFileReaderObject("/assets/Terrain/Base.tmx", "Object Layer 1");
+        bm.TMXFileReaderObject(mapPath, "Object Layer 1");
 
-        blockTile = bm.TMXFileReaderBlock("/assets/Terrain/Base.tmx", "Tile Layer 3", blockTile);
-        bm.loadBlock(blockTile, layer1, objects);
+        blockTile = bm.TMXFileReaderBlock(mapPath, "Tile Layer 3", blockTile);
+        bm.loadBlock(blockTile, layer1);
     }
 
     public void loadTerrain(){
         //Tile Render
-        mapTile = tilem.TMXFileReader("/assets/Terrain/Base.tmx", "Tile Layer 1", mapTile);
-        mapTile2 = tilem.TMXFileReader("/assets/Terrain/Base.tmx", "Tile Layer 2", mapTile2);
-        mapTile3 = tilem.TMXFileReader("/assets/Terrain/Base.tmx", "Tile Layer 4", mapTile3);
-		tilem.getTiles("/assets/Terrain/Tilemap_Flat.png", layer1, 64);
+        mapTile = tilem.TMXFileReader(mapPath, "Tile Layer 1", mapTile);
+        mapTile2 = tilem.TMXFileReader(mapPath, "Tile Layer 2", mapTile2);
+        mapTile3 = tilem.TMXFileReader(mapPath, "Tile Layer 4", mapTile3);
+		tilem.getTiles(imagePath, layer1, 64);
     }
     public void tick(){
         spriteCounter();
@@ -60,10 +61,11 @@ public class BaseBiome {
         animatedSprite();
         drawFoam(g2d);
         tilem.draw(g2d, xx, yy, layer1, mapTile2);
-        for (int i = 0; i < objects.size(); i++) {
-            objects.get(i).render(g);
-        }
         tilem.draw(g2d, xx, yy, layer1, mapTile3);
+    }
+
+    public void solidLayer(){
+        bm.TMXFileReaderObject(mapPath, "solidLayer");
     }
 
     public void drawFoam(Graphics2D g2d){
@@ -84,8 +86,6 @@ public class BaseBiome {
 			}
 		}
     }
-
-
 
     public void spriteCounter(){
 
@@ -139,6 +139,8 @@ public class BaseBiome {
             foam = foams.idle[7];
         }
     }
+
+    
 
     
 }
