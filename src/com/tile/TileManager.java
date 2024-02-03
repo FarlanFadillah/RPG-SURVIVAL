@@ -18,6 +18,7 @@ public class TileManager {
     int tile_w = 64;
 	int tile_h = 64;
 	public Game game;
+	ImageManager imageManager = new ImageManager();
     public TileManager(Game game){
 		this.game = game;
     }
@@ -35,7 +36,8 @@ public class TileManager {
 				
 				try {
 					map[c] = new TileMap();
-					map[c].image = ss.grabImage(x, y, size, size);
+					
+					map[c].image = imageManager.scaledImage(ss.grabImage(x, y, size, size), size, size);
 					//System.out.println(x +" "+y+" "+c);
 					c++;
 					x++;
@@ -63,7 +65,7 @@ public class TileManager {
 				if(col*pixels< xx +Game.WIDTH && col*pixels> xx - pixels && row*pixels< yy + Game.HEIGHT&& row*pixels > yy - pixels) {
 					if(tile == 42){
 					}else{
-						g2.drawImage(map[tile].image, col*pixels, row*pixels, tile_w, tile_h, null);
+						g2.drawImage(map[tile].image, col*pixels, row*pixels, null);
 					}
 				}	
 			    col++;

@@ -9,11 +9,12 @@ import com.id.EntityType;
 import com.id.ID;
 import com.main.Game;
 import com.obj.Entity;
+import com.tile.ImageManager;
 
 public class Fighter extends Entity{
 	
 	public SpriteSheet ss = new SpriteSheet("/assets/assetsentity/Fighter.png");
-	
+	ImageManager im = new ImageManager();
 	public Fighter(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
 		super(x, y, id, et, ec, game);
 		hp = 100;
@@ -36,7 +37,7 @@ public class Fighter extends Entity{
 
 	public void render(Graphics g) {
 		animatedSprite();
-		g.drawImage(image, x, y, 128, 128, null);
+		g.drawImage(image, x, y, null);
 	}
 
 	public Rectangle getBound() {
@@ -233,61 +234,61 @@ public class Fighter extends Entity{
 		
 		try {
 			
-			runDown[0] = ss.grabImage(1, 2, 128, 128);
-			runDown[1] = ss.grabImage(2, 2, 128, 128);
-			runDown[2] = ss.grabImage(3, 2, 128, 128);
-			runDown[3] = ss.grabImage(4, 2, 128, 128);
-			runDown[4] = ss.grabImage(5, 2, 128, 128);
-			runDown[5] = ss.grabImage(6, 2, 128, 128);
+			runDown[0] = im.scaledImage(ss.grabImage(1, 2, 128, 128), 128, 128);
+			runDown[1] = im.scaledImage(ss.grabImage(2, 2, 128, 128), 128, 128);
+			runDown[2] = im.scaledImage(ss.grabImage(3, 2, 128, 128), 128, 128);
+			runDown[3] = im.scaledImage(ss.grabImage(4, 2, 128, 128), 128,128);
+			runDown[4] = im.scaledImage(ss.grabImage(5, 2, 128, 128), 128,128);
+			runDown[5] = im.scaledImage(ss.grabImage(6, 2, 128, 128), 128,128);
 			
-			runUp[0] = ss.grabImage(1, 3, 128, 128);
-			runUp[1] = ss.grabImage(2, 3, 128, 128);
-			runUp[2] = ss.grabImage(3, 3, 128, 128);
-			runUp[3] = ss.grabImage(4, 3, 128, 128);
-			runUp[4] = ss.grabImage(5, 3, 128, 128);
-			runUp[5] = ss.grabImage(6, 3, 128, 128);
+			runUp[0] = im.scaledImage(ss.grabImage(1, 3, 128, 128), 128,128);
+			runUp[1] = im.scaledImage(ss.grabImage(2, 3, 128, 128), 128,128);
+			runUp[2] = im.scaledImage(ss.grabImage(3, 3, 128, 128), 128,128);
+			runUp[3] = im.scaledImage(ss.grabImage(4, 3, 128, 128), 128,128);
+			runUp[4] = im.scaledImage(ss.grabImage(5, 3, 128, 128), 128,128);
+			runUp[5] = im.scaledImage(ss.grabImage(6, 3, 128, 128), 128,128);
 			
-			runRight[0] = ss.grabImage(1, 2, 128, 128);
-			runRight[1] = ss.grabImage(2, 2, 128, 128);
-			runRight[2] = ss.grabImage(3, 2, 128, 128);
-			runRight[3] = ss.grabImage(4, 2, 128, 128);
-			runRight[4] = ss.grabImage(5, 2, 128, 128);
-			runRight[5] = ss.grabImage(6, 2, 128, 128);
+			runRight[0] = im.scaledImage(ss.grabImage(1, 2, 128, 128), 128,128);
+			runRight[1] = im.scaledImage(ss.grabImage(2, 2, 128, 128), 128,128);
+			runRight[2] = im.scaledImage(ss.grabImage(3, 2, 128, 128), 128,128);
+			runRight[3] = im.scaledImage(ss.grabImage(4, 2, 128, 128), 128,128);
+			runRight[4] = im.scaledImage(ss.grabImage(5, 2, 128, 128), 128,128);
+			runRight[5] = im.scaledImage(ss.grabImage(6, 2, 128, 128), 128,128);
 			
-			runLeft[0] = ss.grabImage(1, 3, 128, 128);
-			runLeft[1] = ss.grabImage(2, 3, 128, 128);
-			runLeft[2] = ss.grabImage(3, 3, 128, 128);
-			runLeft[3] = ss.grabImage(4, 3, 128, 128);
-			runLeft[4] = ss.grabImage(5, 3, 128, 128);
-			runLeft[5] = ss.grabImage(6, 3, 128, 128);
+			runLeft[0] = im.scaledImage(ss.grabImage(1, 3, 128, 128), 128,128);
+			runLeft[1] = im.scaledImage(ss.grabImage(2, 3, 128, 128), 128,128);
+			runLeft[2] = im.scaledImage(ss.grabImage(3, 3, 128, 128), 128,128);
+			runLeft[3] = im.scaledImage(ss.grabImage(4, 3, 128, 128), 128,128);
+			runLeft[4] = im.scaledImage(ss.grabImage(5, 3, 128, 128), 128,128);
+			runLeft[5] = im.scaledImage(ss.grabImage(6, 3, 128, 128), 128,128);
 			
-			idleUp[0] = ss.grabImage(1, 1, 128, 128);
-			idleUp[1] = ss.grabImage(2, 1, 128, 128);
-			idleUp[2] = ss.grabImage(3, 1, 128, 128);
-			idleUp[3] = ss.grabImage(4, 1, 128, 128);
-			idleUp[4] = ss.grabImage(5, 1, 128, 128);
-			idleUp[5] = ss.grabImage(6, 1, 128, 128);
+			idleUp[0] = im.scaledImage(ss.grabImage(1, 1, 128, 128), 128,128);
+			idleUp[1] = im.scaledImage(ss.grabImage(2, 1, 128, 128), 128,128);
+			idleUp[2] = im.scaledImage(ss.grabImage(3, 1, 128, 128), 128,128);
+			idleUp[3] = im.scaledImage(ss.grabImage(4, 1, 128, 128), 128,128);
+			idleUp[4] = im.scaledImage(ss.grabImage(5, 1, 128, 128), 128,128);
+			idleUp[5] = im.scaledImage(ss.grabImage(6, 1, 128, 128), 128,128);
 			
-			idleDown[0] = ss.grabImage(1, 1, 128, 128);
-			idleDown[1] = ss.grabImage(2, 1, 128, 128);
-			idleDown[2] = ss.grabImage(3, 1, 128, 128);
-			idleDown[3] = ss.grabImage(4, 1, 128, 128);
-			idleDown[4] = ss.grabImage(5, 1, 128, 128);
-			idleDown[5] = ss.grabImage(6, 1, 128, 128);
+			idleDown[0] = im.scaledImage(ss.grabImage(1, 1, 128, 128), 128,128);
+			idleDown[1] = im.scaledImage(ss.grabImage(2, 1, 128, 128), 128,128);
+			idleDown[2] = im.scaledImage(ss.grabImage(3, 1, 128, 128), 128,128);
+			idleDown[3] = im.scaledImage(ss.grabImage(4, 1, 128, 128), 128,128);
+			idleDown[4] = im.scaledImage(ss.grabImage(5, 1, 128, 128), 128,128);
+			idleDown[5] = im.scaledImage(ss.grabImage(6, 1, 128, 128), 128,128);
 			
-			idleRight[0] = ss.grabImage(1, 1, 128, 128);
-			idleRight[1] = ss.grabImage(2, 1, 128, 128);
-			idleRight[2] = ss.grabImage(3, 1, 128, 128);
-			idleRight[3] = ss.grabImage(4, 1, 128, 128);
-			idleRight[4] = ss.grabImage(5, 1, 128, 128);
-			idleRight[5] = ss.grabImage(6, 1, 128, 128);
+			idleLeft[0] = im.scaledImage(ss.grabImage(1, 1, 128, 128), 128,128);
+			idleLeft[1] = im.scaledImage(ss.grabImage(2, 1, 128, 128), 128,128);
+			idleLeft[2] = im.scaledImage(ss.grabImage(3, 1, 128, 128), 128,128);
+			idleLeft[3] = im.scaledImage(ss.grabImage(4, 1, 128, 128), 128,128);
+			idleLeft[4] = im.scaledImage(ss.grabImage(5, 1, 128, 128), 128,128);
+			idleLeft[5] = im.scaledImage(ss.grabImage(6, 1, 128, 128), 128,128);
 			
-			idleLeft[0] = ss.grabImage(1, 1, 128, 128);
-			idleLeft[1] = ss.grabImage(2, 1, 128, 128);
-			idleLeft[2] = ss.grabImage(3, 1, 128, 128);
-			idleLeft[3] = ss.grabImage(4, 1, 128, 128);
-			idleLeft[4] = ss.grabImage(5, 1, 128, 128);
-			idleLeft[5] = ss.grabImage(6, 1, 128, 128);
+			idleRight[0] = im.scaledImage(ss.grabImage(1, 1, 128, 128), 128,128);
+			idleRight[1] = im.scaledImage(ss.grabImage(2, 1, 128, 128), 128,128);
+			idleRight[2] = im.scaledImage(ss.grabImage(3, 1, 128, 128), 128,128);
+			idleRight[3] = im.scaledImage(ss.grabImage(4, 1, 128, 128), 128,128);
+			idleRight[4] = im.scaledImage(ss.grabImage(5, 1, 128, 128), 128,128);
+			idleRight[5] = im.scaledImage(ss.grabImage(6, 1, 128, 128), 128,128);
 			
 		}catch(Exception e) {
 			e.printStackTrace();

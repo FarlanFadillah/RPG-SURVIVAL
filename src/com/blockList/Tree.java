@@ -8,8 +8,10 @@ import com.id.BlockType;
 import com.id.ID;
 import com.main.Game;
 import com.obj.Block;
+import com.tile.ImageManager;
 
 public class Tree extends Block {
+    ImageManager im = new ImageManager();
 
     SpriteSheet ss = new SpriteSheet("/assets/Block/Tree/Tree.png");
     public Tree(int x, int y, ID id, BlockType bt, Game game) {
@@ -29,7 +31,7 @@ public class Tree extends Block {
     public void render(Graphics g) {
         // TODO Auto-generated method stub
         animatedSprite();
-        g.drawImage(image, x, y, 192, 192, null);
+        g.drawImage(image, x, y, null);
     }
 
     @Override
@@ -59,9 +61,10 @@ public class Tree extends Block {
     @Override
     public void getImage() {
         try {
-            idle[0] = ss.grabImage(2, 1, 192, 192);
-            idle[1] = ss.grabImage(3, 1, 192, 192);
-            idle[2] = ss.grabImage(4, 1, 192, 192);
+            
+            idle[0] = im.scaledImage(ss.grabImage(2, 1, 192, 192), 192, 192);
+            idle[1] = im.scaledImage(ss.grabImage(3, 1, 192, 192), 192, 192);
+            idle[2] = im.scaledImage(ss.grabImage(4, 1, 192, 192), 192, 192);
         } catch (Exception e) {
             // TODO: handle exception
         }
