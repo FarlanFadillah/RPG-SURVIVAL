@@ -69,6 +69,7 @@ public class Game extends Canvas implements Runnable{
         
         base.draw(g2d, g, camera.getX(), camera.getY());
         handler.render(g, camera.getX(), camera.getY());
+        base.drawUpperLayer(g2d, g, camera.getX(), camera.getY());
 
         g2d.translate(camera.getX(), camera.getY());
         

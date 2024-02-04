@@ -57,10 +57,12 @@ public class BaseBiome {
     }
 
     public void draw(Graphics2D g2d, Graphics g, double xx, double yy){
-        tilem.draw(g2d, xx, yy, layer1, mapTile);
+        tilem.draw(g2d, xx, yy, layer1, mapTile);//base layer
         animatedSprite();
         drawFoam(g2d);
-        tilem.draw(g2d, xx, yy, layer1, mapTile2);
+        tilem.draw(g2d, xx, yy, layer1, mapTile2);// second layer
+    }
+    public void drawUpperLayer(Graphics2D g2d, Graphics g, double xx, double yy){
         tilem.draw(g2d, xx, yy, layer1, mapTile3);
     }
 

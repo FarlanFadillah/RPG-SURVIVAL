@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import com.blockList.HighGround3x4;
+import com.blockList.HighGround6x4;
 import com.blockList.SolidBlock;
 import com.blockList.Tree;
 import com.id.BlockType;
@@ -127,6 +129,16 @@ public class BlockManager {
                         int h =  extractValueInt(line, "height");
                         int w =  extractValueInt(line, "width");
                         game.handler.objects.add(new SolidBlock(x, y, ID.Block, BlockType.unDestroyAble, game, w, h));
+                    }else if(extractValueStr(line, "name").contains("hg3x4") ){
+                        int x = extractValueInt(line, "x");
+                        int y = extractValueInt(line, "y");
+                        int h =  extractValueInt(line, "height");
+                        game.handler.objects.add(new HighGround3x4(x, y-h, ID.Block, BlockType.unDestroyAble, game));
+                    }else if(extractValueStr(line, "name").contains("hg6x4") ){
+                        int x = extractValueInt(line, "x");
+                        int y = extractValueInt(line, "y");
+                        int h =  extractValueInt(line, "height");
+                        game.handler.objects.add(new HighGround6x4(x, y-h, ID.Block, BlockType.unDestroyAble, game));
                     }
 				}
             } else {

@@ -8,49 +8,48 @@ import com.id.BlockType;
 import com.id.ID;
 import com.main.Game;
 import com.obj.Block;
-import com.tile.TileMap;
 
-public class HighGround extends Block{
-    SpriteSheet ss = new SpriteSheet("");
-    public HighGround(int x, int y, ID id, BlockType bt, Game game, TileMap[] tile) {
+public class HighGround6x4 extends Block{
+    SpriteSheet ss = new SpriteSheet("/assets/Block/solidBlock/highGround6x4.png");
+
+    public HighGround6x4(int x, int y, ID id, BlockType bt, Game game) {
         super(x, y, id, bt, game);
+        image = ss.image;
         //TODO Auto-generated constructor stub
     }
 
     @Override
     public void tick() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tick'");
     }
 
     @Override
     public void render(Graphics g) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'render'");
+        g.drawImage(image, x, y, null);
     }
 
     @Override
     public Rectangle renderOrder() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'renderOrder'");
+        return new Rectangle(x, y, image.getWidth(), image.getHeight());
     }
 
     @Override
     public void getImage() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getImage'");
     }
 
     @Override
     public Rectangle getBound() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBound'");
+        return new Rectangle();
     }
 
     @Override
     public Rectangle getSize() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSize'");
+        return new Rectangle(x, y, image.getWidth(), image.getHeight());
     }
     
 }
