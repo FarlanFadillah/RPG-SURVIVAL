@@ -19,6 +19,7 @@ public abstract class Entity extends GameObject {
     public Game game;
 	protected EntityClass ec;
 
+
 	public SpriteSheet ss;
 	public String arah; //tanda arah
 	public BufferedImage[] runDown = new BufferedImage[6];

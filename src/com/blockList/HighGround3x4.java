@@ -14,6 +14,7 @@ public class HighGround3x4 extends Block{
     public HighGround3x4(int x, int y, ID id, BlockType bt, Game game) {
         super(x, y, id, bt, game);
         //TODO Auto-generated constructor stub
+        this.highGround = true;
         image = ss.image;
     }
 
@@ -31,7 +32,7 @@ public class HighGround3x4 extends Block{
     @Override
     public Rectangle renderOrder() {
         // TODO Auto-generated method stub
-        return new Rectangle(x, y+(64*3), 192, 64);
+        return new Rectangle();
     }
 
     @Override
@@ -42,7 +43,7 @@ public class HighGround3x4 extends Block{
     @Override
     public Rectangle getBound() {
         // TODO Auto-generated method stub
-        return new Rectangle();
+        return new Rectangle(x, y, image.getWidth(), image.getHeight());
     }
 
     @Override

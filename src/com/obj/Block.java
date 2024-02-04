@@ -10,7 +10,6 @@ import com.main.Game;
 public abstract class Block extends GameObject {
     BlockType bt;
     public Game game;
-
     public int spriteNum = 1 ; // Counter Animation
 	public int spriteCounter = 0;
     public BufferedImage[] idle = new BufferedImage[10];

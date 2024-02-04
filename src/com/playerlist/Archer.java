@@ -307,6 +307,7 @@ public class Archer extends Entity{
 		// TODO Auto-generated method stub
 		return new Rectangle(x, y, image.getWidth(), image.getHeight());
 	}
+	
 
 
 }

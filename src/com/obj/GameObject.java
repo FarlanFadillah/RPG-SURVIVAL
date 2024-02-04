@@ -9,6 +9,9 @@ public abstract class GameObject {
     public BufferedImage image;
     public int x, y;
     ID id;
+
+	public boolean highGround = false;
+
     public abstract void tick();
     public abstract void render(Graphics g);
     public abstract Rectangle getBound();

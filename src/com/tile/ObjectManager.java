@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import com.blockList.Bridge;
 import com.blockList.HighGround3x4;
 import com.blockList.HighGround6x4;
 import com.blockList.SolidBlock;
@@ -141,6 +142,11 @@ public class ObjectManager {
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
                         objects.add(new HighGround6x4(x, y-h, ID.Block, BlockType.unDestroyAble, game));
+                    }else if(extractValueStr(line, "name").contains("hzBridge") ){
+                        int x = extractValueInt(line, "x");
+                        int y = extractValueInt(line, "y");
+                        int h =  extractValueInt(line, "height");
+                        objects.add(new Bridge(x, y-h, ID.Block, BlockType.unDestroyAble, game));
                     }
 				}
             } else {

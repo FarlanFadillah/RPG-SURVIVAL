@@ -43,7 +43,7 @@ public class Fighter extends Entity{
 	}
 
 	public Rectangle getBound() {
-		return new Rectangle(x+48, y +64, 32, 32 );
+		return new Rectangle(x+48, y +80, 32, 16 );
 		
 	}
 
@@ -54,10 +54,10 @@ public class Fighter extends Entity{
 	public void Collision() {
 		for (int i = 0; i < game.tryWorld.objectLayer.get(0).size(); i++) {
 			GameObject temp = game.tryWorld.objectLayer.get(0).get(i);
-			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Block){
+			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Block && temp.highGround == false){
 				x += velX * -1;
 				y += velY * -1;
-			}
+			}	
 		}
 		
 	}

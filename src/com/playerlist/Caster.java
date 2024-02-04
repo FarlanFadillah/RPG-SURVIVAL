@@ -56,4 +56,5 @@ public class Caster extends Entity{
 		return new Rectangle(x, y, image.getWidth(), image.getHeight());
 	}
 
+	
 }

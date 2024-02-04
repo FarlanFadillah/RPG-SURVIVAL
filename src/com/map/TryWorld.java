@@ -55,6 +55,7 @@ public class TryWorld extends Biome{
         foam = animHandler.animatedSprite8Frame(foam, foams.idle);
         drawAnimation(g2d, foam,terrainLayer.get(0), 42, 64, 32);
         drawTerrainLayer(g2d, xx, yy, tileSet, terrainLayer.get(1), tilem);
+        drawTerrainLayer(g2d, xx, yy, tileSet, terrainLayer.get(2), tilem);
         drawObjectLayer(g2d, objectLayer.get(0), xx, yy);
     }
 
@@ -64,6 +65,7 @@ public class TryWorld extends Biome{
         getTileSet(tileSet, tilem);
         addTerrainLayer(mapPath, "Tile Layer 1", terrainLayer, tilem); // layer pertama air
         addTerrainLayer(mapPath, "Tile Layer 2", terrainLayer, tilem); // layer kedua tanah
+        addTerrainLayer(mapPath, "shadow Layer", terrainLayer, tilem);
         addObjectLayer(mapPath, "Object Layer 1", objectLayer, bm); // object layer pertama
         addSolidLayer(objectLayer,"solidLayer" , bm, 0);// transparan blok collision
     }

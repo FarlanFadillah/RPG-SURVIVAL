@@ -9,12 +9,12 @@ import com.id.ID;
 import com.main.Game;
 import com.obj.Block;
 
-public class HighGround6x4 extends Block{
-    SpriteSheet ss = new SpriteSheet("/assets/Block/solidBlock/highGround6x4.png");
-    public HighGround6x4(int x, int y, ID id, BlockType bt, Game game) {
+public class Bridge extends Block {
+    SpriteSheet ss = new SpriteSheet("/assets/Block/bridge/horizontalBridge.png");
+    boolean playerIntersect = false;
+    public Bridge(int x, int y, ID id, BlockType bt, Game game) {
         super(x, y, id, bt, game);
         image = ss.image;
-        this.highGround = true;
         //TODO Auto-generated constructor stub
     }
 
@@ -32,8 +32,7 @@ public class HighGround6x4 extends Block{
     @Override
     public Rectangle renderOrder() {
         // TODO Auto-generated method stub
-        // return new Rectangle(x, y, image.getWidth(), image.getHeight());
-        return new Rectangle();
+        return new Rectangle(x, y-32, image.getWidth(), 1);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class HighGround6x4 extends Block{
     @Override
     public Rectangle getBound() {
         // TODO Auto-generated method stub
-        return new Rectangle(x, y, image.getWidth(), image.getHeight());
+        return new Rectangle();
     }
 
     @Override
@@ -52,5 +51,5 @@ public class HighGround6x4 extends Block{
         // TODO Auto-generated method stub
         return new Rectangle(x, y, image.getWidth(), image.getHeight());
     }
-    
+
 }
