@@ -2,10 +2,13 @@ package com.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import com.id.EntityType;
+import com.id.ID;
 import com.main.Game;
 import com.obj.Entity;
+import com.obj.GameObject;
 
 public class KeyInput implements KeyListener{
 	Game game;
@@ -13,8 +16,7 @@ public class KeyInput implements KeyListener{
     public Entity player2;
     public KeyInput(Game game){
 		this.game = game;
-        getPlayerObject();
-        getPlayer2();
+        // getPlayer2();
 	}
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -47,24 +49,28 @@ public class KeyInput implements KeyListener{
 		if(key == KeyEvent.VK_LEFT) player2.setLeft(false);
     }
 
-    public void getPlayerObject(){
-        for (int i = 0; i < game.handler.objects.size(); i++) {
-            Entity temp = (Entity) game.handler.objects.get(i);
-            if(temp.getEntityType() == EntityType.Player){
-                player = temp;
-                break;
+    public void getPlayerObject(ArrayList<GameObject> objects){
+        for (int i = 0; i < objects.size(); i++) {
+            GameObject temp = objects.get(i);
+            if(temp.getID() == ID.Entity){
+                Entity entityTemp = (Entity) temp;
+                if(entityTemp.getEntityType() == EntityType.Player){
+                    player = entityTemp;
+                    break;
+                }
             }
+            
         }
     }
 
-    public void getPlayer2(){
-        for (int i = 0; i < game.handler.objects.size(); i++) {
-            Entity temp = (Entity) game.handler.objects.get(i);
-            if(temp.getEntityType() == EntityType.PasifNPC){
-                player2 = temp;
-                break;
-            }
-        }
-    }
+    // public void getPlayer2(){
+    //     for (int i = 0; i < game.handler.objects.size(); i++) {
+    //         Entity temp = (Entity) game.handler.objects.get(i);
+    //         if(temp.getEntityType() == EntityType.PasifNPC){
+    //             player2 = temp;
+    //             break;
+    //         }
+    //     }
+    // }
 
 }

@@ -7,7 +7,6 @@ import com.filehandler.SpriteSheet;
 import com.id.BlockType;
 import com.id.ID;
 import com.main.Game;
-import com.main.Handler;
 import com.obj.Block;
 import com.tile.ImageManager;
 
@@ -16,14 +15,11 @@ public class ArrowProjectile extends Block{
 	public SpriteSheet ss = new SpriteSheet("/assets/Projectiles/Arrow.png");
 	ImageManager im = new ImageManager();
 	
-	private Handler handler;
-	
 	int velX = 0;
 	int velY = 0;
 
-	public ArrowProjectile(int x, int y, ID id, BlockType bt, Game game, Handler handler, int mx, int my) {
+	public ArrowProjectile(int x, int y, ID id, BlockType bt, Game game, int mx, int my) {
 		super(x, y, id, bt, game);
-		this.handler = handler;
 		velX = (mx - x) / 15;
 		velY = (my - y) / 15;
 		

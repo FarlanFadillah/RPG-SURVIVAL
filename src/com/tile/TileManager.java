@@ -79,7 +79,8 @@ public class TileManager {
 	}
 
     
-	public int[][] TMXFileReader(String path, String keyword, int[][] maptile){
+	public int[][] TMXFileReader(String path, String keyword){
+		int[][] maptile = new int[0][0];
 		System.out.println("Read Map");
 		InputStream in = getClass().getResourceAsStream(path);
 

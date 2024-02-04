@@ -3,16 +3,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import com.blockList.HighGround3x4;
 import com.blockList.HighGround6x4;
 import com.blockList.SolidBlock;
 import com.blockList.Tree;
 import com.id.BlockType;
+import com.id.EntityClass;
+import com.id.EntityType;
 import com.id.ID;
 import com.main.Game;
+import com.obj.GameObject;
+import com.playerlist.*;
 
-public class BlockManager {
+public class ObjectManager {
     private int WIDTHMAP, HEIGHTMAP;
     public int[][] blocktile_layer1 = new int[0][0];
     public int[][] blocktile_layer2 = new int[0][0];
@@ -20,7 +25,7 @@ public class BlockManager {
 	int tile_h = 64;
 	int pixels = 64;
     Game game;
-    public BlockManager(Game game){
+    public ObjectManager(Game game){
         this.game = game;
         
     }
@@ -95,7 +100,7 @@ public class BlockManager {
         return arrays;
 	}
 
-    public void TMXFileReaderObject(String path, String layer){
+    public void TMXFileReaderObject(String path, String layer, ArrayList<GameObject> objects){
         System.out.println("Read Object!!");
         String keyword = layer;  // Ganti dengan kata kunci yang ingin dicari
 		InputStream in = getClass().getResourceAsStream(path);
@@ -115,30 +120,27 @@ public class BlockManager {
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        game.handler.objects.add(new Tree(x, y-h, ID.Block, BlockType.DestroyAble, game));
+                        objects.add(new Tree(x, y-h, ID.Block, BlockType.DestroyAble, game));
                     }else if(extractValueStr(line, "name").contains("player")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
-                        int h =  extractValueInt(line, "height");
-                        game.handler.fighter.arah = "bawah";
-                        game.handler.fighter.setX(x);
-                        game.handler.fighter.setY(y-h);
+                        objects.add(new Fighter(x, y, ID.Entity , EntityType.Player, EntityClass.Fighter, game));
                     }else if(extractValueStr(line, "name").contains("solid")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
                         int w =  extractValueInt(line, "width");
-                        game.handler.objects.add(new SolidBlock(x, y, ID.Block, BlockType.unDestroyAble, game, w, h));
+                        objects.add(new SolidBlock(x, y, ID.Block, BlockType.unDestroyAble, game, w, h));
                     }else if(extractValueStr(line, "name").contains("hg3x4") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        game.handler.objects.add(new HighGround3x4(x, y-h, ID.Block, BlockType.unDestroyAble, game));
+                        objects.add(new HighGround3x4(x, y-h, ID.Block, BlockType.unDestroyAble, game));
                     }else if(extractValueStr(line, "name").contains("hg6x4") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        game.handler.objects.add(new HighGround6x4(x, y-h, ID.Block, BlockType.unDestroyAble, game));
+                        objects.add(new HighGround6x4(x, y-h, ID.Block, BlockType.unDestroyAble, game));
                     }
 				}
             } else {

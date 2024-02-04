@@ -49,8 +49,8 @@ public class Archer extends Entity{
 	}
 
 	public void Collision() {
-		for (int i = 0; i < game.handler.objects.size(); i++) {
-			GameObject temp = game.handler.objects.get(i);
+		for (int i = 0; i < game.tryWorld.objectLayer.get(0).size(); i++) {
+			GameObject temp = game.tryWorld.objectLayer.get(0).get(i);
 			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Block){
 				x += velX * -1;
 				y += velY * -1;

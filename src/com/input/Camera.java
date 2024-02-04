@@ -19,14 +19,14 @@ public class Camera {
 		if(x<=0) {
 			x=0;
 		}
-		if(x>=(game.base.tilem.WIDTHMAP*64)-Game.WIDTH) {
-			x=(game.base.tilem.WIDTHMAP*64)-Game.WIDTH;
+		if(x>=(game.tryWorld.tilem.WIDTHMAP*64)-Game.WIDTH) {
+			x=(game.tryWorld.tilem.WIDTHMAP*64)-Game.WIDTH;
 		}
 		if(y<=0) {
 			y=0;
 		}
-		if(y>=(game.base.tilem.HEIGHTMAP*64)-Game.HEIGHT) {
-			y=(game.base.tilem.HEIGHTMAP*64)-Game.HEIGHT;
+		if(y>=(game.tryWorld.tilem.HEIGHTMAP*64)-Game.HEIGHT) {
+			y=(game.tryWorld.tilem.HEIGHTMAP*64)-Game.HEIGHT;
 		}
 	}
 	
