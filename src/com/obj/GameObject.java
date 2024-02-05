@@ -9,7 +9,7 @@ public abstract class GameObject {
     public BufferedImage image;
     public int x, y;
     ID id;
-
+    public int hp;
 	public boolean highGround = false;
 
     public abstract void tick();
@@ -17,6 +17,7 @@ public abstract class GameObject {
     public abstract Rectangle getBound();
     public abstract Rectangle renderOrder();
     public abstract Rectangle getSize();
+    public abstract void hit();
 
     public GameObject(int x, int y, ID id){
         this.x = x;

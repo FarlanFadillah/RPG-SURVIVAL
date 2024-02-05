@@ -51,5 +51,11 @@ public class HighGround3x4 extends Block{
         // TODO Auto-generated method stub
         return new Rectangle(x, y, 192, 256);
     }
+
+    @Override
+    public void hit() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'hit'");
+    }
     
 }

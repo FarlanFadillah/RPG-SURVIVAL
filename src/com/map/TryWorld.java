@@ -53,7 +53,7 @@ public class TryWorld extends Biome{
         // TODO Auto-generated method stub
         drawTerrainLayer(g2d, xx, yy, tileSet, terrainLayer.get(0), tilem);
         foam = animHandler.animatedSprite8Frame(foam, foams.idle);
-        drawAnimation(g2d, foam,terrainLayer.get(0), 42, 64, 32);
+        drawAnimation(g2d, foam,terrainLayer.get(0), 58, 64, 32);
         drawTerrainLayer(g2d, xx, yy, tileSet, terrainLayer.get(1), tilem);
         drawTerrainLayer(g2d, xx, yy, tileSet, terrainLayer.get(2), tilem);
         drawObjectLayer(g2d, objectLayer.get(0), xx, yy);

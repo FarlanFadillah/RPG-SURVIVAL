@@ -53,5 +53,11 @@ public class SolidBlock extends Block {
         // TODO Auto-generated method stub
         return new Rectangle(x, y, w, h);
     }
+
+    @Override
+    public void hit() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'hit'");
+    }
     
 }

@@ -310,4 +310,10 @@ public class Fighter extends Entity{
 		return new Rectangle(x, y, image.getWidth(), image.getHeight());
 	}
 
+	@Override
+	public void hit() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'hit'");
+	}
+
 }

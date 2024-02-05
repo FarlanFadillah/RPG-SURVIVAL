@@ -8,11 +8,15 @@ import com.id.ID;
 import com.main.Game;
 
 public abstract class Block extends GameObject {
+    
     BlockType bt;
     public Game game;
     public int spriteNum = 1 ; // Counter Animation
 	public int spriteCounter = 0;
     public BufferedImage[] idle = new BufferedImage[10];
+
+    public boolean getHit = false;
+
     public Block(int x, int y, ID id, BlockType bt, Game game) {
         super(x, y, id);
         this.bt = bt;

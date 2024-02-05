@@ -52,5 +52,11 @@ public class HighGround6x4 extends Block{
         // TODO Auto-generated method stub
         return new Rectangle(x, y, image.getWidth(), image.getHeight());
     }
+
+    @Override
+    public void hit() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'hit'");
+    }
     
 }

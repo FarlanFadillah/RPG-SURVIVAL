@@ -1,9 +1,11 @@
 package com.input;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import com.main.Game;
+import com.obj.Block;
 import com.obj.Entity;
 import com.obj.GameObject;
 
@@ -22,13 +24,23 @@ public class MouseInput extends MouseAdapter{
 		this.game = game;
 		this.camera = game.camera;
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e){
+		hitTree(e, true);
+
+	}
 	
 	public void mousePressed(MouseEvent e) {
 		int mx = (int) (e.getX() + camera.getX());
 		int my = (int) (e.getY() + camera.getY());
 		
 		shootArrow(mx, my);
+
 		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e){
 	}
 
 	public void shootArrow(int mx, int my){
@@ -44,6 +56,27 @@ public class MouseInput extends MouseAdapter{
 			}
 			
 			
+		}
+	}
+
+	public void hitTree(MouseEvent e, boolean gethit){
+		Block hit = null;
+		Rectangle key = new Rectangle((e.getX() + (int)game.camera.getX())-5, (e.getY() + (int) game.camera.getY())-5, 10, 10);
+		for(int i = 0; i < game.tryWorld.objectLayer.get(0).size(); i++) {
+			GameObject tempObject = game.tryWorld.objectLayer.get(0).get(i);
+			if(tempObject.getBound().intersects(key.getBounds())&&tempObject.getID() == ID.Block){
+				Block tempBlock = (Block) tempObject;
+				if(tempBlock.getBlockType() == BlockType.DestroyAble){
+					hit = (Block)tempBlock;
+				}
+			}
+			
+			
+		}
+		try {
+			hit.getHit = true;
+		} catch (Exception ex) {
+			// TODO: handle exception
 		}
 	}
 
