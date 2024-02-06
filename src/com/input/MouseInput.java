@@ -1,8 +1,10 @@
 package com.input;
 
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import com.main.Game;
 import com.obj.Block;
@@ -20,14 +22,32 @@ public class MouseInput extends MouseAdapter{
 	
 	private Camera camera;
 	Game game;
+	public int mx, my;
+	public BufferedImage image;
 	public MouseInput(Game game) {
 		this.game = game;
 		this.camera = game.camera;
+
+		image = game.tryWorld.tileSet[16].image;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e){
 		hitTree(e, true);
+		
+	}
+	
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		mx = e.getX();
+		my = e.getY();
+	}
+	public void draw(Graphics2D g) {
+		
+		g.drawImage(image, (int)((mx+camera.getX())/64)*64, (int)((my+camera.getY())/64)*64, null);
+	}
+
+	public void putBlock(Graphics2D g, int x, int y, double xx, double yy){
 
 	}
 	

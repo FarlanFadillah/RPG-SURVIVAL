@@ -18,8 +18,8 @@ public class Game extends Canvas implements Runnable{
     public static final int WIDTH = HEIGHT * 16/9;
 
     private boolean running;
-    public KeyInput key = new KeyInput(this);
-
+    public KeyInput key;
+    public MouseInput mouse;
 
     //Game State Section
     public int gameState = 0;
@@ -37,9 +37,12 @@ public class Game extends Canvas implements Runnable{
 
     public Game(){
 		frame = new Frame(WIDTH, HEIGHT, "RPG SURVIVAL", this);
+		key = new KeyInput(this);
         key.getPlayerObject(tryWorld.objectLayer.get(0));
+        mouse = new MouseInput(this);
         addKeyListener(key);
-		this.addMouseListener(new MouseInput(this));
+		this.addMouseListener(mouse);
+		addMouseMotionListener(mouse);
         start();
     }
     public static void main(String[] args) {
@@ -68,6 +71,7 @@ public class Game extends Canvas implements Runnable{
 
         
         tryWorld.draw(g, g2d, camera.getX(), camera.getY());
+        mouse.draw(g2d);
 
         g2d.translate(camera.getX(), camera.getY());
         
@@ -99,15 +103,15 @@ public class Game extends Canvas implements Runnable{
 			
 			timer +=curentTime - time;
 			time = curentTime;
-			
 			if(delta >= 1) {
                 tick();
                 tick++;
                 delta--;
 			}
 			
-            render();
+			render();
             fps++;
+
 			if(timer >= 1000000000) {
                 System.out.println("tick : " + tick + ", fps : " + fps);
                 tick = 0;

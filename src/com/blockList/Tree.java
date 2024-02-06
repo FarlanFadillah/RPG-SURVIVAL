@@ -105,7 +105,7 @@ public class Tree extends Block {
     public void spriteCounter(){
         if (getHit) {
             spriteCounter++;
-            if(spriteCounter > 15) {
+            if(spriteCounter > 10) {
                 if(spriteHitNum == 1) {
                     spriteHitNum =2;
                 }else if(spriteHitNum ==2) {

@@ -3,20 +3,25 @@ package com.anim;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import com.main.Game;
+
 public class AnimationHandler {
     int spriteCounter = 0;
     int spriteNum = 1;
-    
+    int pixels = 64;
 
-    public void drawAnimation(Graphics2D g2d, BufferedImage image, int[][] mapTile, int imageCode, int size, int offset){
+    public void drawAnimation(Graphics2D g2d, BufferedImage image, int[][] mapTile, int imageCode, int size, int offset, double xx, double yy){
         int col = 0;
         int row = 0;
 
 		while(col<mapTile.length && row<mapTile[0].length) {
 			while(col<mapTile.length) {
 				int tile = mapTile[col][row];
-                if(tile == imageCode){
-                    g2d.drawImage(image, col*size -offset, row*size -offset, null);
+                if(col*pixels< xx +Game.WIDTH-64 && col*pixels> xx - pixels && row*pixels< yy + Game.HEIGHT&& row*pixels > yy - pixels) {
+
+                    if(tile == imageCode){
+                        g2d.drawImage(image, col*size -offset, row*size -offset, null);
+                    }
                 }
 			    col++;
 			}

@@ -105,8 +105,8 @@ public abstract class Biome {
     //tile num nomor tile yang akan dianimasikan
     // offset (optional) digunakan jika tile img kurang akurat sehinga perlu digeser (+10) jika ingin digeser ke kiri 10 pixel
     // (-10) jika ingin digeser ke kanan 10 pixel
-    public void drawAnimation(Graphics2D g2d, BufferedImage image, int[][] maptile, int tilenum, int size, int offset){
-        animHandler.drawAnimation(g2d, image, maptile, tilenum, size, offset);
+    public void drawAnimation(Graphics2D g2d, BufferedImage image, int[][] maptile, int tilenum, int size, int offset, double xx, double yy){
+        animHandler.drawAnimation(g2d, image, maptile, tilenum, size, offset, xx, yy);
     }
 
     

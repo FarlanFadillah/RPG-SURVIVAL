@@ -14,8 +14,8 @@ public class Camera {
 	}
 	public void tick(Game game) {
 		
-		x+= (((game.key.player.getX() - x) - Game.WIDTH/2)+64) * 0.05f;
-		y+= (((game.key.player.getY() - y) - Game.HEIGHT/2)+64) * 0.05f;
+		x+= (((game.key.player.getX() - x) - Game.WIDTH/2)+64) * 0.2f;
+		y+= (((game.key.player.getY() - y) - Game.HEIGHT/2)+64) * 0.2f;
 		if(x<=0) {
 			x=0;
 		}
