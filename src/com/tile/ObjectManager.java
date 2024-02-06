@@ -126,10 +126,14 @@ public class ObjectManager {
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         // objects.add(new Archer(x, y, ID.Entity , EntityType.Player, EntityClass.Archer, game));
+                        line = br.readLine();
+                        line = br.readLine();
                     }else if(extractValueStr(line, "name").contains("player")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         objects.add(new Archer(x, y, ID.Entity , EntityType.Player, EntityClass.Archer, game));
+                        line = br.readLine();
+                        line = br.readLine();
                     }else if(extractValueStr(line, "name").contains("solid")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
