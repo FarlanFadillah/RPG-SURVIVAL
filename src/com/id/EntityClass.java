@@ -1,5 +1,5 @@
 package com.id;
 
 public enum EntityClass {
-    Archer(), Caster(), Fighter();
+    Archer(), Caster(), Fighter(), Goblins();
 }

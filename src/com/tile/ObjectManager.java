@@ -15,6 +15,7 @@ import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
 import com.main.Game;
+import com.monsters.GoblinTNTField;
 import com.obj.GameObject;
 import com.playerlist.*;
 
@@ -125,7 +126,7 @@ public class ObjectManager {
                     }else if(extractValueStr(line, "name").contains("enemy")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
-                        // objects.add(new Archer(x, y, ID.Entity , EntityType.Player, EntityClass.Archer, game));
+                        objects.add(new GoblinTNTField(x, y, ID.Entity , EntityType.Mob, EntityClass.Goblins, game));
                         line = br.readLine();
                         line = br.readLine();
                     }else if(extractValueStr(line, "name").contains("player")){

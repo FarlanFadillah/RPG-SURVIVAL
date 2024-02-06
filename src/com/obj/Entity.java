@@ -42,6 +42,10 @@ public abstract class Entity extends GameObject {
 		this.ec = ec;
         this.game = game;
     }
+    
+    public void setAction() {
+    	
+    }
 
     public void tick(){
 		spriteCounter();
