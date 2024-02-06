@@ -8,16 +8,18 @@ import java.util.Random;
 import com.filehandler.SpriteSheet;
 import com.id.BlockType;
 import com.id.ID;
+import com.item.Wood;
 import com.main.Game;
 import com.obj.Block;
 import com.tile.ImageManager;
 
 public class Tree extends Block {
     ImageManager im = new ImageManager();
-    SpriteSheet ss = new SpriteSheet("/assets/Block/Tree/Tree.png");
+    public static SpriteSheet ss = new SpriteSheet("/assets/Block/Tree/Tree.png");
     BufferedImage[] shake = new BufferedImage[2];
 
     BufferedImage chopped;
+    public boolean itemDroped = false;
 
     int spriteHitNum = 1;
 
@@ -67,6 +69,10 @@ public class Tree extends Block {
                 image = shake[1];
             }
         }else if(hp <= 0){
+            if(!itemDroped){
+                game.tryWorld.objectLayer.get(0).add(new Wood(x+32, y+32, ID.Block));
+                itemDroped = true;
+            }
             image = chopped;
         }else{
             if(spriteNum == 1) {
@@ -110,6 +116,7 @@ public class Tree extends Block {
                     spriteHitNum =2;
                 }else if(spriteHitNum ==2) {
                     spriteHitNum =1;
+                    hp -=25;
                     getHit = false;
                 }
                 spriteCounter = 0;

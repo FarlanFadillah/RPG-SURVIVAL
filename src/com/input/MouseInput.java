@@ -13,10 +13,12 @@ import com.obj.GameObject;
 
 import projectile.ArrowProjectile;
 
+import com.blockList.Tree;
 import com.id.BlockType;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
+import com.item.Wood;
 
 public class MouseInput extends MouseAdapter{
 	
@@ -28,13 +30,12 @@ public class MouseInput extends MouseAdapter{
 		this.game = game;
 		this.camera = game.camera;
 
-		image = game.tryWorld.tileSet[16].image;
+		image = Tree.ss.grabImage(1, 1, 192, 192);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e){
 		hitTree(e, true);
-		
 	}
 	
 	@Override
@@ -44,7 +45,7 @@ public class MouseInput extends MouseAdapter{
 	}
 	public void draw(Graphics2D g) {
 		
-		g.drawImage(image, (int)((mx+camera.getX())/64)*64, (int)((my+camera.getY())/64)*64, null);
+		// g.drawImage(image, (int)((mx+camera.getX())/64)*64-image.getWidth()/2, (int)((my+camera.getY())/64)*64-image.getHeight()/2, null);
 	}
 
 	public void putBlock(Graphics2D g, int x, int y, double xx, double yy){

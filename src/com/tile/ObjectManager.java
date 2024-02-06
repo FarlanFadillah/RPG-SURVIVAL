@@ -122,10 +122,14 @@ public class ObjectManager {
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
                         objects.add(new Tree(x, y-h, ID.Block, BlockType.DestroyAble, game));
+                    }else if(extractValueStr(line, "name").contains("enemy")){
+                        int x = extractValueInt(line, "x");
+                        int y = extractValueInt(line, "y");
+                        // objects.add(new Archer(x, y, ID.Entity , EntityType.Player, EntityClass.Archer, game));
                     }else if(extractValueStr(line, "name").contains("player")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
-                        objects.add(new Fighter(x, y, ID.Entity , EntityType.Player, EntityClass.Fighter, game));
+                        objects.add(new Archer(x, y, ID.Entity , EntityType.Player, EntityClass.Archer, game));
                     }else if(extractValueStr(line, "name").contains("solid")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
