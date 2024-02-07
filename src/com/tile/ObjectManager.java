@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import com.blockList.Bridge;
 import com.blockList.HighGround3x4;
 import com.blockList.HighGround6x4;
+import com.blockList.House;
 import com.blockList.SolidBlock;
+import com.blockList.Tower;
 import com.blockList.Tree;
 import com.id.BlockType;
 import com.id.EntityClass;
@@ -156,6 +158,16 @@ public class ObjectManager {
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
                         objects.add(new Bridge(x, y-h, ID.Block, BlockType.unDestroyAble, game));
+                    }else if(extractValueStr(line, "name").contains("blueTower") ){
+                        int x = extractValueInt(line, "x");
+                        int y = extractValueInt(line, "y");
+                        int h =  extractValueInt(line, "height");
+                        objects.add(new Tower(x, y-h, ID.Block, BlockType.unDestroyAble, game));
+                    }else if(extractValueStr(line, "name").contains("blueHouse") ){
+                        int x = extractValueInt(line, "x");
+                        int y = extractValueInt(line, "y");
+                        int h =  extractValueInt(line, "height");
+                        objects.add(new House(x, y-h, ID.Block, BlockType.unDestroyAble, game));
                     }
 				}
             } else {

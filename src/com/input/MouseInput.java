@@ -18,7 +18,6 @@ import com.id.BlockType;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
-import com.item.Wood;
 
 public class MouseInput extends MouseAdapter{
 	
