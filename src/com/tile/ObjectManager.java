@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import com.blockList.Bridge;
+import com.blockList.Castle;
 import com.blockList.HighGround3x4;
 import com.blockList.HighGround6x4;
 import com.blockList.House;
@@ -134,7 +135,7 @@ public class ObjectManager {
                     }else if(extractValueStr(line, "name").contains("player")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
-                        objects.add(new Archer(x, y, ID.Entity , EntityType.Player, EntityClass.Archer, game));
+                        objects.add(new Fighter(x, y, ID.Entity , EntityType.Player, EntityClass.Fighter, game));
                         line = br.readLine();
                         line = br.readLine();
                     }else if(extractValueStr(line, "name").contains("solid")){
@@ -168,6 +169,11 @@ public class ObjectManager {
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
                         objects.add(new House(x, y-h, ID.Block, BlockType.unDestroyAble, game));
+                    }else if(extractValueStr(line, "name").contains("blueCastle") ){
+                        int x = extractValueInt(line, "x");
+                        int y = extractValueInt(line, "y");
+                        int h =  extractValueInt(line, "height");
+                        objects.add(new Castle(x, y-h, ID.Block, BlockType.unDestroyAble, game));
                     }
 				}
             } else {

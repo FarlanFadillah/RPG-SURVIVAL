@@ -13,9 +13,7 @@ import com.tile.ObjectManager;
 import com.tile.TileManager;
 import com.tile.TileMap;
 
-public class TryWorld extends Biome{
-    
-    Game game;
+public class Island extends Biome{
 
     public ArrayList<int[][]> terrainLayer = new ArrayList<>();
     public ArrayList<ArrayList<GameObject>> objectLayer = new ArrayList<>();
@@ -28,17 +26,17 @@ public class TryWorld extends Biome{
     BufferedImage foam;
 
     AnimationHandler animHandler = new AnimationHandler();
-   
-    public TryWorld(Game game) {
+
+    public Island(Game game) {
         super(game);
         bm = new ObjectManager(game);
         tilem = new TileManager(game);
-        this.mapPath = "/assets/Terrain/Base.tmx";
+        this.mapPath = "/assets/Terrain/Islands.tmx";
         this.spriteSheetDir = "/assets/Terrain/Tilemap_Flat.png";
-        //TODO Auto-generated constructor stub
         foam = foams.idle[0];
         init();
     }
+
     @Override
     public void tick() {
         // TODO Auto-generated method stub
@@ -55,7 +53,6 @@ public class TryWorld extends Biome{
         foam = animHandler.animatedSprite8Frame(foam, foams.idle);
         drawAnimation(g2d, foam,terrainLayer.get(0), 58, 64, 32, xx, yy);
         drawTerrainLayer(g2d, xx, yy, tileSet, terrainLayer.get(1), tilem);
-        // drawTerrainLayer(g2d, xx, yy, tileSet, terrainLayer.get(2), tilem);
         drawObjectLayer(g2d, objectLayer.get(0), xx, yy);
     }
 
@@ -63,10 +60,10 @@ public class TryWorld extends Biome{
     public void init() {
         // TODO Auto-generated method stub
         getTileSet(tileSet, tilem);
-        addTerrainLayer(mapPath, "Tile Layer 1", terrainLayer, tilem); // layer pertama air
-        addTerrainLayer(mapPath, "Tile Layer 2", terrainLayer, tilem); // layer kedua tanah
-        addTerrainLayer(mapPath, "shadow Layer", terrainLayer, tilem);
-        addObjectLayer(mapPath, "Object Layer 1", objectLayer, bm); // object layer pertama
-        addSolidLayer(objectLayer,"solidLayer" , bm, 0);// transparan blok collision
+        addTerrainLayer(mapPath, "Tile Layer 1", terrainLayer, tilem);
+        addTerrainLayer(mapPath, "Tile Layer 2", terrainLayer, tilem);
+        addObjectLayer(mapPath, "Object Layer 1", objectLayer, bm);
+        addSolidLayer(objectLayer, "SolidLayer", bm, 0);
     }
+    
 }

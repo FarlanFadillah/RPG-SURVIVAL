@@ -8,6 +8,7 @@ import java.awt.image.BufferStrategy;
 import com.input.Camera;
 import com.input.KeyInput;
 import com.input.MouseInput;
+import com.map.Island;
 import com.map.TryWorld;
 
 public class Game extends Canvas implements Runnable{
@@ -31,7 +32,7 @@ public class Game extends Canvas implements Runnable{
 
     
     //Coba Coba
-    public TryWorld tryWorld = new TryWorld(this);
+    public Island tryWorld = new Island(this);
     //Camera
     public Camera camera = new Camera(0, 0);
 
@@ -84,37 +85,43 @@ public class Game extends Canvas implements Runnable{
         camera.tick(this);
         tryWorld.tick();
     }
-
     @Override
     public void run() {
         this.requestFocus();
-		double draw = 1000000000;
+		double draw = 1000000000/60;
 		long time = System.nanoTime();
-		double delta=0;
 		long curentTime=0;
 		
 		double fps=0;
-        double tick=0;
 		long timer=0;
+        double nextdraw = System.nanoTime() + draw;
 		
 		while(running) {
 			curentTime = System.nanoTime();
-			delta += (curentTime - time) / (draw/60);
 			
 			timer +=curentTime - time;
 			time = curentTime;
-			if(delta >= 1) {
-                tick();
-                tick++;
-                delta--;
-			}
-			
-			render();
+			tick();
+            render();
             fps++;
+            try {
+            double remain = nextdraw - System.nanoTime();
+                remain = remain / 1000000;
+
+                if(remain <0){
+                    remain = 0;
+                }
+                Thread.sleep((long) remain);
+
+                nextdraw += draw;
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+			
 
 			if(timer >= 1000000000) {
-                System.out.println("tick : " + tick + ", fps : " + fps);
-                tick = 0;
+                System.out.println("fps : " + fps);
 				fps = 0;
 				timer=0;
 			}

@@ -43,13 +43,13 @@ public class Castle extends Block{
     @Override
     public Rectangle getBound() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBound'");
+        return new Rectangle(x+16, y+176, 288, 80);
     }
 
     @Override
     public Rectangle getSize() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSize'");
+        return new Rectangle(x, y, image.getWidth(), image.getHeight());
     }
 
     @Override

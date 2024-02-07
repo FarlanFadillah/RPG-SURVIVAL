@@ -31,7 +31,7 @@ public class House extends Block{
     @Override
     public Rectangle renderOrder() {
         // TODO Auto-generated method stub
-        return new Rectangle(x+16, y+96, 96, 80);
+        return new Rectangle(x+16, y+144, 96, 32);
     }
 
     @Override

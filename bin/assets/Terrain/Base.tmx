@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="114">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="115">
  <tileset firstgid="1" source="Tilemap_Flat.tsx"/>
  <tileset firstgid="197" source="sub_tree.tsx"/>
  <tileset firstgid="198" source="highGround3x4.tsx"/>
@@ -7,7 +7,7 @@
  <tileset firstgid="200" source="horizontalBridge.tsx"/>
  <tileset firstgid="201" source="Tower_Blue.tsx"/>
  <tileset firstgid="202" source="House_Blue.tsx"/>
- <tileset firstgid="203" source="Tower_Blue.tsx"/>
+ <tileset firstgid="203" source="Castle_Blue.tsx"/>
  <layer id="1" name="Tile Layer 1" width="20" height="20">
   <data encoding="csv">
 57,57,57,57,57,57,57,57,57,57,57,57,57,57,57,57,57,57,57,57,
@@ -115,20 +115,17 @@
   <object id="89" name="tree" gid="197" x="640" y="192" width="192" height="192"/>
   <object id="90" name="tree" gid="197" x="704" y="256" width="192" height="192"/>
   <object id="91" name="tree" gid="197" x="704" y="320" width="192" height="192"/>
-  <object id="92" name="tree" gid="197" x="832" y="320" width="192" height="192"/>
-  <object id="93" name="tree" gid="197" x="768" y="256" width="192" height="192"/>
-  <object id="94" name="tree" gid="197" x="832" y="192" width="192" height="192"/>
-  <object id="95" name="tree" gid="197" x="960" y="320" width="192" height="192"/>
-  <object id="98" name="enemy" type=" " x="832" y="512">
+  <object id="98" name="enemy" type=" " x="900" y="512">
    <point/>
   </object>
   <object id="99" name="player" type=" " x="576" y="640">
    <point/>
   </object>
-  <object id="103" name="blueHouse" gid="202" x="512" y="832" width="128" height="192"/>
+  <object id="103" name="blueHouse" gid="202" x="512" y="896" width="128" height="192"/>
   <object id="106" name="blueHouse" gid="202" x="640" y="768" width="128" height="192"/>
   <object id="111" name="blueTower" gid="201" x="832" y="896" width="128" height="256"/>
   <object id="113" name="blueTower" gid="201" x="960" y="832" width="128" height="256"/>
+  <object id="114" name="blueCastle" gid="203" x="832" y="320" width="320" height="256"/>
  </objectgroup>
  <objectgroup id="6" name="solidLayer">
   <object id="23" name="solid" x="448" y="256" width="192" height="1"/>
