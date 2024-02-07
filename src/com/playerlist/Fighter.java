@@ -57,7 +57,14 @@ public class Fighter extends Entity{
 			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Block && temp.highGround == false){
 				x += velX * -1;
 				y += velY * -1;
-			}	
+			}
+			if(temp.getID() == ID.Entity) {
+				Entity selfcol = (Entity) temp;
+				if(getBound().intersects(selfcol.getBound()) && selfcol.getEntityType() == EntityType.NPC) {
+					x += velX * -1;
+					y += velY * -1;
+				}
+			}
 		}
 		
 	}

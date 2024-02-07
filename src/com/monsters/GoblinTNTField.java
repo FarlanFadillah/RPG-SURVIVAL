@@ -17,6 +17,8 @@ public class GoblinTNTField extends Entity{
 	
 	public SpriteSheet ss = new SpriteSheet("/assets/assetsentity/Goblins_TNT_Red.png");
 	ImageManager im = new ImageManager();
+	private int xMove = 0;
+	private int yMove = 0;
 
 	public GoblinTNTField(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
 		super(x, y, id, et, ec, game);
@@ -27,7 +29,6 @@ public class GoblinTNTField extends Entity{
 		getImage();
 		image = idleRight[0];
 		arah = "kanan";
-		
 	}
 	
 	public void tick() {
@@ -36,7 +37,24 @@ public class GoblinTNTField extends Entity{
 		Collision();
 		spriteCounter();
 		playerControl();
-		
+		checkDistance();
+	}
+	
+	public void checkDistance() {
+		xMove += velX;
+		yMove += velY;
+		if(xMove >= 192) {
+	        xMove = 0;
+		}
+	    if(xMove <= -192) {
+	        xMove = 0;
+	    }
+	    if(yMove <= 192) {
+	    	yMove = 0;
+	    }
+	    if(yMove <= -192) {
+	    	yMove = 0;
+	    }
 	}
 	
 	public void setAction( ) {
@@ -44,33 +62,39 @@ public class GoblinTNTField extends Entity{
 		Random random = new Random();
 		int i = random.nextInt(100)+1; //pick up a number from 1 to 100
 		
-		if(i <= 25) {
+		if(i <= 15) {
 			setUp(true);
 			setDown(false);
 			setLeft(false);
 			setRight(false);
 			arah = "atas";
 		}
-		if(i > 25 && i <= 50) {
+		if(i > 15 && i <= 30) {
 			setUp(false);
 			setDown(true);
 			setLeft(false);
 			setRight(false);
 			arah = "bawah";	
 		}
-		if(i > 50 && i <= 75) {
+		if(i > 30 && i <= 45) {
 			setLeft(true);
 			setRight(false);
 			setUp(false);
 			setDown(false);
 			arah = "kiri";
 		}
-		if(i > 75 && i <= 100) {
+		if(i > 45 && i <= 60) {
 			setLeft(false);
 			setRight(true);
 			setUp(false);
 			setDown(false);
 			arah = "kanan";
+		}
+		if(i > 60 && i <=100) {
+			setLeft(false);
+			setRight(false);
+			setUp(false);
+			setDown(false);
 		}
 	}
 
@@ -87,8 +111,14 @@ public class GoblinTNTField extends Entity{
 				x += velX * -1;
 				y += velY * -1;
 			}
+			if(temp.getID() == ID.Entity) {
+				Entity selfcol = (Entity) temp;
+				if(getBound().intersects(selfcol.getBound()) && selfcol.getEntityType() == EntityType.Player) {
+					x += velX * -1;
+					y += velY * -1;
+				}
+			}
 		}
-		
 	}
 	
 	public void animatedSprite(){
@@ -278,27 +308,27 @@ public class GoblinTNTField extends Entity{
 			runDown[4] = im.scaledImage(ss.grabImage(5, 2, 192, 192), 192,192);
 			runDown[5] = im.scaledImage(ss.grabImage(6, 2, 192, 192), 192,192);
 			
-			runUp[0] = im.scaledImage(ss.grabImage(7, 4, 192, 192), 192,192);
-			runUp[1] = im.scaledImage(ss.grabImage(6, 4, 192, 192), 192,192);
-			runUp[2] = im.scaledImage(ss.grabImage(5, 4, 192, 192), 192,192);
+			runUp[0] = im.scaledImage(ss.grabImage(1, 4, 192, 192), 192,192);
+			runUp[1] = im.scaledImage(ss.grabImage(2, 4, 192, 192), 192,192);
+			runUp[2] = im.scaledImage(ss.grabImage(3, 4, 192, 192), 192,192);
 			runUp[3] = im.scaledImage(ss.grabImage(4, 4, 192, 192), 192,192);
-			runUp[4] = im.scaledImage(ss.grabImage(3, 4, 192, 192), 192,192);
-			runUp[5] = im.scaledImage(ss.grabImage(2, 4, 192, 192), 192,192);
+			runUp[4] = im.scaledImage(ss.grabImage(5, 4, 192, 192), 192,192);
+			runUp[5] = im.scaledImage(ss.grabImage(6, 4, 192, 192), 192,192);
 			
-			runLeft[0] = im.scaledImage(ss.grabImage(1, 2, 192, 192), 192,192);
-			runLeft[1] = im.scaledImage(ss.grabImage(2, 2, 192, 192), 192,192);
-			runLeft[2] = im.scaledImage(ss.grabImage(3, 2, 192, 192), 192,192);
-			runLeft[3] = im.scaledImage(ss.grabImage(4, 2, 192, 192), 192,192);
-			runLeft[4] = im.scaledImage(ss.grabImage(5, 2, 192, 192), 192,192);
-			runLeft[5] = im.scaledImage(ss.grabImage(6, 2, 192, 192), 192,192);
+			runRight[0] = im.scaledImage(ss.grabImage(1, 2, 192, 192), 192,192);
+			runRight[1] = im.scaledImage(ss.grabImage(2, 2, 192, 192), 192,192);
+			runRight[2] = im.scaledImage(ss.grabImage(3, 2, 192, 192), 192,192);
+			runRight[3] = im.scaledImage(ss.grabImage(4, 2, 192, 192), 192,192);
+			runRight[4] = im.scaledImage(ss.grabImage(5, 2, 192, 192), 192,192);
+			runRight[5] = im.scaledImage(ss.grabImage(6, 2, 192, 192), 192,192);
 			
-			runRight[0] = im.scaledImage(ss.grabImage(7, 4, 192, 192), 192,192);
-			runRight[1] = im.scaledImage(ss.grabImage(6, 4, 192, 192), 192,192);
-			runRight[2] = im.scaledImage(ss.grabImage(5, 4, 192, 192), 192,192);
-			runRight[3] = im.scaledImage(ss.grabImage(4, 4, 192, 192), 192,192);
-			runRight[4] = im.scaledImage(ss.grabImage(3, 4, 192, 192), 192,192);
-			runRight[5] = im.scaledImage(ss.grabImage(2, 4, 192, 192), 192,192);
-			
+			runLeft[0] = im.scaledImage(ss.grabImage(1, 4, 192, 192), 192,192);
+			runLeft[1] = im.scaledImage(ss.grabImage(2, 4, 192, 192), 192,192);
+			runLeft[2] = im.scaledImage(ss.grabImage(3, 4, 192, 192), 192,192);
+			runLeft[3] = im.scaledImage(ss.grabImage(4, 4, 192, 192), 192,192);
+			runLeft[4] = im.scaledImage(ss.grabImage(5, 4, 192, 192), 192,192);
+			runLeft[5] = im.scaledImage(ss.grabImage(6, 4, 192, 192), 192,192);
+						
 			idleDown[0] = im.scaledImage(ss.grabImage(1, 1, 192, 192), 192,192);
 			idleDown[1] = im.scaledImage(ss.grabImage(2, 1, 192, 192), 192,192);
 			idleDown[2] = im.scaledImage(ss.grabImage(3, 1, 192, 192), 192,192);
@@ -334,11 +364,11 @@ public class GoblinTNTField extends Entity{
 	}
 
 	public Rectangle getBound() {
-		return new Rectangle(x+48, y +64, 32, 32 );
+		return new Rectangle(x+48, y +96, 96, 48 );
 	}
 
 	public Rectangle renderOrder() {
-		return new Rectangle(x+48, y +64, 32, 32 );
+		return new Rectangle(x+48, y +96, 96, 48 );
 	}
 
 	public Rectangle getSize() {
@@ -372,6 +402,6 @@ public class GoblinTNTField extends Entity{
 			spriteCounter =0;
 		}
 		
-}
+	}
 
 }

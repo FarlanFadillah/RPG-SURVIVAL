@@ -31,6 +31,14 @@ public abstract class Entity extends GameObject {
 	public BufferedImage[] idleUp = new BufferedImage[6];
 	public BufferedImage[] idleRight = new BufferedImage[6];
 	public BufferedImage[] idleLeft = new BufferedImage[6];
+	
+	public BufferedImage[] idle2Down = new BufferedImage[6];
+	public BufferedImage[] idle2Up = new BufferedImage[6];
+	public BufferedImage[] idle2Right = new BufferedImage[6];
+	public BufferedImage[] idle2Left = new BufferedImage[6];
+	
+	public BufferedImage[] idletransitionIn = new BufferedImage[6];
+	public BufferedImage[] idletransitionOut = new BufferedImage[6];
 
 
 	public int spriteNum = 1 ; // Counter Animation
