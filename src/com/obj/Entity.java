@@ -13,7 +13,8 @@ public abstract class Entity extends GameObject {
     public int speed;
     public boolean up = false, down = false, right= false, left = false;
     public String name;
-    public int mana, xp, stamina;
+    public int mana, xp;
+	public float stamina;
     public float velX=0, velY=0;
     public EntityType et;
     public Game game;

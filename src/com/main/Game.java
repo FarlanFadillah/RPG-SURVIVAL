@@ -10,6 +10,7 @@ import com.input.KeyInput;
 import com.input.MouseInput;
 import com.map.Island;
 import com.map.TryWorld;
+import com.ui.GUI;
 
 public class Game extends Canvas implements Runnable{
     
@@ -36,7 +37,12 @@ public class Game extends Canvas implements Runnable{
     //Camera
     public Camera camera = new Camera(0, 0);
 
+    public GUI gui = new GUI(this);
+
+    //Game time
+    public int second = 0;
     public Game(){
+        gameState = playState;
 		frame = new Frame(WIDTH, HEIGHT, "RPG SURVIVAL", this);
 		key = new KeyInput(this);
         key.getPlayerObject(tryWorld.objectLayer.get(0));
@@ -68,15 +74,16 @@ public class Game extends Canvas implements Runnable{
         Graphics2D g2d = (Graphics2D) g;
         /////////////////////////////////////////
         g.fillRect(0, 0, getWidth(), getHeight());
-        g2d.translate(-camera.getX(), -camera.getY());
-
         
-        tryWorld.draw(g, g2d, camera.getX(), camera.getY());
-        mouse.draw(g2d);
-
-        g2d.translate(camera.getX(), camera.getY());
+        if(gameState == playState){
+            g2d.translate(-camera.getX(), -camera.getY());
+            tryWorld.draw(g, g2d, camera.getX(), camera.getY());
+            mouse.draw(g2d);
+            g2d.translate(camera.getX(), camera.getY());
+        }
         
         //////////////////////////////////////
+        gui.draw(g2d);
         g.dispose();
         bs.show();
     }
@@ -121,6 +128,7 @@ public class Game extends Canvas implements Runnable{
 			
 
 			if(timer >= 1000000000) {
+                second++;
                 System.out.println("fps : " + fps);
 				fps = 0;
 				timer=0;

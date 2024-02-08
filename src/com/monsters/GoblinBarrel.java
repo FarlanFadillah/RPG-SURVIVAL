@@ -19,8 +19,11 @@ public class GoblinBarrel extends Entity{
 	ImageManager im = new ImageManager();
 	private int xMove = 0;
 	private int yMove = 0;
-	boolean idle = false;
-	private int spriteIdle = 1;
+	boolean idlein = true;
+	boolean idleout = false;
+	private int spriteIdleIn = 1;
+	private int spriteIdleOut = 1;
+	public int start, stop = 0;
 
 	public GoblinBarrel(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
 		super(x, y, id, et, ec, game);
@@ -28,6 +31,7 @@ public class GoblinBarrel extends Entity{
 		mana = 50;
 		stamina = 50;
 		speed = 1;
+		start = game.second;
 		getImage();
 		image = idleRight[0];
 		arah = "kanan";
@@ -45,6 +49,7 @@ public class GoblinBarrel extends Entity{
 	public void checkDistance() {
 		xMove += velX;
 		yMove += velY;
+		setAction(2);
 		if(xMove >= 192) {
 	        xMove = 0;
 		}
@@ -59,50 +64,74 @@ public class GoblinBarrel extends Entity{
 	    }
 	}
 	
-	public void setAction( ) {
+	public void setAction(int delay) {
 		
 		Random random = new Random();
 		int i = random.nextInt(100)+1; //pick up a number from 1 to 100
+		stop = game.second;
+		if(stop - start >= delay){
+			if(i <= 10) {
+				setUp(true);
+				setDown(false);
+				setLeft(false);
+				setRight(false);
+				if(idlein){
+					idleout = true;
+				}
+				
+				spriteIdleIn = 1;
+				arah = "atas";
+			}
+			if(i > 10 && i <= 20) {
+				setUp(false);
+				setDown(true);
+				setLeft(false);
+				setRight(false);
+				if(idlein){
+					idleout = true;
+				}
+				
+				spriteIdleIn = 1;
+				arah = "bawah";	
+			}
+			if(i > 20 && i <= 30) {
+				setLeft(true);
+				setRight(false);
+				setUp(false);
+				setDown(false);
+				if(idlein){
+					idleout = true;
+				}
+				
+				spriteIdleIn = 1;
+				arah = "kiri";
+			}
+			if(i > 30 && i <= 40) {
+				setLeft(false);
+				setRight(true);
+				setUp(false);
+				setDown(false);
+				
+				if(idlein){
+					idleout = true;
+				}
+				spriteIdleIn = 1;
+				arah = "kanan";
+			}
+			if(i > 40 && i <=100 && idlein == false) {
+				setLeft(false);
+				setRight(false);
+				setUp(false);
+				setDown(false);
+				if(!idlein){
+					idlein = true;
+					spriteIdleOut = 1;
+				}
+			}
+			start = stop;
+		}
 		
-		if(i <= 10) {
-			setUp(true);
-			setDown(false);
-			setLeft(false);
-			setRight(false);
-			idle = false;
-			arah = "atas";
-		}
-		if(i > 10 && i <= 20) {
-			setUp(false);
-			setDown(true);
-			setLeft(false);
-			setRight(false);
-			idle = false;
-			arah = "bawah";	
-		}
-		if(i > 20 && i <= 30) {
-			setLeft(true);
-			setRight(false);
-			setUp(false);
-			setDown(false);
-			idle = false;
-			arah = "kiri";
-		}
-		if(i > 30 && i <= 40) {
-			setLeft(false);
-			setRight(true);
-			setUp(false);
-			setDown(false);
-			idle = false;
-			arah = "kanan";
-		}
-		if(i > 40 && i <=100 && idle == false) {
-			setLeft(false);
-			setRight(false);
-			setUp(false);
-			setDown(false);
-			idle = true;
-		}
+		
 		
 	}
 
@@ -130,7 +159,7 @@ public class GoblinBarrel extends Entity{
 	}
 	
 	public void animatedSprite(){
-		if(!idle) {
+		if(!idlein) {
 			if(isUp() || isDown()|| isRight() || isLeft()) {
 				switch (arah) {
 				case "atas": 
@@ -210,24 +239,45 @@ public class GoblinBarrel extends Entity{
 				}
 			}
 		}
-		else if(idle) {
-			if(spriteIdle == 1) {
+		else if(idlein) {
+			if(spriteIdleIn == 1) {
 				image = idletransitionIn[0];
 			}
-			if(spriteIdle == 2) {
+			if(spriteIdleIn == 2) {
 				image = idletransitionIn[1];
 			}
-			if(spriteIdle == 3) {
+			if(spriteIdleIn == 3) {
 				image = idletransitionIn[2];
 			}
-			if(spriteIdle == 4) {
+			if(spriteIdleIn == 4) {
 				image = idletransitionIn[3];
 			}
-			if(spriteIdle == 5) {
+			if(spriteIdleIn == 5) {
 				image = idletransitionIn[4];
 			}
-			if(spriteIdle == 6) {
+			if(spriteIdleIn == 6) {
 				image = idletransitionIn[5];
+			}
+
+			if(idleout){
+				if(spriteIdleOut == 1) {
+					image = idletransitionOut[0];
+				}
+				if(spriteIdleOut == 2) {
+					image = idletransitionOut[1];
+				}
+				if(spriteIdleOut == 3) {
+					image = idletransitionOut[2];
+				}
+				if(spriteIdleOut == 4) {
+					image = idletransitionOut[3];
+				}
+				if(spriteIdleOut == 5) {
+					image = idletransitionOut[4];
+				}
+				if(spriteIdleOut == 6) {
+					image = idletransitionOut[5];
+				}
 			}
 		}
 	}
@@ -261,12 +311,12 @@ public class GoblinBarrel extends Entity{
 			idle2Right[0] = im.scaledImage(ss.grabImage(1, 3, 128, 128), 128,128);
 			idle2Up[0] = im.scaledImage(ss.grabImage(1, 3, 128, 128), 128,128);
 			
-			idletransitionIn[0] = im.scaledImage(ss.grabImage(1, 2, 128, 128), 128,128);
-			idletransitionIn[1] = im.scaledImage(ss.grabImage(2, 2, 128, 128), 128,128);
-			idletransitionIn[2] = im.scaledImage(ss.grabImage(3, 2, 128, 128), 128,128);
-			idletransitionIn[3] = im.scaledImage(ss.grabImage(4, 2, 128, 128), 128,128);
-			idletransitionIn[4] = im.scaledImage(ss.grabImage(5, 2, 128, 128), 128,128);
-			idletransitionIn[5] = im.scaledImage(ss.grabImage(6, 2, 128, 128), 128,128);
+			idletransitionIn[0] = im.scaledImage(ss.grabImage(1, 4, 128, 128), 128,128);
+			idletransitionIn[1] = im.scaledImage(ss.grabImage(2, 4, 128, 128), 128,128);
+			idletransitionIn[2] = im.scaledImage(ss.grabImage(3, 4, 128, 128), 128,128);
+			idletransitionIn[3] = im.scaledImage(ss.grabImage(4, 4, 128, 128), 128,128);
+			idletransitionIn[4] = im.scaledImage(ss.grabImage(5, 4, 128, 128), 128,128);
+			idletransitionIn[5] = im.scaledImage(ss.grabImage(6, 4, 128, 128), 128,128);
 			
 			idletransitionOut[0] = im.scaledImage(ss.grabImage(1, 2, 128, 128), 128,128);
 			idletransitionOut[1] = im.scaledImage(ss.grabImage(2, 2, 128, 128), 128,128);
@@ -298,7 +348,7 @@ public class GoblinBarrel extends Entity{
 	
 	public void spriteCounter(){
 		spriteCounter++;
-		if(!idle) {
+		if(!idlein) {
 			if(spriteCounter > 6) {
 				if(spriteNum == 1) {
 					spriteNum =2;
@@ -306,34 +356,81 @@ public class GoblinBarrel extends Entity{
 					spriteNum =3;
 				}else if(spriteNum ==3) {
 					spriteNum =1;
-					setAction();
 				}
 				spriteCounter =0;
 			}
 		}
-		else if(idle) {
-			if(spriteCounter > 10) {
-				if(spriteIdle == 1) {
-					spriteIdle =2;
-				}else if(spriteIdle ==2) {
-					spriteIdle =3;
-				}else if(spriteIdle ==3) {
-					spriteIdle =4;
-				}else if(spriteIdle ==4) {
-					spriteIdle =5;
-				}else if(spriteIdle ==5) {
-					spriteIdle =6;
-				}else if(spriteIdle ==6) {
-					spriteIdle =7;
-				}else if(spriteIdle ==7) {
-					spriteIdle =1;
-					idle = false;
-					setAction();
+		else if(idlein) {
+			if(spriteCounter > 10 && !idleout) {
+				if(spriteIdleIn == 1) {
+					spriteIdleIn =2;
+				}else if(spriteIdleIn ==2) {
+					spriteIdleIn =3;
+				}else if(spriteIdleIn ==3) {
+					spriteIdleIn =4;
+				}else if(spriteIdleIn ==4) {
+					spriteIdleIn =5;
+				}else if(spriteIdleIn ==5) {
+					spriteIdleIn =6;
+				}else if(spriteIdleIn ==6) {
+					spriteIdleIn =6;
 				}
 				
 				spriteCounter =0;
 			}
+			if(idleout){
+				
+				if(spriteCounter > 10) {
+					if(spriteIdleOut == 1) {
+						spriteIdleOut =2;
+					}else if(spriteIdleOut ==2) {
+						spriteIdleOut =3;
+					}else if(spriteIdleOut ==3) {
+						spriteIdleOut =4;
+					}else if(spriteIdleOut ==4) {
+						spriteIdleOut =5;
+					}else if(spriteIdleOut ==5) {
+						spriteIdleOut =6;
+					}else if(spriteIdleOut ==6) {
+						spriteIdleOut =6;
+						idleout = false;
+						idlein = false;
+					}
+					spriteCounter =0;
+					
+					
+				}
+			}
 		}
+			
+
 		
+		
+	}
+
+	public void playerControl(){
+		if(isUp()) {
+			velY=-speed;
+			arah = "atas"; 
+		}
+		else velY=0;
+		
+		if(isDown()) {
+			velY=speed;
+			arah = "bawah"; 
+		}
+		else if(!isUp())velY=0;
+		
+		if(isRight()) {
+			velX=speed;
+			arah = "kanan";
+		}
+		else if(!isLeft())velX=0;
+		
+		if(isLeft()) {
+			velX=-speed;
+			arah = "kiri";
+		}
+		else if(!isRight()) velX=0;
 	}
 }
