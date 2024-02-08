@@ -19,7 +19,17 @@ public class KeyInput implements KeyListener{
         // getPlayer2();
 	}
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+        int key = e.getKeyCode();
+        System.out.println(key);
+        if(key == KeyEvent.VK_TAB){
+            if(game.gui.openInventory){
+                game.gui.openInventory = false;
+            }else {
+                game.gui.openInventory = true;
+            }
+        }
+    }
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
