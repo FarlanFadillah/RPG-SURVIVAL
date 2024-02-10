@@ -20,6 +20,7 @@ import com.id.ID;
 import com.main.Game;
 import com.monsters.GoblinBarrel;
 import com.monsters.GoblinTNTField;
+import com.monsters.GoblinTorch;
 import com.obj.GameObject;
 import com.playerlist.*;
 
@@ -130,7 +131,7 @@ public class ObjectManager {
                     }else if(extractValueStr(line, "name").contains("enemy")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
-                        objects.add(new GoblinBarrel(x, y, ID.Entity , EntityType.NPC, EntityClass.Goblins, game));
+                        objects.add(new GoblinTorch(x, y, ID.Entity , EntityType.NPC, EntityClass.Goblins, game));
                         line = br.readLine();
                         line = br.readLine();
                     }else if(extractValueStr(line, "name").contains("player")){

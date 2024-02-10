@@ -50,16 +50,16 @@ public class GoblinBarrel extends Entity{
 		xMove += velX;
 		yMove += velY;
 		setAction(2);
-		if(xMove >= 192) {
+		if(xMove >= 128) {
 	        xMove = 0;
 		}
-	    if(xMove <= -192) {
+	    if(xMove <= -128) {
 	        xMove = 0;
 	    }
-	    if(yMove <= 192) {
+	    if(yMove <= 128) {
 	    	yMove = 0;
 	    }
-	    if(yMove <= -192) {
+	    if(yMove <= -128) {
 	    	yMove = 0;
 	    }
 	}

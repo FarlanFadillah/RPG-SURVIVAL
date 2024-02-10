@@ -23,6 +23,7 @@ public class MouseInput extends MouseAdapter{
 	
 	private Camera camera;
 	Game game;
+	
 	public int mx, my;
 	public BufferedImage image;
 	public MouseInput(Game game) {
@@ -35,6 +36,7 @@ public class MouseInput extends MouseAdapter{
 	@Override
 	public void mouseClicked(MouseEvent e){
 		hitTree(e, true);
+		
 	}
 	
 	@Override

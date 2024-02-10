@@ -40,10 +40,23 @@ public abstract class Entity extends GameObject {
 	
 	public BufferedImage[] idletransitionIn = new BufferedImage[6];
 	public BufferedImage[] idletransitionOut = new BufferedImage[6];
+	
+	public BufferedImage[] attack1Down = new BufferedImage[6];
+	public BufferedImage[] attack1Up = new BufferedImage[6];
+	public BufferedImage[] attack1Right = new BufferedImage[6];
+	public BufferedImage[] attack1Left = new BufferedImage[6];
+	
+	public BufferedImage[] attack2Down = new BufferedImage[6];
+	public BufferedImage[] attack2Up = new BufferedImage[6];
+	public BufferedImage[] attack2Right = new BufferedImage[6];
+	public BufferedImage[] attack2Left = new BufferedImage[6];
+	
 
 
 	public int spriteNum = 1 ; // Counter Animation
 	public int spriteCounter = 0;
+	public boolean attack1 = false;
+	public boolean attack2 = false;
 
     public Entity(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
         super(x, y, id);

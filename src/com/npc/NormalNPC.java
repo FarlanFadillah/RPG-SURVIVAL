@@ -1,4 +1,4 @@
-package com.monsters;
+package com.npc;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -13,15 +13,15 @@ import com.obj.Entity;
 import com.obj.GameObject;
 import com.tile.ImageManager;
 
-public class GoblinTorch extends Entity{
+public class NormalNPC extends Entity{
 	
-	public SpriteSheet ss = new SpriteSheet("/assets/assetsentity/Goblins_Torch_Red.png");
+	public SpriteSheet ss = new SpriteSheet("/assets/assetsentity/Pawn.png");
 	ImageManager im = new ImageManager();
 	private int xMove = 0;
 	private int yMove = 0;
 	public int start, stop = 0;
 
-	public GoblinTorch(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
+	public NormalNPC(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
 		super(x, y, id, et, ec, game);
 		hp = 50;
 		mana = 50;
@@ -33,29 +33,20 @@ public class GoblinTorch extends Entity{
 		arah = "kanan";
 	}
 	
-	public void tick() {
-		x += velX;
-		y += velY;
-		Collision();
-		spriteCounter();
-		playerControl();
-		checkDistance();
-	}
-	
 	public void checkDistance() {
 		xMove += velX;
 		yMove += velY;
-		setAction(2);
-		if(xMove >= 192) {
+		setAction(40);
+		if(xMove >= 64) {
 	        xMove = 0;
 		}
-	    if(xMove <= -192) {
+	    if(xMove <= -64) {
 	        xMove = 0;
 	    }
-	    if(yMove <= 192) {
+	    if(yMove <= 64) {
 	    	yMove = 0;
 	    }
-	    if(yMove <= -192) {
+	    if(yMove <= -64) {
 	    	yMove = 0;
 	    }
 	}
@@ -306,61 +297,61 @@ public class GoblinTorch extends Entity{
 	public void getImage() {
 		try {
 			
-			runDown[0] = im.scaledImage(ss.grabImage(1, 2, 192, 192), 192,192);
-			runDown[1] = im.scaledImage(ss.grabImage(2, 2, 192, 192), 192,192);
-			runDown[2] = im.scaledImage(ss.grabImage(3, 2, 192, 192), 192,192);
-			runDown[3] = im.scaledImage(ss.grabImage(4, 2, 192, 192), 192,192);
-			runDown[4] = im.scaledImage(ss.grabImage(5, 2, 192, 192), 192,192);
-			runDown[5] = im.scaledImage(ss.grabImage(6, 2, 192, 192), 192,192);
+			runDown[0] = im.scaledImage(ss.grabImage(1, 2, 64, 64), 64,64);
+			runDown[1] = im.scaledImage(ss.grabImage(2, 2, 64, 64), 64,64);
+			runDown[2] = im.scaledImage(ss.grabImage(3, 2, 64, 64), 64,64);
+			runDown[3] = im.scaledImage(ss.grabImage(4, 2, 64, 64), 64,64);
+			runDown[4] = im.scaledImage(ss.grabImage(5, 2, 64, 64), 64,64);
+			runDown[5] = im.scaledImage(ss.grabImage(6, 2, 64, 64), 64,64);
 			
-			runUp[0] = im.scaledImage(ss.grabImage(1, 6, 192, 192), 192,192);
-			runUp[1] = im.scaledImage(ss.grabImage(2, 6, 192, 192), 192,192);
-			runUp[2] = im.scaledImage(ss.grabImage(3, 6, 192, 192), 192,192);
-			runUp[3] = im.scaledImage(ss.grabImage(4, 6, 192, 192), 192,192);
-			runUp[4] = im.scaledImage(ss.grabImage(5, 6, 192, 192), 192,192);
-			runUp[5] = im.scaledImage(ss.grabImage(6, 6, 192, 192), 192,192);
+			runUp[0] = im.scaledImage(ss.grabImage(1, 3, 64, 64), 64,64);
+			runUp[1] = im.scaledImage(ss.grabImage(2, 3, 64, 64), 64,64);
+			runUp[2] = im.scaledImage(ss.grabImage(3, 3, 64, 64), 64,64);
+			runUp[3] = im.scaledImage(ss.grabImage(4, 3, 64, 64), 64,64);
+			runUp[4] = im.scaledImage(ss.grabImage(5, 3, 64, 64), 64,64);
+			runUp[5] = im.scaledImage(ss.grabImage(6, 3, 64, 64), 64,64);
 			
-			runRight[0] = im.scaledImage(ss.grabImage(1, 2, 192, 192), 192,192);
-			runRight[1] = im.scaledImage(ss.grabImage(2, 2, 192, 192), 192,192);
-			runRight[2] = im.scaledImage(ss.grabImage(3, 2, 192, 192), 192,192);
-			runRight[3] = im.scaledImage(ss.grabImage(4, 2, 192, 192), 192,192);
-			runRight[4] = im.scaledImage(ss.grabImage(5, 2, 192, 192), 192,192);
-			runRight[5] = im.scaledImage(ss.grabImage(6, 2, 192, 192), 192,192);
+			runRight[0] = im.scaledImage(ss.grabImage(1, 2, 64, 64), 64,64);
+			runRight[1] = im.scaledImage(ss.grabImage(2, 2, 64, 64), 64,64);
+			runRight[2] = im.scaledImage(ss.grabImage(3, 2, 64, 64), 64,64);
+			runRight[3] = im.scaledImage(ss.grabImage(4, 2, 64, 64), 64,64);
+			runRight[4] = im.scaledImage(ss.grabImage(5, 2, 64, 64), 64,64);
+			runRight[5] = im.scaledImage(ss.grabImage(6, 2, 64, 64), 64,64);
 			
-			runLeft[0] = im.scaledImage(ss.grabImage(1, 6, 192, 192), 192,192);
-			runLeft[1] = im.scaledImage(ss.grabImage(2, 6, 192, 192), 192,192);
-			runLeft[2] = im.scaledImage(ss.grabImage(3, 6, 192, 192), 192,192);
-			runLeft[3] = im.scaledImage(ss.grabImage(4, 6, 192, 192), 192,192);
-			runLeft[4] = im.scaledImage(ss.grabImage(5, 6, 192, 192), 192,192);
-			runLeft[5] = im.scaledImage(ss.grabImage(6, 6, 192, 192), 192,192);
+			runLeft[0] = im.scaledImage(ss.grabImage(1, 3, 64, 64), 64,64);
+			runLeft[1] = im.scaledImage(ss.grabImage(2, 3, 64, 64), 64,64);
+			runLeft[2] = im.scaledImage(ss.grabImage(3, 3, 64, 64), 64,64);
+			runLeft[3] = im.scaledImage(ss.grabImage(4, 3, 64, 64), 64,64);
+			runLeft[4] = im.scaledImage(ss.grabImage(5, 3, 64, 64), 64,64);
+			runLeft[5] = im.scaledImage(ss.grabImage(6, 3, 64, 64), 64,64);
 						
-			idleDown[0] = im.scaledImage(ss.grabImage(1, 1, 192, 192), 192,192);
-			idleDown[1] = im.scaledImage(ss.grabImage(2, 1, 192, 192), 192,192);
-			idleDown[2] = im.scaledImage(ss.grabImage(3, 1, 192, 192), 192,192);
-			idleDown[3] = im.scaledImage(ss.grabImage(4, 1, 192, 192), 192,192);
-			idleDown[4] = im.scaledImage(ss.grabImage(5, 1, 192, 192), 192,192);
-			idleDown[5] = im.scaledImage(ss.grabImage(6, 1, 192, 192), 192,192);
+			idleDown[0] = im.scaledImage(ss.grabImage(1, 1, 64, 64), 64,64);
+			idleDown[1] = im.scaledImage(ss.grabImage(2, 1, 64, 64), 64,64);
+			idleDown[2] = im.scaledImage(ss.grabImage(3, 1, 64, 64), 64,64);
+			idleDown[3] = im.scaledImage(ss.grabImage(4, 1, 64, 64), 64,64);
+			idleDown[4] = im.scaledImage(ss.grabImage(5, 1, 64, 64), 64,64);
+			idleDown[5] = im.scaledImage(ss.grabImage(6, 1, 64, 64), 64,64);
 			
-			idleLeft[0] = im.scaledImage(ss.grabImage(1, 1, 192, 192), 192,192);
-			idleLeft[1] = im.scaledImage(ss.grabImage(2, 1, 192, 192), 192,192);
-			idleLeft[2] = im.scaledImage(ss.grabImage(3, 1, 192, 192), 192,192);
-			idleLeft[3] = im.scaledImage(ss.grabImage(4, 1, 192, 192), 192,192);
-			idleLeft[4] = im.scaledImage(ss.grabImage(5, 1, 192, 192), 192,192);
-			idleLeft[5] = im.scaledImage(ss.grabImage(6, 1, 192, 192), 192,192);
+			idleLeft[0] = im.scaledImage(ss.grabImage(1, 1, 64, 64), 64,64);
+			idleLeft[1] = im.scaledImage(ss.grabImage(2, 1, 64, 64), 64,64);
+			idleLeft[2] = im.scaledImage(ss.grabImage(3, 1, 64, 64), 64,64);
+			idleLeft[3] = im.scaledImage(ss.grabImage(4, 1, 64, 64), 64,64);
+			idleLeft[4] = im.scaledImage(ss.grabImage(5, 1, 64, 64), 64,64);
+			idleLeft[5] = im.scaledImage(ss.grabImage(6, 1, 64, 64), 64,64);
 
-			idleRight[0] = im.scaledImage(ss.grabImage(1, 1, 192, 192), 192,192);
-			idleRight[1] = im.scaledImage(ss.grabImage(2, 1, 192, 192), 192,192);
-			idleRight[2] = im.scaledImage(ss.grabImage(3, 1, 192, 192), 192,192);
-			idleRight[3] = im.scaledImage(ss.grabImage(4, 1, 192, 192), 192,192);
-			idleRight[4] = im.scaledImage(ss.grabImage(5, 1, 192, 192), 192,192);
-			idleRight[5] = im.scaledImage(ss.grabImage(6, 1, 192, 192), 192,192);
+			idleRight[0] = im.scaledImage(ss.grabImage(1, 1, 64, 64), 64,64);
+			idleRight[1] = im.scaledImage(ss.grabImage(2, 1, 64, 64), 64,64);
+			idleRight[2] = im.scaledImage(ss.grabImage(3, 1, 64, 64), 64,64);
+			idleRight[3] = im.scaledImage(ss.grabImage(4, 1, 64, 64), 64,64);
+			idleRight[4] = im.scaledImage(ss.grabImage(5, 1, 64, 64), 64,64);
+			idleRight[5] = im.scaledImage(ss.grabImage(6, 1, 64, 64), 64,64);
 			
-			idleUp[0] = im.scaledImage(ss.grabImage(1, 1, 192, 192), 192,192);
-			idleUp[1] = im.scaledImage(ss.grabImage(2, 1, 192, 192), 192,192);
-			idleUp[2] = im.scaledImage(ss.grabImage(3, 1, 192, 192), 192,192);
-			idleUp[3] = im.scaledImage(ss.grabImage(4, 1, 192, 192), 192,192);
-			idleUp[4] = im.scaledImage(ss.grabImage(5, 1, 192, 192), 192,192);
-			idleUp[5] = im.scaledImage(ss.grabImage(6, 1, 192, 192), 192,192);
+			idleUp[0] = im.scaledImage(ss.grabImage(1, 1, 64, 64), 64,64);
+			idleUp[1] = im.scaledImage(ss.grabImage(2, 1, 64, 64), 64,64);
+			idleUp[2] = im.scaledImage(ss.grabImage(3, 1, 64, 64), 64,64);
+			idleUp[3] = im.scaledImage(ss.grabImage(4, 1, 64, 64), 64,64);
+			idleUp[4] = im.scaledImage(ss.grabImage(5, 1, 64, 64), 64,64);
+			idleUp[5] = im.scaledImage(ss.grabImage(6, 1, 64, 64), 64,64);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -368,11 +359,11 @@ public class GoblinTorch extends Entity{
 	}
 
 	public Rectangle getBound() {
-		return new Rectangle(x+48, y +96, 96, 48 );
+		return new Rectangle(x+0, y +32, 64, 32 );
 	}
 
 	public Rectangle renderOrder() {
-		return new Rectangle(x+48, y +96, 96, 48 );
+		return new Rectangle(x+0, y +32, 64, 32 );
 	}
 
 	public Rectangle getSize() {
@@ -381,7 +372,6 @@ public class GoblinTorch extends Entity{
 
 	public void hit() {
 		throw new UnsupportedOperationException("Unimplemented method 'hit'");
-		
 	}
 	
 	public void spriteCounter(){

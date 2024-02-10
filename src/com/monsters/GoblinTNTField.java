@@ -19,6 +19,7 @@ public class GoblinTNTField extends Entity{
 	ImageManager im = new ImageManager();
 	private int xMove = 0;
 	private int yMove = 0;
+	public int start, stop = 0;
 
 	public GoblinTNTField(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
 		super(x, y, id, et, ec, game);
@@ -26,6 +27,7 @@ public class GoblinTNTField extends Entity{
 		mana = 50;
 		stamina = 50;
 		speed = 4;
+		start = game.second;
 		getImage();
 		image = idleRight[0];
 		arah = "kanan";
@@ -43,6 +45,7 @@ public class GoblinTNTField extends Entity{
 	public void checkDistance() {
 		xMove += velX;
 		yMove += velY;
+		setAction(2);
 		if(xMove >= 192) {
 	        xMove = 0;
 		}
@@ -57,44 +60,47 @@ public class GoblinTNTField extends Entity{
 	    }
 	}
 	
-	public void setAction( ) {
+	public void setAction(int delay) {
 		
 		Random random = new Random();
 		int i = random.nextInt(100)+1; //pick up a number from 1 to 100
-		
-		if(i <= 15) {
-			setUp(true);
-			setDown(false);
-			setLeft(false);
-			setRight(false);
-			arah = "atas";
-		}
-		if(i > 15 && i <= 30) {
-			setUp(false);
-			setDown(true);
-			setLeft(false);
-			setRight(false);
-			arah = "bawah";	
-		}
-		if(i > 30 && i <= 45) {
-			setLeft(true);
-			setRight(false);
-			setUp(false);
-			setDown(false);
-			arah = "kiri";
-		}
-		if(i > 45 && i <= 60) {
-			setLeft(false);
-			setRight(true);
-			setUp(false);
-			setDown(false);
-			arah = "kanan";
-		}
-		if(i > 60 && i <=100) {
-			setLeft(false);
-			setRight(false);
-			setUp(false);
-			setDown(false);
+		stop = game.second;
+		if(stop - start >= delay) {
+			if(i <= 15) {
+				setUp(true);
+				setDown(false);
+				setLeft(false);
+				setRight(false);
+				arah = "atas";
+			}
+			if(i > 15 && i <= 30) {
+				setUp(false);
+				setDown(true);
+				setLeft(false);
+				setRight(false);
+				arah = "bawah";	
+			}
+			if(i > 30 && i <= 45) {
+				setLeft(true);
+				setRight(false);
+				setUp(false);
+				setDown(false);
+				arah = "kiri";
+			}
+			if(i > 45 && i <= 60) {
+				setLeft(false);
+				setRight(true);
+				setUp(false);
+				setDown(false);
+				arah = "kanan";
+			}
+			if(i > 60 && i <=100) {
+				setLeft(false);
+				setRight(false);
+				setUp(false);
+				setDown(false);
+			}
+			start = stop;
 		}
 	}
 
