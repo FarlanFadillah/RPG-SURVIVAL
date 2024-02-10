@@ -4,14 +4,15 @@ package com.obj;
 import java.awt.image.BufferedImage;
 
 import com.id.ID;
+import com.id.ItemType;
 
 public abstract class Item extends GameObject{
     public boolean spawn = false;
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public BufferedImage spawnImage[] = new BufferedImage[7];
-
-    public Item(int x, int y, ID id) {
+    public BufferedImage icon;
+    public Item(int x, int y, ID id, ItemType it) {
         super(x, y, id);
     }
 

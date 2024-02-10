@@ -5,11 +5,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
+import com.id.EntityType;
+import com.id.ID;
 import com.input.Camera;
 import com.input.KeyInput;
 import com.input.MouseInput;
 import com.map.Island;
-import com.map.TryWorld;
+import com.obj.Entity;
+import com.obj.GameObject;
 import com.ui.GUI;
 
 public class Game extends Canvas implements Runnable{
@@ -28,6 +31,7 @@ public class Game extends Canvas implements Runnable{
     public int playState = 1;
     public int pauseState = 2;
     public int menuState = 3;
+    public int InventoryState = 4;
 
 	public Frame frame;
 
@@ -41,11 +45,14 @@ public class Game extends Canvas implements Runnable{
 
     //Game time
     public int second = 0;
+
+    private Entity player;
+
     public Game(){
         gameState = playState;
 		frame = new Frame(WIDTH, HEIGHT, "RPG SURVIVAL", this);
 		key = new KeyInput(this);
-        key.getPlayerObject(tryWorld.objectLayer.get(0));
+        key.player = getPlayerObject();
         mouse = new MouseInput(this);
         addKeyListener(key);
 		this.addMouseListener(mouse);
@@ -75,22 +82,23 @@ public class Game extends Canvas implements Runnable{
         /////////////////////////////////////////
         g.fillRect(0, 0, getWidth(), getHeight());
         
-        if(gameState == playState){
-            g2d.translate(-camera.getX(), -camera.getY());
-            tryWorld.draw(g, g2d, camera.getX(), camera.getY());
-            mouse.draw(g2d);
-            g2d.translate(camera.getX(), camera.getY());
-        }
-        
+        g2d.translate(-camera.getX(), -camera.getY());
+        tryWorld.draw(g, g2d, camera.getX(), camera.getY());
+        g2d.translate(camera.getX(), camera.getY());
+            
         //////////////////////////////////////
         gui.draw(g2d);
+        mouse.drawInventory(g2d);
         g.dispose();
         bs.show();
     }
 
     private void tick() {
-        camera.tick(this);
-        tryWorld.tick();
+        if(gameState == playState){
+            camera.tick(this);
+            tryWorld.tick(camera.getX(), camera.getY());
+        }
+        gui.tick();
     }
     @Override
     public void run() {
@@ -135,6 +143,20 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 		stop();
+    }
+    public Entity getPlayerObject(){
+        for (int i = 0; i < tryWorld.objectLayer.get(0).size(); i++) {
+            GameObject temp = tryWorld.objectLayer.get(0).get(i);
+            if(temp.getID() == ID.Entity){
+                Entity entityTemp = (Entity) temp;
+                if(entityTemp.getEntityType() == EntityType.Player){
+                    player = entityTemp;
+                    break;
+                }
+            }
+            
+        }
+        return player;
     }
 	
 }

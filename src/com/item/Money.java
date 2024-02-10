@@ -9,16 +9,17 @@ import com.id.ItemType;
 import com.obj.Item;
 import com.tile.ImageManager;
 
-public class Wood extends Item{
+public class Money extends Item{
     public int size = 128;
-    protected SpriteSheet ss = new SpriteSheet("/assets/items/wood/W_Spawn.png");
-    protected SpriteSheet ss2 = new SpriteSheet("/assets/items/wood/W_Idle.png");
+    protected SpriteSheet ss = new SpriteSheet("/assets/items/money/G_Spawn.png");
+    protected SpriteSheet ss2 = new SpriteSheet("/assets/items/money/G_Idle.png");
     ImageManager im = new ImageManager();
-    public Wood(int x, int y, ID id, ItemType it) {
+
+    public Money(int x, int y, ID id, ItemType it) {
         super(x, y, id, it);
-        //TODO Auto-generated constructor stub\
-        icon = ss2.grabImageXY(32, 48, 64, 64);
-        name = "Wood";
+        //TODO Auto-generated constructor stub
+        icon = ss2.grabImageXY(35, 43, 64, 64);
+        name = "Money";
         image = ss2.image;
         getImage();
     }
@@ -59,6 +60,7 @@ public class Wood extends Item{
         // TODO Auto-generated method stub
         spriteCounter();
     }
+
     @Override
     public void render(Graphics g) {
         // TODO Auto-generated method stub
@@ -73,7 +75,7 @@ public class Wood extends Item{
     @Override
     public Rectangle getBound() {
         // TODO Auto-generated method stub
-        return new Rectangle();
+        return new Rectangle(x+16, y+64,96, 48);
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.anim.AnimationHandler;
 import com.anim.Foam;
+import com.id.ID;
 import com.main.Game;
 import com.obj.GameObject;
 import com.tile.ObjectManager;
@@ -38,11 +39,21 @@ public class Island extends Biome{
     }
 
     @Override
-    public void tick() {
+    public void tick(double xx, double yy) {
         // TODO Auto-generated method stub
         animHandler.spriteCounter8Frame();
+
         for (int i = 0; i < objectLayer.get(0).size(); i++) {
-            objectLayer.get(0).get(i).tick();
+            if(objectLayer.get(0).get(i).getID() == ID.Entity){
+                objectLayer.get(0).get(i).tick();
+            }
+        }
+        for (int i = 0; i < objectLayer.get(0).size(); i++) {
+            int x1 = objectLayer.get(0).get(i).getX();
+            int y1 = objectLayer.get(0).get(i).getY();
+                if(objectLayer.get(0).get(i).getID() != ID.Entity && x1 < xx+ Game.WIDTH && x1 > xx - objectLayer.get(0).get(i).getSize().getWidth() && y1 <yy+Game.HEIGHT && y1 > yy - objectLayer.get(0).get(i).getSize().getHeight()){
+                    objectLayer.get(0).get(i).tick();     
+                }
         }
     }
 

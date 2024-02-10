@@ -11,6 +11,7 @@ public abstract class GameObject {
     ID id;
     public int hp;
 	public boolean highGround = false;
+    public String name;
 
     public abstract void tick();
     public abstract void render(Graphics g);

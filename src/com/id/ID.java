@@ -1,5 +1,5 @@
 package com.id;
 
 public enum ID {
-    Entity(), Block();
+    Entity(), Block(), Item();
 }

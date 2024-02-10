@@ -148,12 +148,9 @@ public class GoblinBarrel extends Entity{
 				x += velX * -1;
 				y += velY * -1;
 			}
-			if(temp.getID() == ID.Entity) {
-				Entity selfcol = (Entity) temp;
-				if(getBound().intersects(selfcol.getBound()) && selfcol.getEntityType() == EntityType.Player) {
-					x += velX * -1;
-					y += velY * -1;
-				}
+			if(this != temp && getBound().intersects(temp.getBound()) &&temp.getID() == ID.Entity) {
+				x += velX * -1;
+				y += velY * -1;
 			}
 		}
 	}

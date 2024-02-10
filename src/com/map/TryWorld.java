@@ -40,7 +40,7 @@ public class TryWorld extends Biome{
         init();
     }
     @Override
-    public void tick() {
+    public void tick(double xx, double yy) {
         // TODO Auto-generated method stub
         animHandler.spriteCounter8Frame();
         for (int i = 0; i < objectLayer.get(0).size(); i++) {

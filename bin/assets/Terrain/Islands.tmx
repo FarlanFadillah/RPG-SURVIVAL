@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="167">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="169">
  <tileset firstgid="1" source="Tilemap_Flat.tsx"/>
  <tileset firstgid="197" source="sub_tree.tsx"/>
  <tileset firstgid="198" source="House_Blue.tsx"/>
@@ -330,6 +330,12 @@
   <object id="125" name="blueHouse" gid="198" x="1600" y="640" width="128" height="192"/>
   <object id="126" name="blueHouse" gid="198" x="1728" y="576" width="128" height="192"/>
   <object id="166" name="enemy" type=" " x="1088" y="1152">
+   <point/>
+  </object>
+  <object id="167" name="enemy" type=" " x="1216" y="1152">
+   <point/>
+  </object>
+  <object id="168" name="enemy" type=" " x="1088" y="1280">
    <point/>
   </object>
  </objectgroup>

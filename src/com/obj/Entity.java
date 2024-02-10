@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import com.filehandler.SpriteSheet;
+import com.gameMechanics.PlayerInventory;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
@@ -20,7 +21,8 @@ public abstract class Entity extends GameObject {
     public Game game;
 	protected EntityClass ec;
 
-
+	public PlayerInventory playerInventory;
+	
 	public SpriteSheet ss;
 	public String arah; //tanda arah
 	public BufferedImage[] runDown = new BufferedImage[6];

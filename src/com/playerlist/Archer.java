@@ -10,6 +10,7 @@ import com.id.ID;
 import com.main.Game;
 import com.obj.Entity;
 import com.obj.GameObject;
+import com.obj.Item;
 import com.tile.ImageManager;
 
 public class Archer extends Entity{
@@ -54,6 +55,18 @@ public class Archer extends Entity{
 			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Block && temp.highGround == false){
 				x += velX * -1;
 				y += velY * -1;
+			}
+
+			
+			if(this != temp && getBound().intersects(temp.getBound()) &&temp.getID() == ID.Entity) {
+					x += velX * -1;
+					y += velY * -1;
+			}
+			
+			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Item){
+				game.tryWorld.objectLayer.get(0).remove(temp);
+				Item getItem = (Item) temp;
+				playerInventory.addItem(getItem);
 			}
 		}
 		

@@ -5,12 +5,14 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
 import com.filehandler.SpriteSheet;
+import com.gameMechanics.PlayerInventory;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
 import com.main.Game;
 import com.obj.Entity;
 import com.obj.GameObject;
+import com.obj.Item;
 import com.tile.ImageManager;
 
 public class Fighter extends Entity{
@@ -23,6 +25,7 @@ public class Fighter extends Entity{
 	
 	public Fighter(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
 		super(x, y, id, et, ec, game);
+		playerInventory = new PlayerInventory(game);
 		hp = 100;
 		mana = 100;
 		stamina = 100;
@@ -63,13 +66,17 @@ public class Fighter extends Entity{
 				x += velX * -1;
 				y += velY * -1;
 			}
-			if(temp.getID() == ID.Entity) {
-				Entity selfcol = (Entity) temp;
-				if(getBound().intersects(selfcol.getBound()) && selfcol.getEntityType() == EntityType.NPC) {
+			if(this != temp && getBound().intersects(temp.getBound()) &&temp.getID() == ID.Entity) {
 					x += velX * -1;
 					y += velY * -1;
-				}
 			}
+			
+			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Item){
+				game.tryWorld.objectLayer.get(0).remove(temp);
+				Item getItem = (Item) temp;
+				playerInventory.addItem(getItem);
+			}
+
 		}
 		
 	}

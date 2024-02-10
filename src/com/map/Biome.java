@@ -23,7 +23,7 @@ public abstract class Biome {
         this.game = game;
     }
 
-    public abstract void tick();
+    public abstract void tick(double xx, double yy);
     public abstract void draw(Graphics g, Graphics2D g2d, double xx, double yy);
     public abstract void init();
 
