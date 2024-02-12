@@ -59,10 +59,16 @@ public class Pawn extends Entity{
         throw new UnsupportedOperationException("Unimplemented method 'hit'");
     }
 
-    @Override
-    public void attacking(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'attacking'");
-    }
+	@Override
+	public void attacking1(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attacking2(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

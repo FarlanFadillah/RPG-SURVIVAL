@@ -400,7 +400,13 @@ public class NormalNPC extends Entity{
 	}
 
 	@Override
-	public void attacking(MouseEvent e) {
+	public void attacking1(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attacking2(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

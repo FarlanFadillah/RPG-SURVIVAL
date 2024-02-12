@@ -26,6 +26,8 @@ public abstract class Entity extends GameObject {
 	
 	public SpriteSheet ss;
 	public String arah; //tanda arah
+	public String arahAttack; //tanda arah attack
+	
 	public BufferedImage[] runDown = new BufferedImage[6];
 	public BufferedImage[] runUp = new BufferedImage[6];
 	public BufferedImage[] runRight = new BufferedImage[6];
@@ -48,6 +50,11 @@ public abstract class Entity extends GameObject {
 	public BufferedImage[] attack1Up = new BufferedImage[6];
 	public BufferedImage[] attack1Right = new BufferedImage[6];
 	public BufferedImage[] attack1Left = new BufferedImage[6];
+	
+	public BufferedImage[] attack1UpRight = new BufferedImage[6];
+	public BufferedImage[] attack1UpLeft = new BufferedImage[6];
+	public BufferedImage[] attack1DownRight = new BufferedImage[6];
+	public BufferedImage[] attack1DownLeft = new BufferedImage[6];
 	
 	public BufferedImage[] attack2Down = new BufferedImage[6];
 	public BufferedImage[] attack2Up = new BufferedImage[6];

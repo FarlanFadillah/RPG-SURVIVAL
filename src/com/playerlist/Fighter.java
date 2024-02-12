@@ -34,15 +34,23 @@ public class Fighter extends Entity{
 		getImage();
 		image = idleRight[0];
 		arah = "kanan";
+		arahAttack = "kanan";
 		
 	}
 
 	public void tick() {
+		if(attack1 == false && attack2 == false) {
+			speed = 4;
+		}else if(attack1 == true || attack2 == true){
+			speed = 0;
+		}
+		
 		x += velX;
 		y += velY;
 		Collision();
 		playerControl();
 		spriteCounter();
+		
 	}
 
 	public void render(Graphics g) {
@@ -258,7 +266,7 @@ public class Fighter extends Entity{
 				}
 			}
 		} else if(attack1 == true && attack2 == false){
-				switch (arah) {
+				switch (arahAttack) {
 				case "atas": 
 					if(spriteAttack1 == 1) {
 						image = attack1Up[0];
@@ -340,13 +348,13 @@ public class Fighter extends Entity{
 					if(spriteAttack1 ==5) {
 						image = attack1Left[4];
 					}
-					if(spriteAttack1 ==65) {
+					if(spriteAttack1 ==6) {
 						image = attack1Left[5];
 					}
 					break;
 				}
 		} else if(attack1 == false && attack2 == true) {
-				switch (arah) {
+				switch (arahAttack) {
 				case "atas": 
 					if(spriteAttack2 == 1) {
 						image = attack1Up[0];
@@ -713,8 +721,8 @@ public class Fighter extends Entity{
 	
 	public void attacking1 (MouseEvent e) {
 		if(attack1 == false && attack2 == false) {
-			attack2 = false;
 			attack1 = true;
+			speed = 0;
 			float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
 			float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
 			
@@ -724,21 +732,19 @@ public class Fighter extends Entity{
 		        angle += 360;
 		    }
 		    if(angle > 315 && angle <= 360 || angle > 0 && angle <= 45) {
-		    	arah = "kanan";
+		    	arahAttack = "kanan";
 		    }else if(angle > 45 && angle <= 135) {
-		    	arah = "bawah";
+		    	arahAttack = "bawah";
 		    }else if(angle > 135 && angle <= 225) {
-		    	arah = "kiri";
+		    	arahAttack = "kiri";
 		    }else {
-		    	arah = "atas";
+		    	arahAttack = "atas";
 		    }
-		    speed = 0;
 		}
 	}
 	
 	public void attacking2 (MouseEvent e) {
 		if(attack1 == false && attack2 == false) {
-			attack1 = false;
 			attack2 = true;
 			speed = 0;
 			float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
@@ -750,13 +756,13 @@ public class Fighter extends Entity{
 		        angle += 360;
 		    }
 		    if(angle > 315 && angle <= 360 || angle > 0 && angle <= 45) {
-		    	arah = "kanan";
+		    	arahAttack = "kanan";
 		    }else if(angle > 45 && angle <= 135) {
-		    	arah = "bawah";
+		    	arahAttack = "bawah";
 		    }else if(angle > 135 && angle <= 225) {
-		    	arah = "kiri";
+		    	arahAttack = "kiri";
 		    }else {
-		    	arah = "atas";
+		    	arahAttack = "atas";
 		    }
 		}
 	}

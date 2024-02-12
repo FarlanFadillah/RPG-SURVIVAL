@@ -64,10 +64,15 @@ public class Caster extends Entity{
 	}
 
 	@Override
-	public void attacking(MouseEvent e) {
+	public void attacking1(MouseEvent e) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'attacking'");
+		
 	}
 
-	
+	@Override
+	public void attacking2(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
