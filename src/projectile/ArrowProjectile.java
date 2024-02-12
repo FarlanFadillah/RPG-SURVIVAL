@@ -33,7 +33,7 @@ public class ArrowProjectile extends Block{
 	}
 
 	public void render(Graphics g) {
-		g.drawImage(image, x, y, null);
+		g.drawImage(image, x-32, y-32, null);
 		
 	}
 

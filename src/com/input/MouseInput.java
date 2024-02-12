@@ -75,11 +75,7 @@ public class MouseInput extends MouseAdapter{
 	}
 	
 	public void mousePressed(MouseEvent e) {
-		int mx = (int) (e.getX() + camera.getX());
-		int my = (int) (e.getY() + camera.getY());
-		
-		player.attacking2(e);
-		shootArrow(mx, my);
+		// player.attacking2(e);
 		
 	}
 	@Override
@@ -87,21 +83,7 @@ public class MouseInput extends MouseAdapter{
 		player.attack2 = false;
 	}
 
-	public void shootArrow(int mx, int my){
-		for(int i = 0; i < game.tryWorld.objectLayer.get(0).size(); i++) {
-			GameObject tempObject = game.tryWorld.objectLayer.get(0).get(i);
-			
-			if(tempObject.getID() == ID.Entity){
-				Entity entity = (Entity) tempObject;
-				
-				if(entity.getEntityType() == EntityType.Player && entity.getEntityClass() == EntityClass.Archer) {
-					game.tryWorld.objectLayer.get(0).add(new ArrowProjectile(entity.getX()+24, entity.getY()+16, null, BlockType.Projectile, game, mx, my));
-				}
-			}
-			
-			
-		}
-	}
+	
 
 	public void hitTree(MouseEvent e, boolean gethit){
 		Block hit = null;

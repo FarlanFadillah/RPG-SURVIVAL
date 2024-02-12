@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.PlayerInventory;
+import com.id.BlockType;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
@@ -16,6 +17,8 @@ import com.obj.GameObject;
 import com.obj.Item;
 import com.tile.ImageManager;
 
+import projectile.ArrowProjectile;
+
 public class Archer extends Entity{
 
 	public SpriteSheet ss = new SpriteSheet("/assets/assetsentity/Archer.png");
@@ -23,6 +26,9 @@ public class Archer extends Entity{
 	
 	private int spriteAttack1 = 1;
 	private int spriteAttack2 = 1;
+
+	//Position of mouse
+	public int mx = 0, my = 0;
 	
 	public Archer(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
 		super(x, y, id, et, ec, game);
@@ -55,7 +61,6 @@ public class Archer extends Entity{
 		}else if(attack1 == true || attack2 == true){
 			speed = 0;
 		}
-		
 		x += velX;
 		y += velY;
 		Collision();
@@ -498,10 +503,10 @@ public class Archer extends Entity{
 					}
 					
 					break;
-				
+					
 				}
 				
-				attack1 = false;
+				
 				
 				//Not finished yet
 		} else if(attack1 == false && attack2 == true) {
@@ -677,12 +682,12 @@ public class Archer extends Entity{
 			runDown[4] = im.scaledImage(ss.grabImage(5, 2, 192, 192), 192,192);
 			runDown[5] = im.scaledImage(ss.grabImage(6, 2, 192, 192), 192,192);
 			
-			runUp[0] = im.scaledImage(ss.grabImage(1, 3, 192, 192), 192,192);
-			runUp[1] = im.scaledImage(ss.grabImage(2, 3, 192, 192), 192,192);
-			runUp[2] = im.scaledImage(ss.grabImage(3, 3, 192, 192), 192,192);
-			runUp[3] = im.scaledImage(ss.grabImage(4, 3, 192, 192), 192,192);
-			runUp[4] = im.scaledImage(ss.grabImage(5, 3, 192, 192), 192,192);
-			runUp[5] = im.scaledImage(ss.grabImage(6, 3, 192, 192), 192,192);
+			runUp[0] = im.scaledImage(ss.grabImage(1, 8, 192, 192), 192,192);
+			runUp[1] = im.scaledImage(ss.grabImage(2, 8, 192, 192), 192,192);
+			runUp[2] = im.scaledImage(ss.grabImage(3, 8, 192, 192), 192,192);
+			runUp[3] = im.scaledImage(ss.grabImage(4, 8, 192, 192), 192,192);
+			runUp[4] = im.scaledImage(ss.grabImage(5, 8, 192, 192), 192,192);
+			runUp[5] = im.scaledImage(ss.grabImage(6, 8, 192, 192), 192,192);
 			
 			runRight[0] = im.scaledImage(ss.grabImage(1, 2, 192, 192), 192,192);
 			runRight[1] = im.scaledImage(ss.grabImage(2, 2, 192, 192), 192,192);
@@ -853,6 +858,9 @@ public class Archer extends Entity{
 					spriteAttack1 =8;
 				}else if(spriteAttack1 ==8) {
 					spriteAttack1 =1;
+					shootArrow();
+					attack1 = false;
+					
 				}
 				spriteCounter =0;
 			}
@@ -891,6 +899,8 @@ public class Archer extends Entity{
 	}
 
 	public void attacking1 (MouseEvent e) {
+		this.mx = (int) (e.getX() + game.camera.getX());
+		this.my = (int) (e.getY() + game.camera.getY());
 		if(attack1 == false && attack2 == false) {
 			attack1 = true;
 			speed = 0;
@@ -923,6 +933,7 @@ public class Archer extends Entity{
 	}
 	
 	public void attacking2 (MouseEvent e) {
+
 		if(attack1 == false && attack2 == false) {
 			attack2 = true;
 			speed = 0;
@@ -944,6 +955,10 @@ public class Archer extends Entity{
 		    	arahAttack = "atas";
 		    }
 		}
+	}
+
+	public void shootArrow(){
+		game.tryWorld.objectLayer.get(0).add(new ArrowProjectile(this.getX()+image.getWidth()/2, this.getY()+image.getHeight()/2, null, BlockType.Projectile, game, mx, my));
 	}
 
 }
