@@ -3,6 +3,7 @@ package com.playerlist;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 
 import com.id.EntityClass;
 import com.id.EntityType;
@@ -60,6 +61,12 @@ public class Caster extends Entity{
 	public void hit() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'hit'");
+	}
+
+	@Override
+	public void attacking(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'attacking'");
 	}
 
 	

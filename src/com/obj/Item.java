@@ -42,4 +42,13 @@ public abstract class Item extends GameObject{
         }
         
 }
+
+	public void reSpawn(int x, int y) {
+		this.x = x;
+		this.y = y;
+		spawn = false;
+		spriteNum = 1;
+		spawn();
+		
+	}
 }

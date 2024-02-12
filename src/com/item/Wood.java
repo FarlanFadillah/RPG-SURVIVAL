@@ -73,13 +73,13 @@ public class Wood extends Item{
     @Override
     public Rectangle getBound() {
         // TODO Auto-generated method stub
-        return new Rectangle();
+        return new Rectangle(x+16, y+64,96, 48);
     }
 
     @Override
     public Rectangle renderOrder() {
         // TODO Auto-generated method stub
-        return new Rectangle();
+        return new Rectangle(x+16, y+64,96, 48);
     }
 
     @Override

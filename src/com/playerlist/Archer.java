@@ -2,6 +2,7 @@ package com.playerlist;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 
 import com.filehandler.SpriteSheet;
 import com.id.EntityClass;
@@ -325,6 +326,12 @@ public class Archer extends Entity{
 	public void hit() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'hit'");
+	}
+
+	@Override
+	public void attacking(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'attacking'");
 	}
 	
 

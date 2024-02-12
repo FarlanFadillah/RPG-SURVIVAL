@@ -2,6 +2,7 @@ package com.monsters;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import com.filehandler.SpriteSheet;
@@ -429,5 +430,11 @@ public class GoblinBarrel extends Entity{
 			arah = "kiri";
 		}
 		else if(!isRight()) velX=0;
+	}
+
+	@Override
+	public void attacking(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'attacking'");
 	}
 }

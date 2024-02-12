@@ -4,6 +4,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.filehandler.SpriteSheet;
@@ -19,10 +20,12 @@ public class InventoryGUI {
     int xstart = -400;
     int x = xstart;
     int y = 8;
+    public int mx = 0;
+	public int my = 0;
     Font f1 = new Font("DialogInput", Font.BOLD, 12);
     public float opacity = 0f;
     Game game;
-    Entity player;
+    public Entity player;
     public Slot[] slot;
     public InventoryGUI(Game game){
         this.game = game;
@@ -55,6 +58,7 @@ public class InventoryGUI {
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
             g2d.drawImage(inventoryBox.image, x, y,inventoryBox.image.getWidth(),inventoryBox.image.getHeight(), null);
             drawItemStored(g2d, x, y);
+            drawDraggedItem(g2d);
         }
 
     }
@@ -65,7 +69,7 @@ public class InventoryGUI {
                 g2d.drawImage(slot[i].icon, x+(slot[i].col*64), y+ (slot[i].row*64), null);
                 g2d.setColor(Color.white);
                 g2d.setFont(f1);
-                g2d.drawString(String.valueOf(slot[i].total), x+(slot[i].col*64)+44, y+ (slot[i].row*64)+55);
+                g2d.drawString(String.valueOf(slot[i].items.size()), x+(slot[i].col*64)+44, y+ (slot[i].row*64)+55);
             }
         }
         
@@ -77,5 +81,20 @@ public class InventoryGUI {
     public void getItemsImage(){
         itemImages[0] = itemSheet.grabImage(1, 1, 64, 64);
     }
+    
+    public void drawDraggedItem(Graphics2D g2d) {
+    	if(game.gameState == game.InventoryState){
+			if(player.playerInventory.dragged){
+				g2d.drawImage(player.playerInventory.dragItem, mx-player.playerInventory.dragItem.getWidth()/2, my-player.playerInventory.dragItem.getHeight()/2, null);
+				g2d.setFont(f1);
+				g2d.setColor(Color.white);
+				g2d.drawString(String.valueOf(player.playerInventory.draggedSlotNum), (mx+player.playerInventory.dragItem.getWidth()/2)-19, (my+player.playerInventory.dragItem.getHeight()/2)-10);
+			}
+		}
+    }
+    
+    public Rectangle getBound() {
+		return new Rectangle(x, y, inventoryBox.image.getWidth(), inventoryBox.image.getHeight());
+	}
 
 }

@@ -33,64 +33,42 @@ public class MouseInput extends MouseAdapter{
 	public boolean dragged = false;
 	public Slot slotDragged;
 	public BufferedImage dragItem;
+	Entity player;
 	public MouseInput(Game game) {
 		this.game = game;
 		this.camera = game.camera;
 		this.gui = game.gui;
+		player = game.getPlayerObject();
 		image = Tree.ss.grabImage(1, 1, 192, 192);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e){
 		if(game.gameState == game.InventoryState){
-			for (int i = 0; i < gui.inv.slot.length; i++) {
-				Slot temp = gui.inv.slot[i];
-				if(temp.getBound().contains(e.getPoint()) && temp.total > 0 && dragged == false){
-					try {
-						slotDragged = (Slot) temp.clone();
-					} catch (CloneNotSupportedException e1) {
-						System.out.println(e1);
-					}
-					temp.emptySlot();
-					dragged = true;
-					dragItem = slotDragged.icon;
-					break;
-				}else if(temp.getBound().contains(e.getPoint()) && temp.total <= 0 && dragged == true){
-					System.out.println(slotDragged.total);
-					temp.fill(slotDragged);
-					dragged = false;
-					dragItem = null;
-					slotDragged = null;
-					break;
-				}else if(temp.getBound().contains(e.getPoint()) && temp.total > 0 && dragged == true && temp.type.equals(slotDragged.type)){
-					temp.fill(slotDragged);
-					dragged = false;
-					dragItem = null;
-					slotDragged = null;
-					break;
-				}else{
-					System.err.println(temp.col +" " + temp.row + " total:" + temp.total);
-				}
+			player.playerInventory.dragItem(e);
+			if(!game.gui.inv.getBound().contains(e.getPoint()) && player.playerInventory.dragged == false) {
+				game.gameState = game.playState;
+			}else if(!game.gui.inv.getBound().contains(e.getPoint()) && player.playerInventory.dragged) {
+				player.playerInventory.dropItem();
+				game.gameState = game.playState;
 			}
 		}else if(game.gameState == game.playState){
 			hitTree(e, true);
+			player.attacking(e);
 		}
 		
 	}
 	
+
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		mx = e.getX();
 		my = e.getY();
-	}
-	public void drawInventory(Graphics2D g) {
-		if(game.gameState == game.InventoryState){
-			if(dragged){
-				g.drawImage(dragItem, mx-dragItem.getWidth()/2, my-dragItem.getHeight()/2, null);
-			}
+		if(game.gameState == game.InventoryState) {
+			gui.inv.mx = mx;
+			gui.inv.my = my;
 		}
 	}
-
 	public void putBlock(Graphics2D g, int x, int y, double xx, double yy){
 
 	}

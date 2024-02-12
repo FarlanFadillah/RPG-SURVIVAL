@@ -51,12 +51,12 @@ public class Fighter extends Entity{
 	}
 
 	public Rectangle getBound() {
-		return new Rectangle(x+56, y +96, 80, 40 );
+		return new Rectangle(x+80, y +112, 32, 16 );
 		
 	}
 
 	public Rectangle renderOrder() {
-		return new Rectangle(x+56, y +96, 80, 40 );
+		return new Rectangle(x+80, y +112, 32, 16 );
 	}
 
 	public void Collision() {
@@ -258,7 +258,6 @@ public class Fighter extends Entity{
 				}
 			}
 		} else if(attack1 == true && attack2 == false){
-			if(isUp() || isDown()|| isRight() || isLeft()) {
 				switch (arah) {
 				case "atas": 
 					if(spriteAttack1 == 1) {
@@ -346,9 +345,7 @@ public class Fighter extends Entity{
 					}
 					break;
 				}
-			}
 		} else if(attack1 == false && attack2 == true) {
-			if(isUp() || isDown()|| isRight() || isLeft()) {
 				switch (arah) {
 				case "atas": 
 					if(spriteAttack2 == 1) {
@@ -510,7 +507,6 @@ public class Fighter extends Entity{
 					break;
 				}
 			}
-		}
 	}
 	
 	public void getImage() {
@@ -718,6 +714,23 @@ public class Fighter extends Entity{
 	public void attacking (MouseEvent e) {
 		if(attack1 == false && attack2 == false) {
 			attack1 = true;
+			float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
+			float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
+			
+			float angle = (float) Math.toDegrees(Math.atan2(py, px));
+
+		    if(angle < 0){
+		        angle += 360;
+		    }
+		    if(angle > 315 && angle <= 360 || angle > 0 && angle <= 45) {
+		    	arah = "kanan";
+		    }else if(angle > 45 && angle <= 135) {
+		    	arah = "bawah";
+		    }else if(angle > 135 && angle <= 225) {
+		    	arah = "kiri";
+		    }else {
+		    	arah = "atas";
+		    }
 		}
 	}
 

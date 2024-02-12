@@ -124,7 +124,7 @@ public class Tree extends Block {
                     spriteHitNum =2;
                 }else if(spriteHitNum ==2) {
                     spriteHitNum =1;
-                    hp -=25;
+                    hp -=100;
                     getHit = false;
                 }
                 spriteCounter = 0;

@@ -1,10 +1,17 @@
 package com.main;
 
 import java.awt.Canvas;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+
+import com.filehandler.SpriteSheet;
 import com.id.EntityType;
 import com.id.ID;
 import com.input.Camera;
@@ -49,6 +56,7 @@ public class Game extends Canvas implements Runnable{
     private Entity player;
 
     public Game(){
+    	
         gameState = playState;
 		frame = new Frame(WIDTH, HEIGHT, "RPG SURVIVAL", this);
 		key = new KeyInput(this);
@@ -57,6 +65,14 @@ public class Game extends Canvas implements Runnable{
         addKeyListener(key);
 		this.addMouseListener(mouse);
 		addMouseMotionListener(mouse);
+		// Memuat gambar kursor kustom ke BufferedImage
+        BufferedImage customCursorImage = new SpriteSheet("/assets/GUI/Pointers/01.png").image;
+
+        // Membuat objek Cursor kustom
+        Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(customCursorImage,new java.awt.Point(0, 0), "Custom Cursor");
+
+        // Mengatur kursor kustom untuk JFrame
+        frame.frame.setCursor(customCursor);
         start();
     }
     public static void main(String[] args) {
@@ -88,7 +104,6 @@ public class Game extends Canvas implements Runnable{
             
         //////////////////////////////////////
         gui.draw(g2d);
-        mouse.drawInventory(g2d);
         g.dispose();
         bs.show();
     }

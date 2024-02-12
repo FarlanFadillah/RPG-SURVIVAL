@@ -81,7 +81,7 @@ public class Money extends Item{
     @Override
     public Rectangle renderOrder() {
         // TODO Auto-generated method stub
-        return new Rectangle();
+        return new Rectangle(x+16, y+64,96, 48);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.obj;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import com.filehandler.SpriteSheet;
@@ -77,6 +78,7 @@ public abstract class Entity extends GameObject {
     public abstract void render(Graphics g);
     public abstract void Collision();
 	public abstract void getImage();
+	public abstract void attacking(MouseEvent e);
 
     public void playerControl(){
 		if(isUp()) {
@@ -158,6 +160,13 @@ public abstract class Entity extends GameObject {
 				spriteCounter =0;
 			}
 			
+	}
+
+	public void stopMove() {
+		setUp(false);
+        setDown(false);
+        setRight(false);
+        setLeft(false);
 	}
     
 }
