@@ -78,7 +78,8 @@ public abstract class Entity extends GameObject {
     public abstract void render(Graphics g);
     public abstract void Collision();
 	public abstract void getImage();
-	public abstract void attacking(MouseEvent e);
+	public abstract void attacking1(MouseEvent e);
+	public abstract void attacking2(MouseEvent e);
 
     public void playerControl(){
 		if(isUp()) {

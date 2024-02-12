@@ -54,7 +54,8 @@ public class MouseInput extends MouseAdapter{
 			}
 		}else if(game.gameState == game.playState){
 			hitTree(e, true);
-			player.attacking(e);
+			player.attacking1(e);
+			player.speed = 4;
 		}
 		
 	}
@@ -77,12 +78,15 @@ public class MouseInput extends MouseAdapter{
 		int mx = (int) (e.getX() + camera.getX());
 		int my = (int) (e.getY() + camera.getY());
 		
+		player.attacking2(e);
 		shootArrow(mx, my);
 
 		
 	}
 	@Override
 	public void mouseReleased(MouseEvent e){
+		player.attack2 = false;
+		player.speed = 4;
 	}
 
 	public void shootArrow(int mx, int my){

@@ -679,7 +679,7 @@ public class Fighter extends Entity{
 				spriteCounter =0;
 			}
 		}else if(attack1 == false && attack2 == true) {
-			if(spriteCounter > 12) {
+			if(spriteCounter > 6) {
 				if(spriteAttack2 == 1) {
 					spriteAttack2 =2;
 				}else if(spriteAttack2 ==2) {
@@ -711,9 +711,36 @@ public class Fighter extends Entity{
 		
 	}
 	
-	public void attacking (MouseEvent e) {
+	public void attacking1 (MouseEvent e) {
 		if(attack1 == false && attack2 == false) {
+			attack2 = false;
 			attack1 = true;
+			float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
+			float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
+			
+			float angle = (float) Math.toDegrees(Math.atan2(py, px));
+
+		    if(angle < 0){
+		        angle += 360;
+		    }
+		    if(angle > 315 && angle <= 360 || angle > 0 && angle <= 45) {
+		    	arah = "kanan";
+		    }else if(angle > 45 && angle <= 135) {
+		    	arah = "bawah";
+		    }else if(angle > 135 && angle <= 225) {
+		    	arah = "kiri";
+		    }else {
+		    	arah = "atas";
+		    }
+		    speed = 0;
+		}
+	}
+	
+	public void attacking2 (MouseEvent e) {
+		if(attack1 == false && attack2 == false) {
+			attack1 = false;
+			attack2 = true;
+			speed = 0;
 			float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
 			float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
 			
