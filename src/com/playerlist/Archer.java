@@ -841,7 +841,7 @@ public class Archer extends Entity{
 				spriteCounter =0;
 			}
 		}else if(attack1 == true && attack2 == false) {
-			if(spriteCounter > 8) {
+			if(spriteCounter > 6) {
 				if(spriteAttack1 == 1) {
 					spriteAttack1 =2;
 				}else if(spriteAttack1 ==2) {
@@ -854,11 +854,11 @@ public class Archer extends Entity{
 					spriteAttack1 =6;
 				}else if(spriteAttack1 ==6) {
 					spriteAttack1 =7;
+					shootArrow();
 				}else if(spriteAttack1 ==7) {
 					spriteAttack1 =8;
 				}else if(spriteAttack1 ==8) {
 					spriteAttack1 =1;
-					shootArrow();
 					attack1 = false;
 					
 				}
@@ -907,7 +907,7 @@ public class Archer extends Entity{
 			float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
 			float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
 			
-			float angle = (float) Math.toDegrees(Math.atan2(py, px));
+			angle = (float) Math.toDegrees(Math.atan2(py, px));
 
 		    if(angle < 0){
 		        angle += 360;
@@ -931,7 +931,7 @@ public class Archer extends Entity{
 		    }
 		}
 	}
-	
+	public float angle;
 	public void attacking2 (MouseEvent e) {
 
 		if(attack1 == false && attack2 == false) {
@@ -940,7 +940,7 @@ public class Archer extends Entity{
 			float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
 			float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
 			
-			float angle = (float) Math.toDegrees(Math.atan2(py, px));
+			angle = (float) Math.toDegrees(Math.atan2(py, px));
 
 		    if(angle < 0){
 		        angle += 360;
@@ -958,7 +958,7 @@ public class Archer extends Entity{
 	}
 
 	public void shootArrow(){
-		game.tryWorld.objectLayer.get(0).add(new ArrowProjectile(this.getX()+image.getWidth()/2, this.getY()+image.getHeight()/2, null, BlockType.Projectile, game, mx, my));
+		game.tryWorld.objectLayer.get(0).add(new ArrowProjectile(this.getX()+image.getWidth()/2, this.getY()+image.getHeight()/2, null, BlockType.Projectile, game, mx, my, angle));
 	}
 
 }

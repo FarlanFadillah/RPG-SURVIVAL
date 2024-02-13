@@ -1,7 +1,10 @@
 package projectile;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 
 import com.filehandler.SpriteSheet;
 import com.id.BlockType;
@@ -17,12 +20,12 @@ public class ArrowProjectile extends Block{
 	
 	int velX = 0;
 	int velY = 0;
-
-	public ArrowProjectile(int x, int y, ID id, BlockType bt, Game game, int mx, int my) {
+	float rotate;
+	public ArrowProjectile(int x, int y, ID id, BlockType bt, Game game, int mx, int my, float rotate) {
 		super(x, y, id, bt, game);
 		velX = (mx - x) / 15;
 		velY = (my - y) / 15;
-		
+		this.rotate = rotate;
 		image = ss.grabImage(1, 1, 64, 64);
 	}
 
@@ -33,7 +36,12 @@ public class ArrowProjectile extends Block{
 	}
 
 	public void render(Graphics g) {
-		g.drawImage(image, x-32, y-32, null);
+		double locationX = image.getWidth() / 2;
+		double locationY = image.getHeight() / 2;
+		AffineTransform tx = AffineTransform.getRotateInstance(Math.toRadians(rotate), locationX, locationY);
+		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+		g.drawImage(op.filter(image, null), x-32, y-32, null);
 		
 	}
 
