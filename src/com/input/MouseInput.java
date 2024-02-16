@@ -12,18 +12,14 @@ import com.obj.Entity;
 import com.obj.GameObject;
 import com.ui.GUI;
 
-import projectile.ArrowProjectile;
 
 import com.blockList.Tree;
 import com.gameMechanics.Slot;
 import com.id.BlockType;
-import com.id.EntityClass;
-import com.id.EntityType;
 import com.id.ID;
 
 public class MouseInput extends MouseAdapter{
 	
-	private Camera camera;
 	Game game;
 	
 	public int mx, my;
@@ -36,7 +32,6 @@ public class MouseInput extends MouseAdapter{
 	Entity player;
 	public MouseInput(Game game) {
 		this.game = game;
-		this.camera = game.camera;
 		this.gui = game.gui;
 		player = game.getPlayerObject();
 		image = Tree.ss.grabImage(1, 1, 192, 192);
@@ -73,8 +68,6 @@ public class MouseInput extends MouseAdapter{
 	}
 	
 	public void mousePressed(MouseEvent e) {
-		int mx = (int) (e.getX() + camera.getX());
-		int my = (int) (e.getY() + camera.getY());
 		if(game.gameState == game.playState){
 			// player.checkAttackDirection(e);
 			// player.attacking2(e);

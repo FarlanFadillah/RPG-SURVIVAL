@@ -3,7 +3,6 @@ package com.ui;
 import com.main.Game;
 import com.obj.Entity;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class GUI {

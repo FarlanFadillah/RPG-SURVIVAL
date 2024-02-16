@@ -4,12 +4,10 @@ import java.awt.Canvas;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
 
 import com.filehandler.SpriteSheet;
 import com.id.EntityType;

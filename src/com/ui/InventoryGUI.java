@@ -14,7 +14,6 @@ import com.gameMechanics.Slot;
 import com.id.ItemType;
 import com.main.Game;
 import com.obj.Entity;
-import com.ui.Button;
 
 public class InventoryGUI {
     SpriteSheet inventoryBox = new SpriteSheet("/assets/GUI/Banners/Carved_36Slides_WithFrame.png");
