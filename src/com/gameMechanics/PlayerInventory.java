@@ -3,49 +3,84 @@ package com.gameMechanics;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import com.id.ItemType;
 import com.main.Game;
 import com.obj.Item;
 
 public class PlayerInventory {
     public int draggedSlotNum;
 	Game game;
-    public Slot[] itemSlot = new Slot[36];
+	public Slot[] consumeSlot = new Slot[36];
+    public Slot[] usedSlot = new Slot[36];
+    public Slot[] ingredientSlot = new Slot[36];
+    public Slot[] slots = new Slot[36];
     int col, row = 0;
     public boolean dragged = false;
     public Slot slotDragged;
     public BufferedImage dragItem;
     public PlayerInventory(Game game){
         this.game = game;
-        setSlot();
+        setSlot(consumeSlot);
+        setSlot(ingredientSlot);
+        setSlot(usedSlot);
     }
     public void addItem(Item item){
-    	for (int i = 0; i < itemSlot.length; i++) {
+    	for (int i = 0; i < 36; i++) {
     		try {
-    			if(!itemSlot[i].full && itemSlot[i].type.equals(item.name)){
-    				itemSlot[i].addItem(item);
-    				return;
+    			if(item.getItemType() == ItemType.Consume) {
+    				if(!consumeSlot[i].full && consumeSlot[i].type.equals(item.name)){
+    					consumeSlot[i].addItem(item);
+    					return;
+    				}
+    			}else if(item.getItemType() == ItemType.Used) {
+    				if(!usedSlot[i].full && usedSlot[i].type.equals(item.name)){
+    					usedSlot[i].addItem(item);
+    					return;
+    				}
+    			}else if(item.getItemType() == ItemType.ingredient) {
+    				if(!ingredientSlot[i].full && ingredientSlot[i].type.equals(item.name)){
+    					ingredientSlot[i].addItem(item);
+    					return;
+    				}
     			}
 			} catch (Exception e) {
-}
 
+			}
+		}
+		for (int i = 0; i < 36; i++) {
+        	if(item.getItemType() == ItemType.Consume) {
+        		if(consumeSlot[i].type == null){
+        			consumeSlot[i].addItem(item);
+        			return;
+        		}else if(!consumeSlot[i].full && consumeSlot[i].type.equals(item.name)){
+        			consumeSlot[i].addItem(item);
+        			return;
+        		}
+        	}else if(item.getItemType() == ItemType.Used) {
+        		if(usedSlot[i].type == null){
+        			usedSlot[i].addItem(item);
+        			return;
+        		}else if(!usedSlot[i].full && usedSlot[i].type.equals(item.name)){
+        			usedSlot[i].addItem(item);
+        			return;
+        		}
+        	}else if(item.getItemType() == ItemType.ingredient) {
+        		if(ingredientSlot[i].type == null){
+        			ingredientSlot[i].addItem(item);
+        			return;
+        		}else if(!ingredientSlot[i].full && ingredientSlot[i].type.equals(item.name)){
+        			ingredientSlot[i].addItem(item);
+        			return;
+        		}
+        	}
         }
-    	
-        for (int i = 0; i < itemSlot.length; i++) {
-            if(itemSlot[i].type == null){
-                itemSlot[i].addItem(item);
-                return;
-            }else if(!itemSlot[i].full && itemSlot[i].type.equals(item.name)){
-                itemSlot[i].addItem(item);
-                return;
-            }
-        }
-    }
+	}
     //initialization the slot, total 36 slot.
-    public void setSlot(){
+    public void setSlot(Slot[] slot){
         int i = 0, col = 0, row = 0;
         while (row < 6) {
 
-            itemSlot[i] = new Slot(col, row);
+        	slot[i] = new Slot(col, row);
             col++;
             i++;
             if(col >= 6){
@@ -57,9 +92,13 @@ public class PlayerInventory {
         
     }
 
-	public void dragItem(MouseEvent e) {
-		for (int i = 0; i < game.gui.inv.slot.length; i++) {
-			Slot temp = game.gui.inv.slot[i];
+	public void dragItem(MouseEvent e, ItemType itemType) {
+		Slot[] slot;
+		if(itemType == ItemType.Consume) slot = game.getPlayerObject().playerInventory.consumeSlot;
+		else if(itemType == ItemType.Used) slot = game.getPlayerObject().playerInventory.usedSlot;
+		else slot = game.getPlayerObject().playerInventory.ingredientSlot;
+		for (int i = 0; i < slot.length; i++) {
+			Slot temp = slot[i];
 			//Check collision on each slot
 			if(temp.getBound().contains(e.getPoint())) {
 				//drag item from slots
@@ -84,7 +123,7 @@ public class PlayerInventory {
 					dragged = false;
 					return;
 				//put dragged item to slot that already has the same type of item (fail if the target slot already full)
-				}else if(temp.items.size() > 0 && dragged == true && temp.type.equals(slotDragged.type) && temp.full == false && slotDragged.items.size()+temp.items.size() > Slot.MAX == false){
+				}else if(temp.items.size() > 0 && dragged == true && temp.type.equals(slotDragged.type) && temp.full == false && slotDragged.items.size()+temp.items.size() > temp.MAX == false){
 					temp.fill(slotDragged);
 					slotDragged.emptySlot();
 					dragged = false;
@@ -93,7 +132,7 @@ public class PlayerInventory {
 				 * Place the drawn item into a slot that has the same type of item, 
 				 * but the number of drawn items is only placed until the slot is full.
 				 * */
-				}else if(temp.items.size() > 0 && dragged == true && temp.type.equals(slotDragged.type) && temp.full == false && slotDragged.items.size()+temp.items.size() > Slot.MAX == true) {
+				}else if(temp.items.size() > 0 && dragged == true && temp.type.equals(slotDragged.type) && temp.full == false && slotDragged.items.size()+temp.items.size() > temp.MAX == true) {
 					temp.fillUntilFull(slotDragged, slotDragged.items.size() - temp.items.size());
 					draggedSlotNum = slotDragged.items.size();
 					return;

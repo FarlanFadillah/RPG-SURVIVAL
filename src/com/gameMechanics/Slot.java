@@ -8,7 +8,7 @@ import java.util.Iterator;
 import com.obj.Item;
 
 public class Slot implements Cloneable{
-    public static final int MAX = 32;
+    public int MAX = 32;
     public boolean full = false;
 
     public BufferedImage icon;
@@ -18,14 +18,24 @@ public class Slot implements Cloneable{
 
     public PlayerInventory playerInventory;
     public int col, row;
+    public int x, y, width, height;
     public ArrayList<Item> items = new ArrayList<>();
+    public Rectangle rectangle;
     public Slot(int col, int row){
         this.col = col;
         this.row = row;
+        rectangle = new Rectangle(col*64, (row*64)+8, 64, 64);
+    }
+    public Slot(int x, int y, int width, int height){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        rectangle = new Rectangle(x, y, width, height);
     }
 
     public Rectangle getBound(){
-        return new Rectangle(col*64, (row*64)+8, 64, 64);
+        return rectangle;
     }
     public void addItem(Item item){
         if(items.size() == 0){

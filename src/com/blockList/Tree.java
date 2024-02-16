@@ -9,6 +9,7 @@ import com.filehandler.SpriteSheet;
 import com.id.BlockType;
 import com.id.ID;
 import com.id.ItemType;
+import com.item.Meat;
 import com.item.Money;
 import com.item.Wood;
 import com.main.Game;
@@ -73,11 +74,13 @@ public class Tree extends Block {
         }else if(hp <= 0){
             if(!itemDroped){
                 Random rand = new Random();
-                int r = rand.nextInt(2)+1;
+                int r = rand.nextInt(3)+1;
                 if(r == 1){
-                    game.tryWorld.objectLayer.get(0).add(new Money(x+32, y+32, ID.Item, ItemType.ingredient));
-                }else{
+                    game.tryWorld.objectLayer.get(0).add(new Money(x+32, y+32, ID.Item, ItemType.Used));
+                }else if (r==2){
                     game.tryWorld.objectLayer.get(0).add(new Wood(x+32, y+32, ID.Item, ItemType.ingredient));
+                }else{
+                    game.tryWorld.objectLayer.get(0).add(new Meat(x+32, y+32, ID.Item, ItemType.Consume));
                 }
                 itemDroped = true;
             }

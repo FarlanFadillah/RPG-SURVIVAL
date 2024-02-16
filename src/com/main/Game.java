@@ -32,6 +32,8 @@ public class Game extends Canvas implements Runnable{
     private boolean running;
     public KeyInput key;
     public MouseInput mouse;
+    //Coba Coba
+    public Island tryWorld = new Island(this);
 
     //Game State Section
     public int gameState = 0;
@@ -43,8 +45,6 @@ public class Game extends Canvas implements Runnable{
 	public Frame frame;
 
     
-    //Coba Coba
-    public Island tryWorld = new Island(this);
     //Camera
     public Camera camera = new Camera(0, 0);
 

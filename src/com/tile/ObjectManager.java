@@ -131,13 +131,20 @@ public class ObjectManager {
                     }else if(extractValueStr(line, "name").contains("enemy")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
-                        objects.add(new GoblinTorch(x, y, ID.Entity , EntityType.NPC, EntityClass.Goblins, game));
+                        String enClass = extractValueStr(line, "type");
+                        if(enClass.contains("goblinTNT")){
+                        	objects.add(new GoblinTNTField(x, y, ID.Entity , EntityType.NPC, EntityClass.Goblins, game));
+                        }else if(enClass.contains("goblinBarrel")) {
+                        	objects.add(new GoblinBarrel(x, y, ID.Entity , EntityType.NPC, EntityClass.Goblins, game));
+                        }else if(enClass.contains("goblinTorch")) {
+                        	objects.add(new GoblinTorch(x, y, ID.Entity , EntityType.NPC, EntityClass.Goblins, game));
+                        }
                         line = br.readLine();
                         line = br.readLine();
                     }else if(extractValueStr(line, "name").contains("player")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
-                        objects.add(new Archer(x, y, ID.Entity , EntityType.Player, EntityClass.Archer, game));
+                        objects.add(new Fighter(x, y, ID.Entity , EntityType.Player, EntityClass.Fighter, game));
                         line = br.readLine();
                         line = br.readLine();
                     }else if(extractValueStr(line, "name").contains("solid")){

@@ -12,8 +12,10 @@ public abstract class Item extends GameObject{
     public int spriteNum = 1;
     public BufferedImage spawnImage[] = new BufferedImage[7];
     public BufferedImage icon;
+    ItemType itemType;
     public Item(int x, int y, ID id, ItemType it) {
         super(x, y, id);
+        this.itemType = it;
     }
 
     public abstract void spawn();
@@ -51,4 +53,9 @@ public abstract class Item extends GameObject{
 		spawn();
 		
 	}
+
+    public ItemType getItemType() {
+        // TODO Auto-generated method stub
+        return itemType;
+    }
 }
