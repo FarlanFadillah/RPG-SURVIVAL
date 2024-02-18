@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import com.filehandler.SpriteSheet;
 
 public class Button {
-	SpriteSheet pressedIcon, unpressedIcon;
+	BufferedImage pressedIcon, unpressedIcon;
 	BufferedImage image;
 	public boolean pressed = false;
 	public int x, y;
@@ -17,17 +17,21 @@ public class Button {
 	Font f1 = new Font("DialogInput", Font.BOLD, 15);
 	public String direction;
 	public Button(String path, String path2) {
-		unpressedIcon = new SpriteSheet(path);
-		pressedIcon= new SpriteSheet(path2);
-		image = unpressedIcon.image;
+		unpressedIcon = new SpriteSheet(path).image;
+		pressedIcon= new SpriteSheet(path2).image;
+		image = unpressedIcon;
 	}
-	public void drawButton(Graphics2D g2d, int x, int y) {
+	public Button(String string, int i, int j, int k, int l, int size) {
+		unpressedIcon = new SpriteSheet(string).grabImage(i, j, size, size);
+		pressedIcon = new SpriteSheet(string).grabImage(k, l, size, size);
+    }
+    public void drawButton(Graphics2D g2d, int x, int y) {
 		this.x = x;
 		this.y = y;
 		if(pressed) {
-			image = pressedIcon.image;
+			image = pressedIcon;
 		}else {
-			image = unpressedIcon.image;
+			image = unpressedIcon;
 		}
 		g2d.drawImage(image, x, y, null);
 		g2d.setColor(Color.black);

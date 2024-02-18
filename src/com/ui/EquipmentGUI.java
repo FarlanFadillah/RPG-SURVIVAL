@@ -1,4 +1,5 @@
 package com.ui;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
@@ -11,7 +12,7 @@ public class EquipmentGUI {
     SpriteSheet slotEquipment = new SpriteSheet("/assets/GUI/Banners/Equipment.png");
     public PlayerEquipment pe;
     public Game game;
-    int x, y;
+    public int x, y;
 
     public PlayerEquipment playerEquipment;
     public EquipmentGUI(Game game){
@@ -20,7 +21,7 @@ public class EquipmentGUI {
         start = Game.WIDTH+64;
         x = start;
         y = 8;
-        pe = new PlayerEquipment(stop, y);
+        pe = game.getPlayerObject().playerEquipment;
     }
     public void tick(boolean state){
         if(state){
@@ -36,6 +37,7 @@ public class EquipmentGUI {
 
     public void drawEquipmentSlot(Graphics2D g2d){
         g2d.drawImage(slotEquipment.image, x, y, null);
+        g2d.drawImage(game.getPlayerObject().idleDown[0], x+32, y+48, null);
     }
 
     public Rectangle getBound(){

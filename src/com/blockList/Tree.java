@@ -11,6 +11,7 @@ import com.id.ID;
 import com.id.ItemType;
 import com.item.Meat;
 import com.item.Money;
+import com.item.Sword;
 import com.item.Wood;
 import com.main.Game;
 import com.obj.Block;
@@ -80,7 +81,7 @@ public class Tree extends Block {
                 }else if (r==2){
                     game.tryWorld.objectLayer.get(0).add(new Wood(x+32, y+32, ID.Item, ItemType.ingredient));
                 }else{
-                    game.tryWorld.objectLayer.get(0).add(new Meat(x+32, y+32, ID.Item, ItemType.Consume));
+                    game.tryWorld.objectLayer.get(0).add(new Sword(x+32, y+32, ID.Item, ItemType.Used));
                 }
                 itemDroped = true;
             }

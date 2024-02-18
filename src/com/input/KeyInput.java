@@ -2,13 +2,10 @@ package com.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 
-import com.id.EntityType;
-import com.id.ID;
+import com.id.ItemType;
 import com.main.Game;
 import com.obj.Entity;
-import com.obj.GameObject;
 
 public class KeyInput implements KeyListener{
 	Game game;

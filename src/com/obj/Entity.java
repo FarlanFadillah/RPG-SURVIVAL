@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import com.filehandler.SpriteSheet;
+import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
 import com.id.EntityClass;
 import com.id.EntityType;
@@ -23,6 +24,7 @@ public abstract class Entity extends GameObject {
 	protected EntityClass ec;
 
 	public PlayerInventory playerInventory;
+	public PlayerEquipment playerEquipment;
 	
 	public SpriteSheet ss;
 	public String arah; //tanda arah

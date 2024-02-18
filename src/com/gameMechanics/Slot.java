@@ -3,7 +3,6 @@ package com.gameMechanics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.obj.Item;
 
@@ -14,6 +13,7 @@ public class Slot implements Cloneable{
     public BufferedImage icon;
 
     public String type;
+    public String equipmentType = "";
 
 
     public PlayerInventory playerInventory;
@@ -21,6 +21,7 @@ public class Slot implements Cloneable{
     public int x, y, width, height;
     public ArrayList<Item> items = new ArrayList<>();
     public Rectangle rectangle;
+    public boolean equipment = false;
     public Slot(int col, int row){
         this.col = col;
         this.row = row;
@@ -37,12 +38,20 @@ public class Slot implements Cloneable{
     public Rectangle getBound(){
         return rectangle;
     }
+    public Rectangle getBound(int x, int y){
+        return new Rectangle(this.x+x, this.y+y, 64, 64);
+    }
     public void addItem(Item item){
+        try {
+            if(item.equipmentType.equals(null)) this.MAX = 1; full = true;
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         if(items.size() == 0){
             type = item.name;
             items.add(item);
             icon = item.icon;
-        }else if(items.size() < MAX ){
+        }else if(items.size()>0 && items.size() < MAX && full == false){
             items.add(item);
 
         }else{
@@ -85,6 +94,15 @@ public class Slot implements Cloneable{
 
     public void emptySlot() {
         items.removeAll(items);
+        this.MAX = 32;
+        this.full = false;
+        this.type = null;
+        this.icon = null;
+    }
+    public void emptySlot(int MAX) {
+        items.removeAll(items);
+        this.MAX = MAX;
+        this.full = true;
         this.type = null;
         this.icon = null;
     }
@@ -95,6 +113,14 @@ public class Slot implements Cloneable{
             addItem(slotDragged.items.get(j));
         }
         type = slotDragged.type;
+        icon = slotDragged.icon;
+        full = slotDragged.full;
+    }
+    public void fillEquipment(Slot slotDragged) {
+        // TODO Auto-generated method stub
+        for (int j = 0; j < slotDragged.items.size(); j++) {
+            addItem(slotDragged.items.get(j));
+        }
         icon = slotDragged.icon;
         full = slotDragged.full;
     }

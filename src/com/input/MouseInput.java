@@ -40,9 +40,9 @@ public class MouseInput extends MouseAdapter{
 	@Override
 	public void mouseClicked(MouseEvent e){
 		if(game.gameState == game.InventoryState){
-			player.playerInventory.dragItem(e, game.gui.inv.itemType);
-			if(!game.gui.inv.getBound().contains(e.getPoint()) && player.playerInventory.dragged && !game.gui.inv.equipment.getBound().contains(e.getPoint())) {
-				player.playerInventory.dropItem();
+			game.gui.inv.dragItem(e, game.gui.inv.itemType);
+			if(!game.gui.inv.getBound().contains(e.getPoint()) && game.gui.inv.dragged && !game.gui.inv.equipment.getBound().contains(e.getPoint())) {
+				game.gui.inv.dropItem();
 				game.gameState = game.playState;
 			}
 		}else if(game.gameState == game.playState){
@@ -69,9 +69,7 @@ public class MouseInput extends MouseAdapter{
 	
 	public void mousePressed(MouseEvent e) {
 		if(game.gameState == game.playState){
-			// player.checkAttackDirection(e);
-			// player.attacking2(e);
-			// shootArrow(mx, my);
+
 		}else if(game.gameState == game.InventoryState) {
 			gui.inv.checkButton(e);
 		}

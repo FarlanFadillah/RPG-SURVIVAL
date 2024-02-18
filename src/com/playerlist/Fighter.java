@@ -5,8 +5,8 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
 import com.filehandler.SpriteSheet;
+import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
-import com.id.BlockType;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
@@ -16,7 +16,6 @@ import com.obj.GameObject;
 import com.obj.Item;
 import com.tile.ImageManager;
 
-import projectile.ArrowProjectile;
 
 public class Fighter extends Entity{
 	
@@ -29,6 +28,7 @@ public class Fighter extends Entity{
 	public Fighter(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
 		super(x, y, id, et, ec, game);
 		playerInventory = new PlayerInventory(game);
+		playerEquipment = new PlayerEquipment(game);
 		hp = 100;
 		mana = 100;
 		stamina = 100;
