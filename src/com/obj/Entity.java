@@ -29,6 +29,7 @@ public abstract class Entity extends GameObject {
 	public SpriteSheet ss;
 	public String arah; //tanda arah
 	public String arahAttack; //tanda arah attack
+	public String arahTree; //tanda arah tree
 	
 	public BufferedImage[] runDown = new BufferedImage[6];
 	public BufferedImage[] runUp = new BufferedImage[6];
@@ -63,12 +64,19 @@ public abstract class Entity extends GameObject {
 	public BufferedImage[] attack2Right = new BufferedImage[6];
 	public BufferedImage[] attack2Left = new BufferedImage[6];
 	
+	public BufferedImage[] treeUp = new BufferedImage[6];
+	public BufferedImage[] treeDown = new BufferedImage[6];
+	public BufferedImage[] treeRight = new BufferedImage[6];
+	public BufferedImage[] treeLeft = new BufferedImage[6];
+	
+	public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
 
 
 	public int spriteNum = 1 ; // Counter Animation
 	public int spriteCounter = 0;
 	public boolean attack1 = false;
 	public boolean attack2 = false;
+	public boolean cutTree = false;
 
     public Entity(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
         super(x, y, id);
@@ -178,5 +186,12 @@ public abstract class Entity extends GameObject {
         setRight(false);
         setLeft(false);
 	}
+	
+	public Block hit = null;
+	
+	public abstract void hitTree();
+	public abstract void checkTree(MouseEvent e, boolean hitTree);
+	
+	public abstract void attack2();
     
 }

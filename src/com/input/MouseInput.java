@@ -39,17 +39,23 @@ public class MouseInput extends MouseAdapter{
 
 	@Override
 	public void mouseClicked(MouseEvent e){
-		if(game.gameState == game.InventoryState){
-			game.gui.inv.dragItem(e, game.gui.inv.itemType);
-			if(!game.gui.inv.getBound().contains(e.getPoint()) && game.gui.inv.dragged && !game.gui.inv.equipment.getBound().contains(e.getPoint())) {
-				game.gui.inv.dropItem();
-				game.gameState = game.playState;
+		if(e.getButton() == MouseEvent.BUTTON1){
+			if(game.gameState == game.InventoryState){
+				game.gui.inv.dragItem(e, game.gui.inv.itemType);
+				if(!game.gui.inv.getBound().contains(e.getPoint()) && game.gui.inv.dragged && !game.gui.inv.equipment.getBound().contains(e.getPoint())) {
+					game.gui.inv.dropItem();
+					game.gameState = game.playState;
+				}
+			}else if(game.gameState == game.playState){
+				player.attacking1(e);
+				player.checkTree(e, true);
+				
 			}
-		}else if(game.gameState == game.playState){
-			hitTree(e, true);
-			player.attacking1(e);
-			
-		}
+        }else if (e.getButton() == MouseEvent.BUTTON2){
+            
+        }else if (e.getButton() == MouseEvent.BUTTON3){
+        	
+        }
 		
 	}
 	
@@ -68,39 +74,29 @@ public class MouseInput extends MouseAdapter{
 	}
 	
 	public void mousePressed(MouseEvent e) {
-		if(game.gameState == game.playState){
+        if (e.getButton() == MouseEvent.BUTTON1){
+        	if(game.gameState == game.playState){
 
-		}else if(game.gameState == game.InventoryState) {
-			gui.inv.checkButton(e);
-		}
-		
-	}
+    		}else if(game.gameState == game.InventoryState) {
+    			gui.inv.checkButton(e);
+    		}
+            
+        } else if (e.getButton() == MouseEvent.BUTTON2){
+            
+        } else if (e.getButton() == MouseEvent.BUTTON3) {
+        	if(game.gameState == game.playState){
+    			player.attacking2(e);
+
+    		}else if(game.gameState == game.InventoryState) {
+    
+    		}
+            
+        } 
+    }
+	
 	@Override
 	public void mouseReleased(MouseEvent e){
-		player.attack2 = false;
+		player.attack2();
 	}
-
 	
-
-	public void hitTree(MouseEvent e, boolean gethit){
-		Block hit = null;
-		Rectangle key = new Rectangle((e.getX() + (int)game.camera.getX())-5, (e.getY() + (int) game.camera.getY())-5, 10, 10);
-		for(int i = 0; i < game.tryWorld.objectLayer.get(0).size(); i++) {
-			GameObject tempObject = game.tryWorld.objectLayer.get(0).get(i);
-			if(tempObject.getBound().intersects(key.getBounds())&&tempObject.getID() == ID.Block){
-				Block tempBlock = (Block) tempObject;
-				if(tempBlock.getBlockType() == BlockType.DestroyAble){
-					hit = (Block)tempBlock;
-				}
-			}
-			
-			
-		}
-		try {
-			hit.getHit = true;
-		} catch (Exception ex) {
-			// TODO: handle exception
-		}
-	}
-
 }

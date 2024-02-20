@@ -12,6 +12,7 @@ import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
 import com.main.Game;
+import com.obj.Block;
 import com.obj.Entity;
 import com.obj.GameObject;
 import com.obj.Item;
@@ -22,10 +23,13 @@ import projectile.ArrowProjectile;
 public class Archer extends Entity{
 
 	public SpriteSheet ss = new SpriteSheet("/assets/assetsentity/Archer.png");
+	public SpriteSheet ss2 = new SpriteSheet("/assets/assetsentity/Pawn_Blue.png");
+	
 	ImageManager im = new ImageManager();
 	
 	private int spriteAttack1 = 1;
 	private int spriteAttack2 = 1;
+	private int spriteTree = 1;
 
 	//Position of mouse
 	public int mx = 0, my = 0;
@@ -52,6 +56,7 @@ public class Archer extends Entity{
 		image = idleRight[0];
 		arah = "kanan";
 		arahAttack = "kanan";
+		arahTree = "kanan";
 		
 	}
 	
@@ -103,7 +108,7 @@ public class Archer extends Entity{
 	}
 	
 	public void animatedSprite(){
-		if(attack1 == false && attack2 == false) {
+		if(attack1 == false && attack2 == false && cutTree == false) {
 			if(isUp() || isDown()|| isRight() || isLeft()) {
 				switch (arah) {
 				case "atas": 
@@ -278,7 +283,7 @@ public class Archer extends Entity{
 					break;
 				}
 			}
-		} else if(attack1 == true && attack2 == false){
+		} else if(attack1 == true && attack2 == false && cutTree == false){
 				switch (arahAttack) {
 				case "atas": 
 					if(spriteAttack1 == 1) {
@@ -506,8 +511,6 @@ public class Archer extends Entity{
 					
 				}
 				
-				
-				
 				//Not finished yet
 		} else if(attack1 == false && attack2 == true) {
 				switch (arahAttack) {
@@ -669,6 +672,96 @@ public class Archer extends Entity{
 					}
 					break;
 				}
+			}else if(attack1 == false && attack2 == false && cutTree == true) {
+				switch (arahTree) {
+				case "atas": 
+					if(spriteTree == 1) {
+						image = treeUp[0];
+					}
+					if(spriteTree == 2) {
+						image = treeUp[1];
+					}
+					if(spriteTree == 3) {
+						image = treeUp[2];
+					}
+					if(spriteTree == 4) {
+						image = treeUp[3];
+					}
+					if(spriteTree == 5) {
+						image = treeUp[4];
+					}
+					if(spriteTree == 6) {
+						image = treeUp[5];
+					}
+
+					break;
+					
+				case "bawah":
+					if(spriteTree == 1) {
+						image = treeDown[0];
+					}
+					if(spriteTree == 2) {
+						image = treeDown[1];
+					}
+					if(spriteTree == 3) {
+						image = treeDown[2];
+					}
+					if(spriteTree == 4) {
+						image = treeDown[3];
+					}
+					if(spriteTree == 5) {
+						image = treeDown[4];
+					}
+					if(spriteTree == 6) {
+						image = treeDown[5];
+					}
+
+					break;
+					
+				case "kanan":
+					if(spriteTree == 1) {
+						image = treeRight[0];
+					}
+					if(spriteTree == 2) {
+						image = treeRight[1];
+					}
+					if(spriteTree == 3) {
+						image = treeRight[2];
+					}
+					if(spriteTree == 4) {
+						image = treeRight[3];
+					}
+					if(spriteTree == 5) {
+						image = treeRight[4];
+					}
+					if(spriteTree == 6) {
+						image = treeRight[5];
+					}
+
+					break;
+					
+				case "kiri":
+					if(spriteTree == 1) {
+						image = treeLeft[0];
+					}
+					if(spriteTree == 2) {
+						image = treeLeft[1];
+					}
+					if(spriteTree == 3) {
+						image = treeLeft[2];
+					}
+					if(spriteTree == 4) {
+						image = treeLeft[3];
+					}
+					if(spriteTree == 5) {
+						image = treeLeft[4];
+					}
+					if(spriteTree == 6) {
+						image = treeLeft[5];
+					
+					break;
+					}
+				}
 			}
 	}
 
@@ -803,6 +896,34 @@ public class Archer extends Entity{
 			attack1DownLeft[6] = im.scaledImage(ss.grabImage(2, 11, 192, 192), 192,192);
 			attack1DownLeft[7] = im.scaledImage(ss.grabImage(1, 11, 192, 192), 192,192);
 			
+			treeUp[0] = im.scaledImage(ss2.grabImage(1, 4, 192, 192), 192,192);
+			treeUp[1] = im.scaledImage(ss2.grabImage(2, 4, 192, 192), 192,192);
+			treeUp[2] = im.scaledImage(ss2.grabImage(3, 4, 192, 192), 192,192);
+			treeUp[3] = im.scaledImage(ss2.grabImage(4, 4, 192, 192), 192,192);
+			treeUp[4] = im.scaledImage(ss2.grabImage(5, 4, 192, 192), 192,192);
+			treeUp[5] = im.scaledImage(ss2.grabImage(6, 4, 192, 192), 192,192);
+			
+			treeDown[0] = im.scaledImage(ss2.grabImage(1, 4, 192, 192), 192,192);
+			treeDown[1] = im.scaledImage(ss2.grabImage(2, 4, 192, 192), 192,192);
+			treeDown[2] = im.scaledImage(ss2.grabImage(3, 4, 192, 192), 192,192);
+			treeDown[3] = im.scaledImage(ss2.grabImage(4, 4, 192, 192), 192,192);
+			treeDown[4] = im.scaledImage(ss2.grabImage(5, 4, 192, 192), 192,192);
+			treeDown[5] = im.scaledImage(ss2.grabImage(6, 4, 192, 192), 192,192);
+			
+			treeRight[0] = im.scaledImage(ss2.grabImage(1, 4, 192, 192), 192,192);
+			treeRight[1] = im.scaledImage(ss2.grabImage(2, 4, 192, 192), 192,192);
+			treeRight[2] = im.scaledImage(ss2.grabImage(3, 4, 192, 192), 192,192);
+			treeRight[3] = im.scaledImage(ss2.grabImage(4, 4, 192, 192), 192,192);
+			treeRight[4] = im.scaledImage(ss2.grabImage(5, 4, 192, 192), 192,192);
+			treeRight[5] = im.scaledImage(ss2.grabImage(6, 4, 192, 192), 192,192);
+			
+			treeLeft[0] = im.scaledImage(ss2.grabImage(1, 4, 192, 192), 192,192);
+			treeLeft[1] = im.scaledImage(ss2.grabImage(2, 4, 192, 192), 192,192);
+			treeLeft[2] = im.scaledImage(ss2.grabImage(3, 4, 192, 192), 192,192);
+			treeLeft[3] = im.scaledImage(ss2.grabImage(4, 4, 192, 192), 192,192);
+			treeLeft[4] = im.scaledImage(ss2.grabImage(5, 4, 192, 192), 192,192);
+			treeLeft[5] = im.scaledImage(ss2.grabImage(6, 4, 192, 192), 192,192);
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -823,7 +944,7 @@ public class Archer extends Entity{
 	public void spriteCounter(){
 
 		spriteCounter++;
-		if(attack1 == false && attack2 == false) {
+		if(attack1 == false && attack2 == false && cutTree == false) {
 			if(spriteCounter > 6) {
 				if(spriteNum == 1) {
 					spriteNum =2;
@@ -840,8 +961,8 @@ public class Archer extends Entity{
 				}
 				spriteCounter =0;
 			}
-		}else if(attack1 == true && attack2 == false) {
-			if(spriteCounter > 6) {
+		}else if(attack1 == true && attack2 == false && cutTree == false) {
+			if(spriteCounter > 8) {
 				if(spriteAttack1 == 1) {
 					spriteAttack1 =2;
 				}else if(spriteAttack1 ==2) {
@@ -854,17 +975,17 @@ public class Archer extends Entity{
 					spriteAttack1 =6;
 				}else if(spriteAttack1 ==6) {
 					spriteAttack1 =7;
-					shootArrow();
 				}else if(spriteAttack1 ==7) {
 					spriteAttack1 =8;
 				}else if(spriteAttack1 ==8) {
 					spriteAttack1 =1;
+					shootArrow();
 					attack1 = false;
 					
 				}
 				spriteCounter =0;
 			}
-		}else if(attack1 == false && attack2 == true) {
+		}else if(attack1 == false && attack2 == true && cutTree == false) {
 			//not finished
 			if(spriteCounter > 6) {
 				if(spriteAttack2 == 1) {
@@ -893,6 +1014,26 @@ public class Archer extends Entity{
 					spriteAttack2 =1;
 				}
 				spriteCounter =0;
+			}
+		}else if(attack1 == false && attack2 == false && cutTree == true) {
+			if(spriteCounter > 6) {
+				if(spriteTree == 1) {
+					spriteTree =2;
+				}else if(spriteTree ==2) {
+					spriteTree =3;
+				}else if(spriteTree ==3) {
+					spriteTree =4;
+					hitTree();
+				}else if(spriteTree ==4) {
+					spriteTree =5;
+				}else if(spriteTree ==5) {
+					spriteTree =6;
+				}else if(spriteTree ==6) {
+					spriteTree =1;
+					cutTree = false;
+				}
+				spriteCounter =0;
+				
 			}
 		}
 		
@@ -959,6 +1100,43 @@ public class Archer extends Entity{
 
 	public void shootArrow(){
 		game.tryWorld.objectLayer.get(0).add(new ArrowProjectile(this.getX()+image.getWidth()/2, this.getY()+image.getHeight()/2, null, BlockType.Projectile, game, mx, my, angle));
+	}
+	
+	@Override
+	public void hitTree(){
+		
+		try {
+			hit.getHit = true;
+			System.out.println("hit");
+		} catch (Exception ex) {
+			// TODO: handle exception
+		}
+	}
+	
+	@Override
+	public void checkTree(MouseEvent e, boolean hitTree){
+		Rectangle key = new Rectangle((e.getX() + (int)game.camera.getX())-5, (e.getY() + (int) game.camera.getY())-5, 10, 10);
+		for(int i = 0; i < game.tryWorld.objectLayer.get(0).size(); i++) {
+			GameObject tempObject = game.tryWorld.objectLayer.get(0).get(i);
+			if(tempObject.getBound().intersects(key.getBounds())&&tempObject.getID() == ID.Block){
+				Block tempBlock = (Block) tempObject;
+				if(tempBlock.getBlockType() == BlockType.DestroyAble){
+					hit = (Block)tempBlock;
+					attack1 = false;
+					attack2 = false;
+					cutTree = true;
+					System.out.println("get");
+					break;
+				}
+			}	
+		}
+		
+	}
+
+	@Override
+	public void attack2() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

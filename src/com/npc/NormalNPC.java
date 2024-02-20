@@ -411,4 +411,22 @@ public class NormalNPC extends Entity{
 		
 	}
 
+	@Override
+	public void hitTree() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void checkTree(MouseEvent e, boolean hitTree) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attack2() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

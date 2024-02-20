@@ -41,6 +41,9 @@ public class GoblinTorch extends Entity{
 		spriteCounter();
 		playerControl();
 		checkDistance();
+		if(hp <= 0) {
+			game.tryWorld.objectLayer.get(0).remove(this);
+		}
 	}
 	
 	public void checkDistance() {
@@ -417,6 +420,24 @@ public class GoblinTorch extends Entity{
 
 	@Override
 	public void attacking2(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hitTree() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void checkTree(MouseEvent e, boolean hitTree) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attack2() {
 		// TODO Auto-generated method stub
 		
 	}
