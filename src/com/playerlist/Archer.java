@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import com.filehandler.SpriteSheet;
+import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
 import com.id.BlockType;
 import com.id.EntityClass;
@@ -46,6 +47,7 @@ public class Archer extends Entity{
 		attack1DownLeft = new BufferedImage[8];
 		
 		playerInventory = new PlayerInventory(game);
+		playerEquipment = new PlayerEquipment(game);
 		
 		hp = 100;
 		mana = 100;
@@ -1099,7 +1101,7 @@ public class Archer extends Entity{
 	}
 
 	public void shootArrow(){
-		game.tryWorld.objectLayer.get(0).add(new ArrowProjectile(this.getX()+image.getWidth()/2, this.getY()+image.getHeight()/2, null, BlockType.Projectile, game, mx, my, angle));
+		game.tryWorld.objectLayer.get(0).add(new ArrowProjectile(this.getX()+image.getWidth()/2, this.getY()+image.getHeight()/2, null, BlockType.Projectile, game, mx, my, angle, arahAttack));
 	}
 	
 	@Override

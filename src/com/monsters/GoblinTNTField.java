@@ -111,6 +111,7 @@ public class GoblinTNTField extends Entity{
 	public void render(Graphics g) {
 		animatedSprite();
 		g.drawImage(image, x, y, null);
+		//g.fillRect(getBound().x, getBound().y, getBound().width, getBound().height);
 		
 	}
 
@@ -374,11 +375,11 @@ public class GoblinTNTField extends Entity{
 	}
 
 	public Rectangle getBound() {
-		return new Rectangle(x+48, y +96, 96, 48 );
+		return new Rectangle(x+80, y +80, 32, 40 );
 	}
 
 	public Rectangle renderOrder() {
-		return new Rectangle(x+48, y +96, 96, 48 );
+		return new Rectangle(x+80, y +80, 32, 40 );
 	}
 
 	public Rectangle getSize() {

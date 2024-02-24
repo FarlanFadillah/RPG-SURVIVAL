@@ -1,5 +1,5 @@
 package com.id;
 
 public enum EntityType {
-    Player(), NPC();
+    Player(), NPC(), Monster();
 }

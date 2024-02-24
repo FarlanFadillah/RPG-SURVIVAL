@@ -24,7 +24,6 @@ public class GoblinBarrel extends Entity{
 	boolean idleout = false;
 	private int spriteIdleIn = 1;
 	private int spriteIdleOut = 1;
-	public int start, stop = 0;
 
 	public GoblinBarrel(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
 		super(x, y, id, et, ec, game);
@@ -142,6 +141,7 @@ public class GoblinBarrel extends Entity{
 	public void render(Graphics g) {
 		animatedSprite();
 		g.drawImage(image, x, y, null);
+		//g.fillRect(getBound().x, getBound().y, getBound().width, getBound().height);
 		
 	}
 
@@ -332,11 +332,11 @@ public class GoblinBarrel extends Entity{
 	}
 
 	public Rectangle getBound() {
-		return new Rectangle(x+32, y +64, 64, 48 );
+		return new Rectangle(x+45, y +51, 38, 40 );
 	}
 
 	public Rectangle renderOrder() {
-		return new Rectangle(x+32, y +64, 64, 48 );
+		return new Rectangle(x+45, y +51, 38, 40 );
 	}
 
 	public Rectangle getSize() {

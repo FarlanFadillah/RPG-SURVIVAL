@@ -111,6 +111,7 @@ public class GoblinTorch extends Entity{
 	public void render(Graphics g) {
 		animatedSprite();
 		g.drawImage(image, x, y, null);
+		//g.fillRect(getBound().x, getBound().y, getBound().width, getBound().height);
 	}
 
 	public void Collision() {
@@ -372,11 +373,11 @@ public class GoblinTorch extends Entity{
 	}
 
 	public Rectangle getBound() {
-		return new Rectangle(x+48, y +96, 96, 48 );
+		return new Rectangle(x+78, y+78, 34, 42 );
 	}
 
 	public Rectangle renderOrder() {
-		return new Rectangle(x+48, y +96, 96, 48 );
+		return new Rectangle(x+78, y+78, 34, 42 );
 	}
 
 	public Rectangle getSize() {

@@ -19,6 +19,8 @@ public abstract class GameObject {
     public abstract Rectangle renderOrder();
     public abstract Rectangle getSize();
     public abstract void hit();
+    
+    public int start, stop = 0;
 
     public GameObject(int x, int y, ID id){
         this.x = x;
