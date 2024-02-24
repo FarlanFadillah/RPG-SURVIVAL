@@ -15,6 +15,7 @@ import com.main.Game;
 public abstract class Entity extends GameObject {
     public int speed;
     public boolean up = false, down = false, right= false, left = false;
+    public boolean dead = false;
     public String name;
     public int mana, xp;
 	public float stamina;
@@ -30,6 +31,8 @@ public abstract class Entity extends GameObject {
 	public String arah; //tanda arah
 	public String arahAttack; //tanda arah attack
 	public String arahTree; //tanda arah tree
+	
+	public BufferedImage[] death = new BufferedImage[14];
 	
 	public BufferedImage[] runDown = new BufferedImage[6];
 	public BufferedImage[] runUp = new BufferedImage[6];
@@ -74,6 +77,7 @@ public abstract class Entity extends GameObject {
 
 	public int spriteNum = 1 ; // Counter Animation
 	public int spriteCounter = 0;
+	public int spriteDead = 1;
 	public boolean attack1 = false;
 	public boolean attack2 = false;
 	public boolean cutTree = false;

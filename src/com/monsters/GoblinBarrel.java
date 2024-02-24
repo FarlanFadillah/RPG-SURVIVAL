@@ -17,6 +17,7 @@ import com.tile.ImageManager;
 public class GoblinBarrel extends Entity{
 	
 	public SpriteSheet ss = new SpriteSheet("/assets/assetsentity/Goblins_Barrel_Red.png");
+	public SpriteSheet ssdead = new SpriteSheet("/assets/assetsentity/Dead.png");
 	ImageManager im = new ImageManager();
 	private int xMove = 0;
 	private int yMove = 0;
@@ -43,9 +44,9 @@ public class GoblinBarrel extends Entity{
 		Collision();
 		spriteCounter();
 		playerControl();
-		checkDistance();
+		//checkDistance();
 		if(hp <= 0) {
-			game.tryWorld.objectLayer.get(0).remove(this);
+			dead = true;
 		}
 	}
 	
@@ -160,126 +161,75 @@ public class GoblinBarrel extends Entity{
 	}
 	
 	public void animatedSprite(){
-		if(!idlein) {
-			if(isUp() || isDown()|| isRight() || isLeft()) {
-				switch (arah) {
-				case "atas": 
-					if(spriteNum == 1) {
-						image = runUp[0];
+		if(dead == false) {
+			if(!idlein) {
+				if(isUp() || isDown()|| isRight() || isLeft()) {
+					switch (arah) {
+					case "atas": 
+						if(spriteNum == 1) {image = runUp[0];}
+						if(spriteNum == 2) {image = runUp[1];}
+						if(spriteNum == 3) {image = runUp[2];}break;
+					case "bawah":
+						if(spriteNum == 1) {image = runDown[0];}
+						if(spriteNum == 2) {image = runDown[1];}
+						if(spriteNum == 3) {image = runDown[2];}break;
+					case "kanan":
+						if(spriteNum == 1) {image = runRight[0];}
+						if(spriteNum == 2) {image = runRight[1];}
+						if(spriteNum == 3) {image = runRight[2];}break;
+					case "kiri":
+						if(spriteNum == 1) {image = runLeft[0];}
+						if(spriteNum == 2) {image = runLeft[1];}
+						if(spriteNum == 3) {image = runLeft[2];}break;
 					}
-					if(spriteNum == 2) {
-						image = runUp[1];
+				}
+				else {
+					switch (arah) {
+					case "atas": 
+						if(spriteNum == 1) {image = idleUp[0];}break;
+					case "bawah":
+						if(spriteNum == 1) {image = idleDown[0];}break;
+					case "kanan":
+						if(spriteNum == 1) {image = idleRight[0];}break;
+					case "kiri":
+						if(spriteNum == 1) {image = idleLeft[0];}break;
 					}
-					if(spriteNum == 3) {
-						image = runUp[2];
-					}
+				}
+			}
+			
+			else if(idlein) {
+				if(spriteIdleIn == 1) {image = idletransitionIn[0];}
+				if(spriteIdleIn == 2) {image = idletransitionIn[1];}
+				if(spriteIdleIn == 3) {image = idletransitionIn[2];}
+				if(spriteIdleIn == 4) {image = idletransitionIn[3];}
+				if(spriteIdleIn == 5) {image = idletransitionIn[4];}
+				if(spriteIdleIn == 6) {image = idletransitionIn[5];}
 
-					break;
-					
-				case "bawah":
-					if(spriteNum == 1) {
-						image = runDown[0];
-					}
-					if(spriteNum == 2) {
-						image = runDown[1];
-					}
-					if(spriteNum == 3) {
-						image = runDown[2];
-					}
-
-					break;
-				case "kanan":
-					if(spriteNum == 1) {
-						image = runRight[0];
-					}
-					if(spriteNum == 2) {
-						image = runRight[1];
-					}
-					if(spriteNum == 3) {
-						image = runRight[2];
-					}
-
-					
-					break;
-				case "kiri":
-					if(spriteNum == 1) {
-						image = runLeft[0];
-					}
-					if(spriteNum == 2) {
-						image = runLeft[1];
-					}
-					if(spriteNum == 3) {
-						image = runLeft[2];
-					}
-					break;
-				}
-				
-			}else {
-				switch (arah) {
-				case "atas": 
-					if(spriteNum == 1) {
-						image = idleUp[0];
-					}
-					break;
-					
-				case "bawah":
-					if(spriteNum == 1) {
-						image = idleDown[0];
-					}
-					break;
-				case "kanan":
-					if(spriteNum == 1) {
-						image = idleRight[0];
-					}
-					break;
-				case "kiri":
-					if(spriteNum == 1) {
-						image = idleLeft[0];
-					}
-					break;
+				if(idleout) {
+					if(spriteIdleOut == 1) {image = idletransitionOut[0];}
+					if(spriteIdleOut == 2) {image = idletransitionOut[1];}
+					if(spriteIdleOut == 3) {image = idletransitionOut[2];}
+					if(spriteIdleOut == 4) {image = idletransitionOut[3];}
+					if(spriteIdleOut == 5) {image = idletransitionOut[4];}
+					if(spriteIdleOut == 6) {image = idletransitionOut[5];}
 				}
 			}
-		}
-		else if(idlein) {
-			if(spriteIdleIn == 1) {
-				image = idletransitionIn[0];
-			}
-			if(spriteIdleIn == 2) {
-				image = idletransitionIn[1];
-			}
-			if(spriteIdleIn == 3) {
-				image = idletransitionIn[2];
-			}
-			if(spriteIdleIn == 4) {
-				image = idletransitionIn[3];
-			}
-			if(spriteIdleIn == 5) {
-				image = idletransitionIn[4];
-			}
-			if(spriteIdleIn == 6) {
-				image = idletransitionIn[5];
-			}
-
-			if(idleout){
-				if(spriteIdleOut == 1) {
-					image = idletransitionOut[0];
-				}
-				if(spriteIdleOut == 2) {
-					image = idletransitionOut[1];
-				}
-				if(spriteIdleOut == 3) {
-					image = idletransitionOut[2];
-				}
-				if(spriteIdleOut == 4) {
-					image = idletransitionOut[3];
-				}
-				if(spriteIdleOut == 5) {
-					image = idletransitionOut[4];
-				}
-				if(spriteIdleOut == 6) {
-					image = idletransitionOut[5];
-				}
-			}
+		}else {
+			if(spriteDead == 1) {image = death[0];}
+			if(spriteDead == 2) {image = death[1];}
+			if(spriteDead == 3) {image = death[2];}
+			if(spriteDead == 4) {image = death[3];}
+			if(spriteDead == 5) {image = death[4];}
+			if(spriteDead == 6) {image = death[5];}
+			if(spriteDead == 7) {image = death[6];}
+			if(spriteDead == 8) {image = death[7];}
+			if(spriteDead == 9) {image = death[8];}
+			if(spriteDead == 10) {image = death[9];}
+			if(spriteDead == 11) {image = death[10];}
+			if(spriteDead == 12) {image = death[11];}
+			if(spriteDead == 13) {image = death[12];}
+			if(spriteDead == 14) {image = death[13];}
+			
 		}
 	}
 
@@ -325,6 +275,21 @@ public class GoblinBarrel extends Entity{
 			idletransitionOut[3] = im.scaledImage(ss.grabImage(4, 2, 128, 128), 128,128);
 			idletransitionOut[4] = im.scaledImage(ss.grabImage(5, 2, 128, 128), 128,128);
 			idletransitionOut[5] = im.scaledImage(ss.grabImage(6, 2, 128, 128), 128,128);
+			
+			death[0] = im.scaledImage(ssdead.grabImage(1, 1, 128, 128), 128, 128);
+			death[1] = im.scaledImage(ssdead.grabImage(2, 1, 128, 128), 128, 128);
+			death[2] = im.scaledImage(ssdead.grabImage(3, 1, 128, 128), 128, 128);
+			death[3] = im.scaledImage(ssdead.grabImage(4, 1, 128, 128), 128, 128);
+			death[4] = im.scaledImage(ssdead.grabImage(5, 1, 128, 128), 128, 128);
+			death[5] = im.scaledImage(ssdead.grabImage(6, 1, 128, 128), 128, 128);
+			death[6] = im.scaledImage(ssdead.grabImage(7, 1, 128, 128), 128, 128);
+			death[7] = im.scaledImage(ssdead.grabImage(1, 2, 128, 128), 128, 128);
+			death[8] = im.scaledImage(ssdead.grabImage(2, 2, 128, 128), 128, 128);
+			death[9] = im.scaledImage(ssdead.grabImage(3, 2, 128, 128), 128, 128);
+			death[10] = im.scaledImage(ssdead.grabImage(4, 2, 128, 128), 128, 128);
+			death[11] = im.scaledImage(ssdead.grabImage(5, 2, 128, 128), 128, 128);
+			death[12] = im.scaledImage(ssdead.grabImage(6, 2, 128, 128), 128, 128);
+			death[13] = im.scaledImage(ssdead.grabImage(7, 2, 128, 128), 128, 128);
 						
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -349,62 +314,58 @@ public class GoblinBarrel extends Entity{
 	
 	public void spriteCounter(){
 		spriteCounter++;
-		if(!idlein) {
-			if(spriteCounter > 6) {
-				if(spriteNum == 1) {
-					spriteNum =2;
-				}else if(spriteNum ==2) {
-					spriteNum =3;
-				}else if(spriteNum ==3) {
-					spriteNum =1;
-				}
-				spriteCounter =0;
-			}
-		}
-		else if(idlein) {
-			if(spriteCounter > 10 && !idleout) {
-				if(spriteIdleIn == 1) {
-					spriteIdleIn =2;
-				}else if(spriteIdleIn ==2) {
-					spriteIdleIn =3;
-				}else if(spriteIdleIn ==3) {
-					spriteIdleIn =4;
-				}else if(spriteIdleIn ==4) {
-					spriteIdleIn =5;
-				}else if(spriteIdleIn ==5) {
-					spriteIdleIn =6;
-				}else if(spriteIdleIn ==6) {
-					spriteIdleIn =6;
-				}
-				
-				spriteCounter =0;
-			}
-			if(idleout){
-				
-				if(spriteCounter > 10) {
-					if(spriteIdleOut == 1) {
-						spriteIdleOut =2;
-					}else if(spriteIdleOut ==2) {
-						spriteIdleOut =3;
-					}else if(spriteIdleOut ==3) {
-						spriteIdleOut =4;
-					}else if(spriteIdleOut ==4) {
-						spriteIdleOut =5;
-					}else if(spriteIdleOut ==5) {
-						spriteIdleOut =6;
-					}else if(spriteIdleOut ==6) {
-						spriteIdleOut =6;
-						idleout = false;
-						idlein = false;
-					}
+		if(dead == false) {
+			if(!idlein) {
+				if(spriteCounter > 6) {
+					if(spriteNum == 1) {spriteNum =2;}
+					else if(spriteNum ==2) {spriteNum =3;}
+					else if(spriteNum ==3) {spriteNum =1;}
 					spriteCounter =0;
-					
-					
+				}
+			}
+			
+			else if(idlein) {
+				if(spriteCounter > 10 && !idleout) {
+					if(spriteIdleIn == 1) {spriteIdleIn =2;}
+					else if(spriteIdleIn ==2) {spriteIdleIn =3;}
+					else if(spriteIdleIn ==3) {spriteIdleIn =4;}
+					else if(spriteIdleIn ==4) {spriteIdleIn =5;}
+					else if(spriteIdleIn ==5) {spriteIdleIn =6;}
+					else if(spriteIdleIn ==6) {spriteIdleIn =6;}
+					spriteCounter =0;
+				}
+				if(idleout){
+					if(spriteCounter > 10) {
+						if(spriteIdleOut == 1) {spriteIdleOut =2;}
+						else if(spriteIdleOut ==2) {spriteIdleOut =3;}
+						else if(spriteIdleOut ==3) {spriteIdleOut =4;}
+						else if(spriteIdleOut ==4) {spriteIdleOut =5;}
+						else if(spriteIdleOut ==5) {spriteIdleOut =6;}
+						else if(spriteIdleOut ==6) {spriteIdleOut =6; idleout = false; idlein = false;}
+						spriteCounter =0;
+					}
 				}
 			}
 		}
-			
-
+		
+		else if(dead == true) {
+			if(spriteCounter > 8) {
+				if(spriteDead == 1) {spriteDead = 2;}
+				else if(spriteDead == 2) {spriteDead = 3;}
+				else if(spriteDead == 3) {spriteDead = 4;}
+				else if(spriteDead == 4) {spriteDead = 5;}
+				else if(spriteDead == 5) {spriteDead = 6;}
+				else if(spriteDead == 6) {spriteDead = 7;}
+				else if(spriteDead == 7) {spriteDead = 8;}
+				else if(spriteDead == 8) {spriteDead = 9;}
+				else if(spriteDead == 9) {spriteDead = 10;}
+				else if(spriteDead == 10) {spriteDead = 11;}
+				else if(spriteDead == 11) {spriteDead = 12;}
+				else if(spriteDead == 12) {spriteDead = 13;}
+				else if(spriteDead == 13) {spriteDead = 14; game.tryWorld.objectLayer.get(0).remove(this);}
+				spriteCounter =0;
+			}
+		}
 		
 		
 	}

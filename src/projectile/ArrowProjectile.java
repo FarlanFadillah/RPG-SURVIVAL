@@ -83,7 +83,7 @@ public class ArrowProjectile extends Block{
 							image = ss.grabImage(1, 2, 64, 64);
 							velX = 0;
 							velY = 0;
-							//temp2.hp -= 10;
+							temp2.hp -= 50;
 							collisioncheck = false;
 							Enemy = temp2;
 					}
