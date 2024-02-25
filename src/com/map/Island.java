@@ -2,14 +2,22 @@ package com.map;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.anim.AnimationHandler;
 import com.anim.Foam;
+import com.id.EntityClass;
+import com.id.EntityType;
 import com.id.ID;
 import com.main.Game;
 import com.obj.GameObject;
+import com.playerlist.Fighter;
+import com.quadTree.Point;
+import com.quadTree.Quad;
+import com.quadTree.QuadNode;
 import com.tile.ObjectManager;
 import com.tile.TileManager;
 import com.tile.TileMap;
@@ -17,8 +25,7 @@ import com.tile.TileMap;
 public class Island extends Biome{
 
     public ArrayList<int[][]> terrainLayer = new ArrayList<>();
-    public ArrayList<ArrayList<GameObject>> objectLayer = new ArrayList<>();
-    public TileMap[] tileSet = new TileMap[1000];
+    public TileMap[] tileSet = new TileMap[300];
 
     public TileManager tilem;
     public ObjectManager bm;
@@ -28,8 +35,13 @@ public class Island extends Biome{
 
     AnimationHandler animHandler = new AnimationHandler();
 
+    public Quad qt;
+    public Fighter player;
+    public List<GameObject> objects = new ArrayList<>();
+    public List<GameObject> entity = new ArrayList<>();
     public Island(Game game) {
         super(game);
+        player = new Fighter(3584, 960, ID.Entity, EntityType.Player, EntityClass.Fighter, game);
         bm = new ObjectManager(game);
         tilem = new TileManager(game);
         this.mapPath = "/assets/Terrain/Islands.tmx";
@@ -42,19 +54,13 @@ public class Island extends Biome{
     public void tick(double xx, double yy) {
         // TODO Auto-generated method stub
         animHandler.spriteCounter8Frame();
+        objects.addAll(entity);
+        objects = qt.GetObject(new Rectangle((int)game.camera.getX()-320, (int)game.camera.getY()-256, Game.WIDTH+320, Game.HEIGHT+256), qt, objects);
 
-        for (int i = 0; i < objectLayer.get(0).size(); i++) {
-            if(objectLayer.get(0).get(i).getID() == ID.Entity){
-                objectLayer.get(0).get(i).tick();
-            }
+        for (int i = 0; i < objects.size(); i++) {
+            objects.get(i).tick();
         }
-        for (int i = 0; i < objectLayer.get(0).size(); i++) {
-            int x1 = objectLayer.get(0).get(i).getX();
-            int y1 = objectLayer.get(0).get(i).getY();
-                if(objectLayer.get(0).get(i).getID() != ID.Entity && x1 < xx+ Game.WIDTH && x1 > xx - objectLayer.get(0).get(i).getSize().getWidth() && y1 <yy+Game.HEIGHT && y1 > yy - objectLayer.get(0).get(i).getSize().getHeight()){
-                    objectLayer.get(0).get(i).tick();     
-                }
-        }
+        // qt.tick(new Rectangle((int)player.x-(Game.WIDTH/2)-320, (int)player.y-(Game.HEIGHT/2)-256, Game.WIDTH+320, Game.HEIGHT+256), qt);
     }
 
     @Override
@@ -64,7 +70,9 @@ public class Island extends Biome{
         foam = animHandler.animatedSprite8Frame(foam, foams.idle);
         drawAnimation(g2d, foam,terrainLayer.get(0), 58, 64, 32, xx, yy);
         drawTerrainLayer(g2d, xx, yy, tileSet, terrainLayer.get(1), tilem);
-        drawObjectLayer(g2d, objectLayer.get(0), xx, yy);
+        drawObjectLayer(g2d, objects);
+        objects.clear();
+
     }
 
     @Override
@@ -72,9 +80,11 @@ public class Island extends Biome{
         // TODO Auto-generated method stub
         getTileSet(tileSet, tilem);
         addTerrainLayer(mapPath, "Tile Layer 1", terrainLayer, tilem);
+        qt = new Quad(new Point(0,0), new Point(tilem.WIDTHMAP*64, tilem.HEIGHTMAP*64), game);
+        qt.insert(new QuadNode(new Point(player.x, player.y), player), entity);
         addTerrainLayer(mapPath, "Tile Layer 2", terrainLayer, tilem);
-        addObjectLayer(mapPath, "Object Layer 1", objectLayer, bm);
-        addSolidLayer(objectLayer, "SolidLayer", bm, 0);
+        addObjectLayer(mapPath, "Object Layer 1", bm, qt, entity);
+        addSolidLayer("SolidLayer", bm, 0, qt, entity);
     }
     
 }

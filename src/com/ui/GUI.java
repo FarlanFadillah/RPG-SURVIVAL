@@ -27,8 +27,8 @@ public class GUI {
     }
 
     public void draw(Graphics2D g2d){
-            ps.drawPlayerIcon(g2d);
-            ps.drawPlayerStats(g2d);
+            // ps.drawPlayerIcon(g2d);
+            // ps.drawPlayerStats(g2d);
             skillUi.drawSkillSlot(g2d);
             inv.drawInventory(g2d); 
     }

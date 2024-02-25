@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.filehandler.SpriteSheet;
 import com.id.EntityClass;
@@ -30,7 +31,7 @@ public class PlayerStats {
     }
 
     public void checkPlayer(Game game){
-        ArrayList<GameObject> objects = game.tryWorld.objectLayer.get(0);
+        List<GameObject> objects = game.tryWorld.objects;
         for (int i = 0; i < objects.size(); i++) {
             GameObject temp = objects.get(i);
             if(temp.getID() == ID.Entity){

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.blockList.Bridge;
 import com.blockList.Castle;
@@ -23,6 +24,9 @@ import com.monsters.GoblinTNTField;
 import com.monsters.GoblinTorch;
 import com.obj.GameObject;
 import com.playerlist.*;
+import com.quadTree.Point;
+import com.quadTree.Quad;
+import com.quadTree.QuadNode;
 
 public class ObjectManager {
     private int WIDTHMAP, HEIGHTMAP;
@@ -107,7 +111,7 @@ public class ObjectManager {
         return arrays;
 	}
 
-    public void TMXFileReaderObject(String path, String layer, ArrayList<GameObject> objects){
+    public void TMXFileReaderObject(String path, String layer, Quad qt, List<GameObject> objects){
         System.out.println("Read Object!!");
         String keyword = layer;  // Ganti dengan kata kunci yang ingin dicari
 		InputStream in = getClass().getResourceAsStream(path);
@@ -127,24 +131,24 @@ public class ObjectManager {
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        objects.add(new Tree(x, y-h, ID.Block, BlockType.DestroyAble, game));
+                        qt.insert(new QuadNode(new Point(x, y-h), new Tree(x, y-h, ID.Block, BlockType.DestroyAble, game)), objects);
                     }else if(extractValueStr(line, "name").contains("enemy")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         String enClass = extractValueStr(line, "type");
                         if(enClass.contains("goblinTNT")){
-                        	objects.add(new GoblinTNTField(x, y, ID.Entity , EntityType.Monster, EntityClass.Goblins, game));
+                            qt.insert(new QuadNode(new Point(x, y), new GoblinTNTField(x, y, ID.Entity , EntityType.NPC, EntityClass.Goblins, game)),objects);
                         }else if(enClass.contains("goblinBarrel")) {
-                        	objects.add(new GoblinBarrel(x, y, ID.Entity , EntityType.Monster, EntityClass.Goblins, game));
+                            qt.insert(new QuadNode(new Point(x, y), new GoblinBarrel(x, y, ID.Entity , EntityType.NPC, EntityClass.Goblins, game)),objects);
                         }else if(enClass.contains("goblinTorch")) {
-                        	objects.add(new GoblinTorch(x, y, ID.Entity , EntityType.Monster, EntityClass.Goblins, game));
+                            qt.insert(new QuadNode(new Point(x, y), new GoblinTorch(x, y, ID.Entity , EntityType.NPC, EntityClass.Goblins, game)),objects);
                         }
                         line = br.readLine();
                         line = br.readLine();
                     }else if(extractValueStr(line, "name").contains("player")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
-                        objects.add(new Archer(x, y, ID.Entity , EntityType.Player, EntityClass.Archer, game));
+                        qt.insert(new QuadNode(new Point(x, y), new Fighter(x, y, ID.Entity , EntityType.Player, EntityClass.Fighter, game)),objects);
                         line = br.readLine();
                         line = br.readLine();
                     }else if(extractValueStr(line, "name").contains("solid")){
@@ -152,37 +156,34 @@ public class ObjectManager {
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
                         int w =  extractValueInt(line, "width");
-                        objects.add(new SolidBlock(x, y, ID.Block, BlockType.unDestroyAble, game, w, h));
+                        qt.insert(new QuadNode(new Point(x, y-h), new SolidBlock(x, y, ID.Block, BlockType.SolidBlock, game, w, h)),objects);
                     }else if(extractValueStr(line, "name").contains("hg3x4") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        objects.add(new HighGround3x4(x, y-h, ID.Block, BlockType.unDestroyAble, game));
                     }else if(extractValueStr(line, "name").contains("hg6x4") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        objects.add(new HighGround6x4(x, y-h, ID.Block, BlockType.unDestroyAble, game));
                     }else if(extractValueStr(line, "name").contains("hzBridge") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        objects.add(new Bridge(x, y-h, ID.Block, BlockType.unDestroyAble, game));
                     }else if(extractValueStr(line, "name").contains("blueTower") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        objects.add(new Tower(x, y-h, ID.Block, BlockType.unDestroyAble, game));
+                        qt.insert(new QuadNode(new Point(x, y-h), new Tower(x, y-h, ID.Block, BlockType.unDestroyAble, game)),objects);
                     }else if(extractValueStr(line, "name").contains("blueHouse") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        objects.add(new House(x, y-h, ID.Block, BlockType.unDestroyAble, game));
+                        qt.insert(new QuadNode(new Point(x, y-h), new House(x, y-h, ID.Block, BlockType.unDestroyAble, game)),objects);
                     }else if(extractValueStr(line, "name").contains("blueCastle") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        objects.add(new Castle(x, y-h, ID.Block, BlockType.unDestroyAble, game));
+                        qt.insert(new QuadNode(new Point(x, y-h), new Castle(x, y-h, ID.Block, BlockType.unDestroyAble, game)),objects);
                     }
 				}
             } else {

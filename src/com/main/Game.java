@@ -158,18 +158,7 @@ public class Game extends Canvas implements Runnable{
 		stop();
     }
     public Entity getPlayerObject(){
-        for (int i = 0; i < tryWorld.objectLayer.get(0).size(); i++) {
-            GameObject temp = tryWorld.objectLayer.get(0).get(i);
-            if(temp.getID() == ID.Entity){
-                Entity entityTemp = (Entity) temp;
-                if(entityTemp.getEntityType() == EntityType.Player){
-                    player = entityTemp;
-                    break;
-                }
-            }
-            
-        }
-        return player;
+        return tryWorld.player;
     }
 	
 }

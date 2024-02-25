@@ -6,10 +6,12 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import com.anim.AnimationHandler;
 import com.main.Game;
 import com.obj.GameObject;
+import com.quadTree.Quad;
 import com.tile.ObjectManager;
 import com.tile.TileManager;
 import com.tile.TileMap;
@@ -48,15 +50,13 @@ public abstract class Biome {
 
     //menammbahkan object layer
     // addObjectLayer("Object Layer 1") menammbahkan object yang ada di Object layer 1 ke dalam ObjectLayer (list)
-    public void addObjectLayer(String path, String layerKey,ArrayList<ArrayList<GameObject>> objectLayer, ObjectManager bm){
-        ArrayList<GameObject> objects = new ArrayList<>();
-        bm.TMXFileReaderObject(path, layerKey, objects);
-        objectLayer.add(objects);
+    public void addObjectLayer(String path, String layerKey, ObjectManager bm, Quad qt, List<GameObject> objects){
+        bm.TMXFileReaderObject(path, layerKey, qt, objects);
     }
     //render Object Layer
     // drawObjectLayer(g, objectLayer.get(0), xx, yy) render objectLayer pertama
     //dst (Tergantung berapa layer object yang anda butuhkan)
-    public void drawObjectLayer(Graphics g, ArrayList<GameObject> objects, double xx, double yy){
+    public void drawObjectLayer(Graphics2D g, List<GameObject> objects){
         try {
             Collections.sort(objects, new Comparator<GameObject>() {
     
@@ -73,11 +73,7 @@ public abstract class Biome {
         }
 
         for (int i = 0; i < objects.size(); i++) {
-            int x1 = objects.get(i).getX();
-            int y1 = objects.get(i).getY();
-                if( x1 < xx+ Game.WIDTH && x1 > xx - objects.get(i).getSize().getWidth() && y1 <yy+Game.HEIGHT && y1 > yy - objects.get(i).getSize().getHeight()){
-                    objects.get(i).render(g);           
-                }
+            objects.get(i).render(g);           
         }
         
     }
@@ -91,8 +87,8 @@ public abstract class Biome {
 
     //Menambahkan transparant block yang memiliki collision
     // index -> index yang menunjukkan letak transparen block anda
-    public void addSolidLayer(ArrayList<ArrayList<GameObject>> objectLayer, String layerName, ObjectManager bm, int index){
-        bm.TMXFileReaderObject(mapPath, layerName, objectLayer.get(index));
+    public void addSolidLayer(String layerName, ObjectManager bm, int index, Quad qt, List<GameObject> objects){
+        bm.TMXFileReaderObject(mapPath, layerName, qt,objects);
     }
 
     //membaca sekaligus membagi spriteSheet dengan grid 64 pixel

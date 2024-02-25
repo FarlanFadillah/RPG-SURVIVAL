@@ -15,6 +15,8 @@ import com.item.Sword;
 import com.item.Wood;
 import com.main.Game;
 import com.obj.Block;
+import com.quadTree.Point;
+import com.quadTree.QuadNode;
 import com.tile.ImageManager;
 
 public class Tree extends Block {
@@ -77,11 +79,11 @@ public class Tree extends Block {
                 Random rand = new Random();
                 int r = rand.nextInt(3)+1;
                 if(r == 1){
-                    game.tryWorld.objectLayer.get(0).add(new Money(x+32, y+32, ID.Item, ItemType.Used));
+                    game.tryWorld.qt.insert(new QuadNode(new Point(x+32, y+32), new Money(x+32, y+32, ID.Item, ItemType.ingredient)),game.tryWorld.entity);
                 }else if (r==2){
-                    game.tryWorld.objectLayer.get(0).add(new Wood(x+32, y+32, ID.Item, ItemType.ingredient));
+                    game.tryWorld.qt.insert(new QuadNode(new Point(x+32, y+32), new Meat(x+32, y+32, ID.Item, ItemType.Consume)),game.tryWorld.entity);
                 }else{
-                    game.tryWorld.objectLayer.get(0).add(new Sword(x+32, y+32, ID.Item, ItemType.Used));
+                    game.tryWorld.qt.insert(new QuadNode(new Point(x+32, y+32), new Sword(x+32, y+32, ID.Item, ItemType.Used)),game.tryWorld.entity);
                 }
                 itemDroped = true;
             }

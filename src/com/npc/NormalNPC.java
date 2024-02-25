@@ -102,18 +102,15 @@ public class NormalNPC extends Entity{
 	}
 
 	public void Collision() {
-		for (int i = 0; i < game.tryWorld.objectLayer.get(0).size(); i++) {
-			GameObject temp = game.tryWorld.objectLayer.get(0).get(i);
+		for (int i = 0; i < game.tryWorld.objects.size(); i++) {
+			GameObject temp = game.tryWorld.objects.get(i);
 			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Block && temp.highGround == false){
 				x += velX * -1;
 				y += velY * -1;
 			}
-			if(temp.getID() == ID.Entity) {
-				Entity selfcol = (Entity) temp;
-				if(getBound().intersects(selfcol.getBound()) && selfcol.getEntityType() == EntityType.Player) {
-					x += velX * -1;
-					y += velY * -1;
-				}
+			if(this != temp && getBound().intersects(temp.getBound()) &&temp.getID() == ID.Entity) {
+				x += velX * -1;
+				y += velY * -1;
 			}
 		}
 	}

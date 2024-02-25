@@ -230,7 +230,7 @@ public class InventoryGUI {
 		for(int i = 0; i < slotDragged.items.size(); i++) {
 			Item temp = slotDragged.items.get(i);
 			temp.reSpawn(game.getPlayerObject().getX()+32, game.getPlayerObject().getY()+64);
-			game.tryWorld.objectLayer.get(0).add(slotDragged.items.get(i));
+			game.tryWorld.objects.add(slotDragged.items.get(i));
 		}
 		slotDragged.emptySlot();
 		dragged = false;

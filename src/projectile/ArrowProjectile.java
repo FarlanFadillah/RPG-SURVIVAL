@@ -45,7 +45,7 @@ public class ArrowProjectile extends Block{
 		attackCollision();
 		stop = game.second;
 		if(stop - start >= 5) {
-			game.tryWorld.objectLayer.get(0).remove(this);
+			game.tryWorld.objects.remove(this);
 		}
 		
 	}
@@ -75,8 +75,8 @@ public class ArrowProjectile extends Block{
 	public void attackCollision() {
 		
 		if(collisioncheck == true) {
-			for (int i = 0; i < game.tryWorld.objectLayer.get(0).size(); i++) {
-				GameObject temp = game.tryWorld.objectLayer.get(0).get(i);
+			for (int i = 0; i < game.tryWorld.objects.size(); i++) {
+				GameObject temp = game.tryWorld.objects.get(i);
 				if(this != temp && getBound().intersects(temp.getBound()) && temp.getID() == ID.Entity) {
 						Entity temp2 = (Entity)temp;
 						if(temp2.getEntityType() == EntityType.Monster) {

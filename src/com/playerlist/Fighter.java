@@ -80,8 +80,8 @@ public class Fighter extends Entity{
 	}
 
 	public void Collision() {
-		for (int i = 0; i < game.tryWorld.objectLayer.get(0).size(); i++) {
-			GameObject temp = game.tryWorld.objectLayer.get(0).get(i);
+		for (int i = 0; i < game.tryWorld.objects.size(); i++) {
+			GameObject temp = game.tryWorld.objects.get(i);
 			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Block && temp.highGround == false){
 				x += velX * -1;
 				y += velY * -1;
@@ -92,7 +92,7 @@ public class Fighter extends Entity{
 			}
 			
 			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Item){
-				game.tryWorld.objectLayer.get(0).remove(temp);
+				game.tryWorld.objects.remove(temp);
 				Item getItem = (Item) temp;
 				playerInventory.addItem(getItem);
 			}
@@ -102,8 +102,8 @@ public class Fighter extends Entity{
 	}
 	
 	public void attackCollision() {
-		for (int i = 0; i < game.tryWorld.objectLayer.get(0).size(); i++) {
-			GameObject temp = game.tryWorld.objectLayer.get(0).get(i);
+		for (int i = 0; i < game.tryWorld.objects.size(); i++) {
+			GameObject temp = game.tryWorld.objects.get(i);
 			if(this != temp && attackArea.intersects(temp.getBound()) &&temp.getID() == ID.Entity) {
 					temp.hp -= 10;
 					attackArea = new Rectangle(0, 0, 0, 0);
@@ -981,8 +981,8 @@ public void getImage() {
 	@Override
 	public void checkTree(MouseEvent e, boolean hitTree){
 		Rectangle key = new Rectangle((e.getX() + (int)game.camera.getX())-5, (e.getY() + (int) game.camera.getY())-5, 10, 10);
-		for(int i = 0; i < game.tryWorld.objectLayer.get(0).size(); i++) {
-			GameObject tempObject = game.tryWorld.objectLayer.get(0).get(i);
+		for(int i = 0; i < game.tryWorld.objects.size(); i++) {
+			GameObject tempObject = game.tryWorld.objects.get(i);
 			if(tempObject.getBound().intersects(key.getBounds())&&tempObject.getID() == ID.Block){
 				Block tempBlock = (Block) tempObject;
 				if(tempBlock.getBlockType() == BlockType.DestroyAble){

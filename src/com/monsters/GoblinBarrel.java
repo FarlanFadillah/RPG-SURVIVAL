@@ -147,8 +147,8 @@ public class GoblinBarrel extends Entity{
 	}
 
 	public void Collision() {
-		for (int i = 0; i < game.tryWorld.objectLayer.get(0).size(); i++) {
-			GameObject temp = game.tryWorld.objectLayer.get(0).get(i);
+		for (int i = 0; i < game.tryWorld.objects.size(); i++) {
+			GameObject temp = game.tryWorld.objects.get(i);
 			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Block && temp.highGround == false){
 				x += velX * -1;
 				y += velY * -1;
@@ -362,7 +362,7 @@ public class GoblinBarrel extends Entity{
 				else if(spriteDead == 10) {spriteDead = 11;}
 				else if(spriteDead == 11) {spriteDead = 12;}
 				else if(spriteDead == 12) {spriteDead = 13;}
-				else if(spriteDead == 13) {spriteDead = 14; game.tryWorld.objectLayer.get(0).remove(this);}
+				else if(spriteDead == 13) {spriteDead = 14; game.tryWorld.objects.remove(this);}
 				spriteCounter =0;
 			}
 		}
