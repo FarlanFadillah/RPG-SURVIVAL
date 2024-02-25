@@ -509,6 +509,7 @@ public void getImage() {
 		spriteCounter++;
 		if(dead == false) {
 			if(attack1 == false && attack2 == false && cutTree == false) {
+				//Counter Move and Idle
 				if(spriteCounter > 6) {
 					if(spriteNum == 1) {spriteNum =2;}
 					else if(spriteNum ==2) {spriteNum =3;}
@@ -519,12 +520,14 @@ public void getImage() {
 					spriteCounter =0;
 				}
 			}else if(attack1 == true && attack2 == false && cutTree == false) {
+				//Counter Attack1
 				if(spriteCounter > 6) {
 					if(spriteAttack1 == 1) {spriteAttack1 =2;}
 					else if(spriteAttack1 ==2) {spriteAttack1 =3;}
 					else if(spriteAttack1 ==3) {spriteAttack1 =4;}
 					else if(spriteAttack1 ==4) {spriteAttack1 =5;
 					
+						//Attack Collision On
 						attackArea.x = x+64;
 						attackArea.y = y+64;
 						
@@ -539,12 +542,13 @@ public void getImage() {
 					else if(spriteAttack1 ==6) {spriteAttack1 =1;
 					
 						attack1 = false;
-						
+						//Attack Collision Off
 						attackArea = new Rectangle(0, 0, 0, 0);
 					}
 					spriteCounter =0;
 				}
 			}else if(attack1 == false && attack2 == true && cutTree == false) {
+				//Counter Attack2
 				if(spriteCounter > 6) {
 					if(spriteAttack2 == 1) {spriteAttack2 =2;}
 					else if(spriteAttack2 ==2) {spriteAttack2 =3;}
@@ -587,6 +591,7 @@ public void getImage() {
 					spriteCounter =0;
 				}
 			}else if(attack1 == false && attack2 == false && cutTree == true) {
+				//Counter Cut Tree
 				if(spriteCounter > 6) {
 					if(spriteTree == 1) {spriteTree =2;}
 					else if(spriteTree ==2) {spriteTree =3;}
@@ -599,6 +604,7 @@ public void getImage() {
 			}
 		}
 		else if(dead == true) {
+			//Counter Dead
 			if(spriteCounter > 8) {
 				if(spriteDead == 1) {spriteDead = 2;}
 				else if(spriteDead == 2) {spriteDead = 3;}

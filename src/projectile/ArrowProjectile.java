@@ -30,8 +30,15 @@ public class ArrowProjectile extends Block{
 	
 	public ArrowProjectile(int x, int y, ID id, BlockType bt, Game game, int mx, int my, float rotate, String arah) {
 		super(x, y, id, bt, game);
-		velX = (mx - x) / 15;
-		velY = (my - y) / 15;
+		int diffX = mx - x;
+        int diffY = my - y;
+
+        // Hitung sudut antara kedua titik
+        double angle = Math.atan2(diffY, diffX);
+
+        // Hitung komponen kecepatan x dan y berdasarkan sudut
+        velX = (float) (Math.cos(angle) * 15);
+        velY = (float) (Math.sin(angle) * 15);
 		this.rotate = rotate;
 		image = ss.grabImage(1, 1, 64, 64);
 		start = game.second;
