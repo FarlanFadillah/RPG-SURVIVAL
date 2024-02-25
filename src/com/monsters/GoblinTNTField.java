@@ -12,11 +12,13 @@ import com.id.ID;
 import com.main.Game;
 import com.obj.Entity;
 import com.obj.GameObject;
+import com.quadTree.Point;
 import com.tile.ImageManager;
 
 public class GoblinTNTField extends Entity{
 	
 	public SpriteSheet ss = new SpriteSheet("/assets/assetsentity/Goblins_TNT_Red.png");
+	public SpriteSheet ssdead = new SpriteSheet("/assets/assetsentity/Dead.png");
 	ImageManager im = new ImageManager();
 	private int xMove = 0;
 	private int yMove = 0;
@@ -40,9 +42,9 @@ public class GoblinTNTField extends Entity{
 		Collision();
 		spriteCounter();
 		playerControl();
-		checkDistance();
+		//checkDistance();
 		if(hp <= 0) {
-			game.tryWorld.objects.remove(this);
+			dead = true;
 		}
 	}
 	
@@ -130,179 +132,86 @@ public class GoblinTNTField extends Entity{
 	}
 	
 	public void animatedSprite(){
-		if(isUp() || isDown()|| isRight() || isLeft()) {
-			switch (arah) {
-			case "atas": 
-				if(spriteNum == 1) {
-					image = runUp[0];
+		if(dead == false) {
+			if(isUp() || isDown()|| isRight() || isLeft()) {
+				switch (arah) {
+				case "atas": 
+					if(spriteNum == 1) {image = runUp[0];}
+					if(spriteNum == 2) {image = runUp[1];}
+					if(spriteNum == 3) {image = runUp[2];}
+					if(spriteNum == 4) {image = runUp[3];}
+					if(spriteNum == 5) {image = runUp[4];}
+					if(spriteNum == 6) {image = runUp[5];}		break;
+				case "bawah":
+					if(spriteNum == 1) {image = runDown[0];}
+					if(spriteNum == 2) {image = runDown[1];}
+					if(spriteNum == 3) {image = runDown[2];}
+					if(spriteNum ==4) {image = runDown[3];}
+					if(spriteNum ==5) {image = runDown[4];}
+					if(spriteNum ==6) {image = runDown[5];}	break;
+				case "kanan":
+					if(spriteNum == 1) {image = runRight[0];}
+					if(spriteNum == 2) {image = runRight[1];}
+					if(spriteNum == 3) {image = runRight[2];}
+					if(spriteNum ==4) {image = runRight[3];}
+					if(spriteNum ==5) {image = runRight[4];}
+					if(spriteNum ==6) {image = runRight[5];}	break;
+				case "kiri":
+					if(spriteNum == 1) {image = runLeft[0];}
+					if(spriteNum == 2) {image = runLeft[1];}
+					if(spriteNum == 3) {image = runLeft[2];}
+					if(spriteNum ==4) {image = runLeft[3];}
+					if(spriteNum ==5) {image = runLeft[4];}
+					if(spriteNum ==65) {image = runLeft[5];}	break;
 				}
-				if(spriteNum == 2) {
-					image = runUp[1];
-				}
-				if(spriteNum == 3) {
-					image = runUp[2];
-				}
-				if(spriteNum == 4) {
-					image = runUp[3];
-				}
-				if(spriteNum == 5) {
-					image = runUp[4];
-				}
-				if(spriteNum == 6) {
-					image = runUp[5];
-				}
-
-				break;
 				
-			case "bawah":
-				if(spriteNum == 1) {
-					image = runDown[0];
+			}else {
+				switch (arah) {
+				case "atas": 
+					if(spriteNum == 1) {image = idleUp[0];}
+					if(spriteNum == 2) {image = idleUp[1];}
+					if(spriteNum == 3) {image = idleUp[2];}
+					if(spriteNum ==4) {image = idleUp[3];}
+					if(spriteNum ==5) {image = idleUp[4];}
+					if(spriteNum ==6) {image = idleUp[5];}	break;
+				case "bawah":
+					if(spriteNum == 1) {image = idleDown[0];}
+					if(spriteNum == 2) {image = idleDown[1];}
+					if(spriteNum == 3) {image = idleDown[2];}
+					if(spriteNum ==4) {image = idleDown[3];}
+					if(spriteNum ==5) {image = idleDown[4];}
+					if(spriteNum ==6) {image = idleDown[5];}	break;
+				case "kanan":
+					if(spriteNum == 1) {image = idleRight[0];}
+					if(spriteNum == 2) {image = idleRight[1];}
+					if(spriteNum == 3) {image = idleRight[2];}
+					if(spriteNum ==4) {image = idleRight[3];}
+					if(spriteNum ==5) {image = idleRight[4];}
+					if(spriteNum ==6) {image = idleRight[5];}	break;
+				case "kiri":
+					if(spriteNum == 1) {image = idleLeft[0];}
+					if(spriteNum == 2) {image = idleLeft[1];}
+					if(spriteNum == 3) {image = idleLeft[2];}
+					if(spriteNum ==4) {image = idleLeft[3];}
+					if(spriteNum ==5) {image = idleLeft[4];}
+					if(spriteNum ==6) {image = idleLeft[5];}	break;
 				}
-				if(spriteNum == 2) {
-					image = runDown[1];
-				}
-				if(spriteNum == 3) {
-					image = runDown[2];
-				}
-				if(spriteNum ==4) {
-					image = runDown[3];
-				}
-				if(spriteNum ==5) {
-					image = runDown[4];
-				}
-				if(spriteNum ==6) {
-					image = runDown[5];
-				}
-
-				break;
-			case "kanan":
-				if(spriteNum == 1) {
-					image = runRight[0];
-				}
-				if(spriteNum == 2) {
-					image = runRight[1];
-				}
-				if(spriteNum == 3) {
-					image = runRight[2];
-				}
-				if(spriteNum ==4) {
-					image = runRight[3];
-				}
-				if(spriteNum ==5) {
-					image = runRight[4];
-				}
-				if(spriteNum ==6) {
-					image = runRight[5];
-				}
-
-				
-				break;
-			case "kiri":
-				if(spriteNum == 1) {
-					image = runLeft[0];
-				}
-				if(spriteNum == 2) {
-					image = runLeft[1];
-				}
-				if(spriteNum == 3) {
-					image = runLeft[2];
-				}
-				if(spriteNum ==4) {
-					image = runLeft[3];
-				}
-				if(spriteNum ==5) {
-					image = runLeft[4];
-				}
-				if(spriteNum ==65) {
-					image = runLeft[5];
-				}
-				break;
 			}
-			
 		}else {
-			switch (arah) {
-			case "atas": 
-				if(spriteNum == 1) {
-					image = idleUp[0];
-				}
-				if(spriteNum == 2) {
-					image = idleUp[1];
-				}
-				if(spriteNum == 3) {
-					image = idleUp[2];
-				}
-				if(spriteNum ==4) {
-					image = idleUp[3];
-				}
-				if(spriteNum ==5) {
-					image = idleUp[4];
-				}
-				if(spriteNum ==6) {
-					image = idleUp[5];
-				}
-				break;
-				
-			case "bawah":
-				if(spriteNum == 1) {
-					image = idleDown[0];
-				}
-				if(spriteNum == 2) {
-					image = idleDown[1];
-				}
-				if(spriteNum == 3) {
-					image = idleDown[2];
-				}
-				if(spriteNum ==4) {
-					image = idleDown[3];
-				}
-				if(spriteNum ==5) {
-					image = idleDown[4];
-				}
-				if(spriteNum ==6) {
-					image = idleDown[5];
-				}
-				break;
-			case "kanan":
-				if(spriteNum == 1) {
-					image = idleRight[0];
-				}
-				if(spriteNum == 2) {
-					image = idleRight[1];
-				}
-				if(spriteNum == 3) {
-					image = idleRight[2];
-				}
-				if(spriteNum ==4) {
-					image = idleRight[3];
-				}
-				if(spriteNum ==5) {
-					image = idleRight[4];
-				}
-				if(spriteNum ==6) {
-					image = idleRight[5];
-				}
-				break;
-			case "kiri":
-				if(spriteNum == 1) {
-					image = idleLeft[0];
-				}
-				if(spriteNum == 2) {
-					image = idleLeft[1];
-				}
-				if(spriteNum == 3) {
-					image = idleLeft[2];
-				}
-				if(spriteNum ==4) {
-					image = idleLeft[3];
-				}
-				if(spriteNum ==5) {
-					image = idleLeft[4];
-				}
-				if(spriteNum ==6) {
-					image = idleLeft[5];
-				}
-				break;
-			}
+			if(spriteDead == 1) {image = death[0];}
+			if(spriteDead == 2) {image = death[1];}
+			if(spriteDead == 3) {image = death[2];}
+			if(spriteDead == 4) {image = death[3];}
+			if(spriteDead == 5) {image = death[4];}
+			if(spriteDead == 6) {image = death[5];}
+			if(spriteDead == 7) {image = death[6];}
+			if(spriteDead == 8) {image = death[7];}
+			if(spriteDead == 9) {image = death[8];}
+			if(spriteDead == 10) {image = death[9];}
+			if(spriteDead == 11) {image = death[10];}
+			if(spriteDead == 12) {image = death[11];}
+			if(spriteDead == 13) {image = death[12];}
+			if(spriteDead == 14) {image = death[13];}
 		}
 	}
 
@@ -365,6 +274,21 @@ public class GoblinTNTField extends Entity{
 			idleUp[4] = im.scaledImage(ss.grabImage(5, 1, 192, 192), 192,192);
 			idleUp[5] = im.scaledImage(ss.grabImage(6, 1, 192, 192), 192,192);
 			
+			death[0] = im.scaledImage(ssdead.grabImage(1, 1, 128, 128), 128, 128);
+			death[1] = im.scaledImage(ssdead.grabImage(2, 1, 128, 128), 128, 128);
+			death[2] = im.scaledImage(ssdead.grabImage(3, 1, 128, 128), 128, 128);
+			death[3] = im.scaledImage(ssdead.grabImage(4, 1, 128, 128), 128, 128);
+			death[4] = im.scaledImage(ssdead.grabImage(5, 1, 128, 128), 128, 128);
+			death[5] = im.scaledImage(ssdead.grabImage(6, 1, 128, 128), 128, 128);
+			death[6] = im.scaledImage(ssdead.grabImage(7, 1, 128, 128), 128, 128);
+			death[7] = im.scaledImage(ssdead.grabImage(1, 2, 128, 128), 128, 128);
+			death[8] = im.scaledImage(ssdead.grabImage(2, 2, 128, 128), 128, 128);
+			death[9] = im.scaledImage(ssdead.grabImage(3, 2, 128, 128), 128, 128);
+			death[10] = im.scaledImage(ssdead.grabImage(4, 2, 128, 128), 128, 128);
+			death[11] = im.scaledImage(ssdead.grabImage(5, 2, 128, 128), 128, 128);
+			death[12] = im.scaledImage(ssdead.grabImage(6, 2, 128, 128), 128, 128);
+			death[13] = im.scaledImage(ssdead.grabImage(7, 2, 128, 128), 128, 128);
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -389,27 +313,37 @@ public class GoblinTNTField extends Entity{
 	}
 	
 	public void spriteCounter(){
-
 		spriteCounter++;
-		if(spriteCounter > 6) {
-			if(spriteNum == 1) {
-				spriteNum =2;
-			}else if(spriteNum ==2) {
-				spriteNum =3;
-			}else if(spriteNum ==3) {
-				spriteNum =4;
-			}else if(spriteNum ==4) {
-				spriteNum =5;
-			}else if(spriteNum ==5) {
-				spriteNum =6;
-			}else if(spriteNum ==6) {
-				spriteNum =1;
-				setAction();
+		if(dead == false) {
+			if(spriteCounter > 6) {
+				if(spriteNum == 1) {spriteNum =2;}
+				else if(spriteNum ==2) {spriteNum =3;}
+				else if(spriteNum ==3) {spriteNum =4;}
+				else if(spriteNum ==4) {spriteNum =5;}
+				else if(spriteNum ==5) {spriteNum =6;}
+				else if(spriteNum ==6) {spriteNum =1;	setAction();}
+				spriteCounter =0;
 			}
-			
-			spriteCounter =0;
 		}
 		
+		else if(dead == true) {
+			if(spriteCounter > 8) {
+				if(spriteDead == 1) {spriteDead = 2;}
+				else if(spriteDead == 2) {spriteDead = 3;}
+				else if(spriteDead == 3) {spriteDead = 4;}
+				else if(spriteDead == 4) {spriteDead = 5;}
+				else if(spriteDead == 5) {spriteDead = 6;}
+				else if(spriteDead == 6) {spriteDead = 7;}
+				else if(spriteDead == 7) {spriteDead = 8;}
+				else if(spriteDead == 8) {spriteDead = 9;}
+				else if(spriteDead == 9) {spriteDead = 10;}
+				else if(spriteDead == 10) {spriteDead = 11;}
+				else if(spriteDead == 11) {spriteDead = 12;}
+				else if(spriteDead == 12) {spriteDead = 13;}
+				else if(spriteDead == 13) {spriteDead = 14; game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(this.x, this.y)));	game.tryWorld.entity.remove(this);}
+				spriteCounter =0;
+			}
+		}
 	}
 
 	@Override

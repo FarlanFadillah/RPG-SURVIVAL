@@ -14,7 +14,7 @@ import com.id.EntityType;
 import com.id.ID;
 import com.main.Game;
 import com.obj.GameObject;
-import com.playerlist.Fighter;
+import com.playerlist.*;
 import com.quadTree.Point;
 import com.quadTree.Quad;
 import com.quadTree.QuadNode;

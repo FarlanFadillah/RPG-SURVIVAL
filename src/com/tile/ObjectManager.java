@@ -137,18 +137,18 @@ public class ObjectManager {
                         int y = extractValueInt(line, "y");
                         String enClass = extractValueStr(line, "type");
                         if(enClass.contains("goblinTNT")){
-                            qt.insert(new QuadNode(new Point(x, y), new GoblinTNTField(x, y, ID.Entity , EntityType.NPC, EntityClass.Goblins, game)),objects);
+                            qt.insert(new QuadNode(new Point(x, y), new GoblinTNTField(x, y, ID.Entity , EntityType.Monster, EntityClass.Goblins, game)),objects);
                         }else if(enClass.contains("goblinBarrel")) {
-                            qt.insert(new QuadNode(new Point(x, y), new GoblinBarrel(x, y, ID.Entity , EntityType.NPC, EntityClass.Goblins, game)),objects);
+                            qt.insert(new QuadNode(new Point(x, y), new GoblinBarrel(x, y, ID.Entity , EntityType.Monster, EntityClass.Goblins, game)),objects);
                         }else if(enClass.contains("goblinTorch")) {
-                            qt.insert(new QuadNode(new Point(x, y), new GoblinTorch(x, y, ID.Entity , EntityType.NPC, EntityClass.Goblins, game)),objects);
+                            qt.insert(new QuadNode(new Point(x, y), new GoblinTorch(x, y, ID.Entity , EntityType.Monster, EntityClass.Goblins, game)),objects);
                         }
                         line = br.readLine();
                         line = br.readLine();
                     }else if(extractValueStr(line, "name").contains("player")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
-                        qt.insert(new QuadNode(new Point(x, y), new Fighter(x, y, ID.Entity , EntityType.Player, EntityClass.Fighter, game)),objects);
+                        qt.insert(new QuadNode(new Point(x, y), new Archer(x, y, ID.Entity , EntityType.Player, EntityClass.Archer, game)),objects);
                         line = br.readLine();
                         line = br.readLine();
                     }else if(extractValueStr(line, "name").contains("solid")){

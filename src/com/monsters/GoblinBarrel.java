@@ -12,6 +12,7 @@ import com.id.ID;
 import com.main.Game;
 import com.obj.Entity;
 import com.obj.GameObject;
+import com.quadTree.Point;
 import com.tile.ImageManager;
 
 public class GoblinBarrel extends Entity{
@@ -168,31 +169,31 @@ public class GoblinBarrel extends Entity{
 					case "atas": 
 						if(spriteNum == 1) {image = runUp[0];}
 						if(spriteNum == 2) {image = runUp[1];}
-						if(spriteNum == 3) {image = runUp[2];}break;
+						if(spriteNum == 3) {image = runUp[2];}	break;
 					case "bawah":
 						if(spriteNum == 1) {image = runDown[0];}
 						if(spriteNum == 2) {image = runDown[1];}
-						if(spriteNum == 3) {image = runDown[2];}break;
+						if(spriteNum == 3) {image = runDown[2];}	break;
 					case "kanan":
 						if(spriteNum == 1) {image = runRight[0];}
 						if(spriteNum == 2) {image = runRight[1];}
-						if(spriteNum == 3) {image = runRight[2];}break;
+						if(spriteNum == 3) {image = runRight[2];}	break;
 					case "kiri":
 						if(spriteNum == 1) {image = runLeft[0];}
 						if(spriteNum == 2) {image = runLeft[1];}
-						if(spriteNum == 3) {image = runLeft[2];}break;
+						if(spriteNum == 3) {image = runLeft[2];}	break;
 					}
 				}
 				else {
 					switch (arah) {
 					case "atas": 
-						if(spriteNum == 1) {image = idleUp[0];}break;
+						if(spriteNum == 1) {image = idleUp[0];}	break;
 					case "bawah":
-						if(spriteNum == 1) {image = idleDown[0];}break;
+						if(spriteNum == 1) {image = idleDown[0];}	break;
 					case "kanan":
-						if(spriteNum == 1) {image = idleRight[0];}break;
+						if(spriteNum == 1) {image = idleRight[0];}	break;
 					case "kiri":
-						if(spriteNum == 1) {image = idleLeft[0];}break;
+						if(spriteNum == 1) {image = idleLeft[0];}	break;
 					}
 				}
 			}
@@ -229,7 +230,6 @@ public class GoblinBarrel extends Entity{
 			if(spriteDead == 12) {image = death[11];}
 			if(spriteDead == 13) {image = death[12];}
 			if(spriteDead == 14) {image = death[13];}
-			
 		}
 	}
 
@@ -362,12 +362,10 @@ public class GoblinBarrel extends Entity{
 				else if(spriteDead == 10) {spriteDead = 11;}
 				else if(spriteDead == 11) {spriteDead = 12;}
 				else if(spriteDead == 12) {spriteDead = 13;}
-				else if(spriteDead == 13) {spriteDead = 14; game.tryWorld.objects.remove(this);}
+				else if(spriteDead == 13) {spriteDead = 14; game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(this.x, this.y)));	game.tryWorld.entity.remove(this);}
 				spriteCounter =0;
 			}
 		}
-		
-		
 	}
 
 	public void playerControl(){
