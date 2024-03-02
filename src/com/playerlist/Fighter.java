@@ -625,51 +625,47 @@ public void getImage() {
 	}
 	
 	public void attacking1 (MouseEvent e) {
-		if(attack1 == false && attack2 == false) {
-			attack1 = true;
-			speed = 0;
-			float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
-			float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
-			
-			float angle = (float) Math.toDegrees(Math.atan2(py, px));
+		attack1 = true;
+		speed = 0;
+		float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
+		float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
+		
+		float angle = (float) Math.toDegrees(Math.atan2(py, px));
 
-		    if(angle < 0){
-		        angle += 360;
-		    }
-		    if(angle > 315 && angle <= 360 || angle > 0 && angle <= 45) {
-		    	arahAttack = "kanan";
-		    }else if(angle > 45 && angle <= 135) {
-		    	arahAttack = "bawah";
-		    }else if(angle > 135 && angle <= 225) {
-		    	arahAttack = "kiri";
-		    }else {
-		    	arahAttack = "atas";
-		    }
-		}
+	    if(angle < 0){
+	        angle += 360;
+	    }
+	    if(angle > 315 && angle <= 360 || angle > 0 && angle <= 45) {
+	    	arahAttack = "kanan";
+	    }else if(angle > 45 && angle <= 135) {
+	    	arahAttack = "bawah";
+	    }else if(angle > 135 && angle <= 225) {
+	    	arahAttack = "kiri";
+	    }else {
+	    	arahAttack = "atas";
+	    }
 	}
 	
 	public void attacking2 (MouseEvent e) {
-		if(attack1 == false && attack2 == false) {
-			attack2 = true;
-			speed = 0;
-			float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
-			float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
-			
-			float angle = (float) Math.toDegrees(Math.atan2(py, px));
+		attack2 = true;
+		speed = 0;
+		float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
+		float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
+		
+		float angle = (float) Math.toDegrees(Math.atan2(py, px));
 
-		    if(angle < 0){
-		        angle += 360;
-		    }
-		    if(angle > 315 && angle <= 360 || angle > 0 && angle <= 45) {
-		    	arahAttack = "kanan";
-		    }else if(angle > 45 && angle <= 135) {
-		    	arahAttack = "bawah";
-		    }else if(angle > 135 && angle <= 225) {
-		    	arahAttack = "kiri";
-		    }else {
-		    	arahAttack = "atas";
-		    }
-		}
+	    if(angle < 0){
+	        angle += 360;
+	    }
+	    if(angle > 315 && angle <= 360 || angle > 0 && angle <= 45) {
+	    	arahAttack = "kanan";
+	    }else if(angle > 45 && angle <= 135) {
+	    	arahAttack = "bawah";
+	    }else if(angle > 135 && angle <= 225) {
+	    	arahAttack = "kiri";
+	    }else {
+	    	arahAttack = "atas";
+	    }
 	}
 
 	@Override

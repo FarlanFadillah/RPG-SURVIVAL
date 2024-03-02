@@ -81,6 +81,8 @@ public abstract class Entity extends GameObject {
 	public boolean attack1 = false;
 	public boolean attack2 = false;
 	public boolean cutTree = false;
+	
+	public boolean onPath = false;
 
     public Entity(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
         super(x, y, id);
@@ -198,4 +200,53 @@ public abstract class Entity extends GameObject {
 	
 	public abstract void attack2();
     
+	public void searchPath(int goalCol, int goalRow) {
+		
+		int startCol = x/64;
+		int startRow = y/64;
+		
+		game.pFinder.setAINodes(startCol, startRow, goalCol, goalRow, this);
+		
+		if(game.pFinder.search() == true) {
+			
+			// Next worldX & worldY
+			int nextX = game.pFinder.pathList.get(0).col * 64;
+			int nextY = game.pFinder.pathList.get(0).row * 64;
+			
+			// Entity's Solid Area postion
+			int enLeftX = x;
+			int enRightX = x + getBound().width;
+			int enTopY = y;
+			int enBottomY = y + getBound().height;
+			
+			if(enTopY > nextY && enLeftX >= nextX && enRightX < nextX + 64) {
+				arah = "atas";
+				System.out.println(arah);
+			}
+			else if(enTopY < nextY && enLeftX >= nextX && enRightX < nextX + 64) {
+				arah = "bawah";
+				System.out.println(arah);
+			}
+			else if(enTopY >= nextY && enBottomY < nextY + 64) {
+				// left or right
+				if(enLeftX > nextX) {
+					arah = "kiri";
+					System.out.println(arah);
+				}
+				if(enLeftX < nextX) {
+					arah = "kanan";
+					System.out.println(arah);
+				}
+			}
+			
+			//int nextCol = game.pFinder.pathList.get(0).col;
+			//int nextRow = game.pFinder.pathList.get(0).row;
+			
+			//if(nextCol == goalCol && nextRow == goalRow) {
+			//	onPath = false;
+			//}
+			
+		}
+		
+	}
 }

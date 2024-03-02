@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.ai.AINode;
 import com.anim.AnimationHandler;
 import com.main.Game;
 import com.obj.GameObject;
@@ -50,8 +51,8 @@ public abstract class Biome {
 
     //menammbahkan object layer
     // addObjectLayer("Object Layer 1") menammbahkan object yang ada di Object layer 1 ke dalam ObjectLayer (list)
-    public void addObjectLayer(String path, String layerKey, ObjectManager bm, Quad qt, List<GameObject> objects){
-        bm.TMXFileReaderObject(path, layerKey, qt, objects);
+    public void addObjectLayer(String path, String layerKey, ObjectManager bm, Quad qt, List<GameObject> objects, AINode[][] gameObject){
+        bm.TMXFileReaderObject(path, layerKey, qt, objects, gameObject);
     }
     //render Object Layer
     // drawObjectLayer(g, objectLayer.get(0), xx, yy) render objectLayer pertama
@@ -87,8 +88,8 @@ public abstract class Biome {
 
     //Menambahkan transparant block yang memiliki collision
     // index -> index yang menunjukkan letak transparen block anda
-    public void addSolidLayer(String layerName, ObjectManager bm, int index, Quad qt, List<GameObject> objects){
-        bm.TMXFileReaderObject(mapPath, layerName, qt,objects);
+    public void addSolidLayer(String layerName, ObjectManager bm, int index, Quad qt, List<GameObject> objects, AINode[][] gameObject){
+        bm.TMXFileReaderObject(mapPath, layerName, qt, objects, gameObject);
     }
 
     //membaca sekaligus membagi spriteSheet dengan grid 64 pixel

@@ -34,6 +34,7 @@ public class Archer extends Entity{
 	private int spriteAttack1 = 1;
 	private int spriteAttack2 = 1;
 	private int spriteTree = 1;
+	public float angle;
 
 	//Position of mouse
 	public int mx = 0, my = 0;
@@ -641,64 +642,59 @@ public class Archer extends Entity{
 	public void attacking1 (MouseEvent e) {
 		this.mx = (int) (e.getX() + game.camera.getX());
 		this.my = (int) (e.getY() + game.camera.getY());
-		if(attack1 == false && attack2 == false) {
-			attack1 = true;
-			speed = 0;
-			float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
-			float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
-			
-			angle = (float) Math.toDegrees(Math.atan2(py, px));
+		attack1 = true;
+		speed = 0;
+		float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
+		float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
+		
+		angle = (float) Math.toDegrees(Math.atan2(py, px));
 
-		    if(angle < 0){
-		        angle += 360;
-		    }
-		    if(angle > 337.5 && angle <= 360 || angle > 0 && angle <= 22.5) {
-		    	arahAttack = "kanan";
-		    }else if(angle > 22.5 && angle <= 67.5) {
-		    	arahAttack = "bawahkanan";
-		    }else if(angle > 67.5 && angle <= 112.5) {
-		    	arahAttack = "bawah";
-		    }else if(angle > 112.5 && angle <= 157.5) {
-		    	arahAttack = "bawahkiri";
-		    }else if(angle > 157.5 && angle <= 202.5) {
-		    	arahAttack = "kiri";
-		    }else if(angle > 202.5 && angle <= 247.5) {
-		    	arahAttack = "ataskiri";
-		    }else if(angle > 247.5 && angle <= 292.5) {
-		    	arahAttack = "atas";
-		    }else {
-		    	arahAttack = "ataskanan";
-		    }
-		}
+	    if(angle < 0){
+	        angle += 360;
+	    }
+	    if(angle > 337.5 && angle <= 360 || angle > 0 && angle <= 22.5) {
+	    	arahAttack = "kanan";
+	    }else if(angle > 22.5 && angle <= 67.5) {
+	    	arahAttack = "bawahkanan";
+	    }else if(angle > 67.5 && angle <= 112.5) {
+	    	arahAttack = "bawah";
+	    }else if(angle > 112.5 && angle <= 157.5) {
+	    	arahAttack = "bawahkiri";
+	    }else if(angle > 157.5 && angle <= 202.5) {
+	    	arahAttack = "kiri";
+	    }else if(angle > 202.5 && angle <= 247.5) {
+	    	arahAttack = "ataskiri";
+	    }else if(angle > 247.5 && angle <= 292.5) {
+	    	arahAttack = "atas";
+	    }else {
+	    	arahAttack = "ataskanan";
+	    }
 	}
-	public float angle;
+	
 	public void attacking2 (MouseEvent e) {
+		attack2 = true;
+		speed = 0;
+		float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
+		float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
+		
+		angle = (float) Math.toDegrees(Math.atan2(py, px));
 
-		if(attack1 == false && attack2 == false) {
-			attack2 = true;
-			speed = 0;
-			float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
-			float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
-			
-			angle = (float) Math.toDegrees(Math.atan2(py, px));
-
-		    if(angle < 0){
-		        angle += 360;
-		    }
-		    if(angle > 315 && angle <= 360 || angle > 0 && angle <= 45) {
-		    	arahAttack = "kanan";
-		    }else if(angle > 45 && angle <= 135) {
-		    	arahAttack = "bawah";
-		    }else if(angle > 135 && angle <= 225) {
-		    	arahAttack = "kiri";
-		    }else {
-		    	arahAttack = "atas";
-		    }
-		}
+	    if(angle < 0){
+	        angle += 360;
+	    }
+	    if(angle > 315 && angle <= 360 || angle > 0 && angle <= 45) {
+	    	arahAttack = "kanan";
+	    }else if(angle > 45 && angle <= 135) {
+	    	arahAttack = "bawah";
+	    }else if(angle > 135 && angle <= 225) {
+	    	arahAttack = "kiri";
+	    }else {
+	    	arahAttack = "atas";
+	    }
 	}
 
 	public void shootArrow(){
-		game.tryWorld.qt.insert(new QuadNode(new Point(this.getX()+image.getWidth()/2, this.getY()+image.getHeight()/2), new ArrowProjectile(this.getX()+image.getWidth()/2, this.getY()+image.getHeight()/2, ID.Entity, BlockType.Projectile, game, mx, my, angle, arahAttack)), game.tryWorld.entity);
+		game.tryWorld.qt.insert(new QuadNode(new Point(this.getX()+image.getWidth()/2, this.getY()+image.getHeight()/2), new ArrowProjectile(this.getX()+image.getWidth()/2, this.getY()+image.getHeight()/2, ID.Entity, BlockType.Projectile, game, mx, my, angle, arahAttack)), game.tryWorld.entity, null);
 	}
 	
 	@Override

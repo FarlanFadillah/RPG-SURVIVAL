@@ -45,9 +45,13 @@ public class GoblinBarrel extends Entity{
 		Collision();
 		spriteCounter();
 		playerControl();
-		//checkDistance();
+		checkDistance();
 		if(hp <= 0) {
+			speed = 0;
 			dead = true;
+		}
+		if(hp < 50) {
+			onPath = true;
 		}
 	}
 	
@@ -70,73 +74,79 @@ public class GoblinBarrel extends Entity{
 	}
 	
 	public void setAction(int delay) {
-		
-		Random random = new Random();
-		int i = random.nextInt(100)+1; //pick up a number from 1 to 100
-		stop = game.second;
-		if(stop - start >= delay){
-			if(i <= 10) {
-				setUp(true);
-				setDown(false);
-				setLeft(false);
-				setRight(false);
-				if(idlein){
-					idleout = true;
-				}
-				
-				spriteIdleIn = 1;
-				arah = "atas";
-			}
-			if(i > 10 && i <= 20) {
-				setUp(false);
-				setDown(true);
-				setLeft(false);
-				setRight(false);
-				if(idlein){
-					idleout = true;
-				}
-				
-				spriteIdleIn = 1;
-				arah = "bawah";	
-			}
-			if(i > 20 && i <= 30) {
-				setLeft(true);
-				setRight(false);
-				setUp(false);
-				setDown(false);
-				if(idlein){
-					idleout = true;
-				}
-				
-				spriteIdleIn = 1;
-				arah = "kiri";
-			}
-			if(i > 30 && i <= 40) {
-				setLeft(false);
-				setRight(true);
-				setUp(false);
-				setDown(false);
-				
-				if(idlein){
-					idleout = true;
-				}
-				spriteIdleIn = 1;
-				arah = "kanan";
-			}
-			if(i > 40 && i <=100 && idlein == false) {
-				setLeft(false);
-				setRight(false);
-				setUp(false);
-				setDown(false);
-				if(!idlein){
-					idlein = true;
-					spriteIdleOut = 1;
-				}
-			}
-			start = stop;
+		if(onPath == true) {
+			int goalCol = (game.tryWorld.player.getX()/64);
+			int goalRow = (game.tryWorld.player.getY()/64);
+			
+			searchPath(goalCol, goalRow);
+			
 		}
-		
-		
+		else {
+			Random random = new Random();
+			int i = random.nextInt(100)+1; //pick up a number from 1 to 100
+			stop = game.second;
+			if(stop - start >= delay){
+				if(i <= 10) {
+					setUp(true);
+					setDown(false);
+					setLeft(false);
+					setRight(false);
+					if(idlein){
+						idleout = true;
+					}
+					
+					spriteIdleIn = 1;
+					arah = "atas";
+				}
+				if(i > 10 && i <= 20) {
+					setUp(false);
+					setDown(true);
+					setLeft(false);
+					setRight(false);
+					if(idlein){
+						idleout = true;
+					}
+					
+					spriteIdleIn = 1;
+					arah = "bawah";	
+				}
+				if(i > 20 && i <= 30) {
+					setLeft(true);
+					setRight(false);
+					setUp(false);
+					setDown(false);
+					if(idlein){
+						idleout = true;
+					}
+					
+					spriteIdleIn = 1;
+					arah = "kiri";
+				}
+				if(i > 30 && i <= 40) {
+					setLeft(false);
+					setRight(true);
+					setUp(false);
+					setDown(false);
+					
+					if(idlein){
+						idleout = true;
+					}
+					spriteIdleIn = 1;
+					arah = "kanan";
+				}
+				if(i > 40 && i <=100 && idlein == false) {
+					setLeft(false);
+					setRight(false);
+					setUp(false);
+					setDown(false);
+					if(!idlein){
+						idlein = true;
+						spriteIdleOut = 1;
+					}
+				}
+				start = stop;
+			}
+		}
 		
 	}
 

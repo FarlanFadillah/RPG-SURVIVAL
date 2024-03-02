@@ -1,8 +1,10 @@
 package com.quadTree;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.ai.AINode;
 import com.id.ID;
 import com.main.Game;
 import com.obj.GameObject;
@@ -16,6 +18,7 @@ public class Quad {
     Quad botLeftTree;
     Quad botRightTree;
     public Game game;
+    
 
     // Default constructor
     public Quad() {
@@ -40,19 +43,24 @@ public class Quad {
         botRight = botR;
     }
     // Insert a node into the quadtree
-    public void insert(QuadNode node, List<GameObject> objects) {
+    public void insert(QuadNode node, List<GameObject> objects, AINode[][] gameObject) {
         if (node == null)
         return;
         
         if (!inBoundary(node.pos))
         return;
 
-        if(node.gameObject.getID() == ID.Entity && !objects.contains(node.gameObject)) objects.add(node.gameObject);
+        if(node.gameObject.getID() == ID.Entity && !objects.contains(node.gameObject)) {
+        	objects.add(node.gameObject);
+        	return;
+        }
         
         if (Math.abs(topLeft.x - botRight.x) <= 1 && Math.abs(topLeft.y - botRight.y) <= 1) {
             // We are at a quad of unit area; cannot subdivide further
             if (n == null)
                 n = node;
+            gameObject[node.gameObject.x/64][node.gameObject.y/64] = new AINode(node.gameObject.x/64,node.gameObject.y/64);
+            gameObject[node.gameObject.x/64][node.gameObject.y/64].solid = true;
             return;
         }
  
@@ -61,14 +69,14 @@ public class Quad {
                 // Indicates topLeftTree
                 if (topLeftTree == null)
                     topLeftTree = new Quad(new Point(topLeft.x, topLeft.y),new Point((topLeft.x + botRight.x) / 2, (topLeft.y + botRight.y) / 2), game);
-                topLeftTree.insert(node, objects);
+                topLeftTree.insert(node, objects, gameObject);
             } else {
                 // Indicates botLeftTree
                 if (botLeftTree == null)
                 botLeftTree = new Quad(
                     new Point(topLeft.x, (topLeft.y + botRight.y) / 2),
                     new Point((topLeft.x + botRight.x) / 2, botRight.y), game);
-                    botLeftTree.insert(node, objects);
+                    botLeftTree.insert(node, objects, gameObject);
                 }
             } else {
                 if ((topLeft.y + botRight.y) / 2 >= node.pos.y) {
@@ -77,14 +85,14 @@ public class Quad {
                     topRightTree = new Quad(
                             new Point((topLeft.x + botRight.x) / 2, topLeft.y),
                             new Point(botRight.x, (topLeft.y + botRight.y) / 2), game);
-                            topRightTree.insert(node, objects);
+                            topRightTree.insert(node, objects, gameObject);
                 } else {
                         // Indicates botRightTree
                         if (botRightTree == null)
                         botRightTree = new Quad(
                             new Point((topLeft.x + botRight.x) / 2, (topLeft.y + botRight.y) / 2),
                             new Point(botRight.x, botRight.y), game);
-                        botRightTree.insert(node, objects);
+                        botRightTree.insert(node, objects, gameObject);
                 }
             }
     }
@@ -186,6 +194,7 @@ public class Quad {
     
     //remove object
     public QuadNode remove(QuadNode node){
-        search(node.pos).gameObject = null;
+        //search(node.pos).gameObject = null;
+    	node = null;
         return null;}
 }

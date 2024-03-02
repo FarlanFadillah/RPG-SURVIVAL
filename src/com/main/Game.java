@@ -8,7 +8,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-
+import com.ai.Pathfinder;
 import com.filehandler.SpriteSheet;
 import com.id.EntityType;
 import com.id.ID;
@@ -32,6 +32,7 @@ public class Game extends Canvas implements Runnable{
     public MouseInput mouse;
     //Coba Coba
     public Island tryWorld = new Island(this);
+    public Pathfinder pFinder = new Pathfinder(this);
 
     //Game State Section
     public int gameState = 0;

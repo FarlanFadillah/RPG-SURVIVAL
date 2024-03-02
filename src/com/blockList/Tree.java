@@ -79,11 +79,11 @@ public class Tree extends Block {
                 Random rand = new Random();
                 int r = rand.nextInt(3)+1;
                 if(r == 1){
-                    game.tryWorld.qt.insert(new QuadNode(new Point(x+32, y+32), new Money(x+32, y+32, ID.Item, ItemType.ingredient)),game.tryWorld.entity);
+                    game.tryWorld.qt.insert(new QuadNode(new Point(x+32, y+32), new Money(x+32, y+32, ID.Item, ItemType.ingredient)),game.tryWorld.entity, null);
                 }else if (r==2){
-                    game.tryWorld.qt.insert(new QuadNode(new Point(x+32, y+32), new Meat(x+32, y+32, ID.Item, ItemType.Consume)),game.tryWorld.entity);
+                    game.tryWorld.qt.insert(new QuadNode(new Point(x+32, y+32), new Meat(x+32, y+32, ID.Item, ItemType.Consume)),game.tryWorld.entity, null);
                 }else{
-                    game.tryWorld.qt.insert(new QuadNode(new Point(x+32, y+32), new Sword(x+32, y+32, ID.Item, ItemType.Used)),game.tryWorld.entity);
+                    game.tryWorld.qt.insert(new QuadNode(new Point(x+32, y+32), new Sword(x+32, y+32, ID.Item, ItemType.Used)),game.tryWorld.entity, null);
                 }
                 itemDroped = true;
             }

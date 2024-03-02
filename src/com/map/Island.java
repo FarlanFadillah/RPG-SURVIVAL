@@ -21,11 +21,15 @@ import com.quadTree.QuadNode;
 import com.tile.ObjectManager;
 import com.tile.TileManager;
 import com.tile.TileMap;
+import com.ai.AINode;
 
 public class Island extends Biome{
 
     public ArrayList<int[][]> terrainLayer = new ArrayList<>();
     public TileMap[] tileSet = new TileMap[300];
+    
+    public List<GameObject> gameObject = new ArrayList<>();
+    public AINode[][] AINode;
 
     public TileManager tilem;
     public ObjectManager bm;
@@ -41,7 +45,7 @@ public class Island extends Biome{
     public List<GameObject> entity = new ArrayList<>();
     public Island(Game game) {
         super(game);
-        player = new Fighter(3584, 960, ID.Entity, EntityType.Player, EntityClass.Fighter, game);
+        player = new Fighter(832, 1152, ID.Entity, EntityType.Player, EntityClass.Fighter, game);
         bm = new ObjectManager(game);
         tilem = new TileManager(game);
         this.mapPath = "/assets/Terrain/Islands.tmx";
@@ -80,11 +84,13 @@ public class Island extends Biome{
         // TODO Auto-generated method stub
         getTileSet(tileSet, tilem);
         addTerrainLayer(mapPath, "Tile Layer 1", terrainLayer, tilem);
+        AINode = new AINode[tilem.WIDTHMAP][tilem.HEIGHTMAP];
+        System.out.println(tilem.WIDTHMAP + " " + tilem.HEIGHTMAP);
         qt = new Quad(new Point(0,0), new Point(tilem.WIDTHMAP*64, tilem.HEIGHTMAP*64), game);
-        qt.insert(new QuadNode(new Point(player.x, player.y), player), entity);
+        qt.insert(new QuadNode(new Point(player.x, player.y), player), entity, AINode);
         addTerrainLayer(mapPath, "Tile Layer 2", terrainLayer, tilem);
-        addObjectLayer(mapPath, "Object Layer 1", bm, qt, entity);
-        addSolidLayer("SolidLayer", bm, 0, qt, entity);
+        addObjectLayer(mapPath, "Object Layer 1", bm, qt, entity, AINode);
+        addSolidLayer("SolidLayer", bm, 0, qt, entity, AINode);
     }
     
 }
