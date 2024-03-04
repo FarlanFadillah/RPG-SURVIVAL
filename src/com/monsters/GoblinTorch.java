@@ -50,11 +50,15 @@ public class GoblinTorch extends Entity{
 		Collision();
 		spriteCounter();
 		playerControl();
-		//checkDistance();
+		checkDistance();
 		attackCollision();
 		
 		if(hp <= 0) {
+			speed = 0;
 			dead = true;
+		}
+		if(hp < 50) {
+			attack1 = true;
 		}
 	}
 	
@@ -346,12 +350,12 @@ public class GoblinTorch extends Entity{
 			attack1Down[4] = im.scaledImage(ss.grabImage(5, 5, 192, 192), 192,192);
 			attack1Down[5] = im.scaledImage(ss.grabImage(6, 5, 192, 192), 192,192);
 			
-			attack1Left[0] = im.scaledImage(ss.grabImage(6, 10, 192, 192), 192,192);
-			attack1Left[1] = im.scaledImage(ss.grabImage(5, 10, 192, 192), 192,192);
-			attack1Left[2] = im.scaledImage(ss.grabImage(4, 10, 192, 192), 192,192);
-			attack1Left[3] = im.scaledImage(ss.grabImage(3, 10, 192, 192), 192,192);
-			attack1Left[4] = im.scaledImage(ss.grabImage(2, 10, 192, 192), 192,192);
-			attack1Left[5] = im.scaledImage(ss.grabImage(1, 10, 192, 192), 192,192);
+			attack1Left[0] = im.scaledImage(ss.grabImage(6, 7, 192, 192), 192,192);
+			attack1Left[1] = im.scaledImage(ss.grabImage(5, 7, 192, 192), 192,192);
+			attack1Left[2] = im.scaledImage(ss.grabImage(4, 7, 192, 192), 192,192);
+			attack1Left[3] = im.scaledImage(ss.grabImage(3, 7, 192, 192), 192,192);
+			attack1Left[4] = im.scaledImage(ss.grabImage(2, 7, 192, 192), 192,192);
+			attack1Left[5] = im.scaledImage(ss.grabImage(1, 7, 192, 192), 192,192);
 			
 			attack1Right[0] = im.scaledImage(ss.grabImage(1, 3, 192, 192), 192,192);
 			attack1Right[1] = im.scaledImage(ss.grabImage(2, 3, 192, 192), 192,192);

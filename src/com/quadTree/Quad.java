@@ -59,8 +59,8 @@ public class Quad {
             // We are at a quad of unit area; cannot subdivide further
             if (n == null)
                 n = node;
-            gameObject[node.gameObject.x/64][node.gameObject.y/64] = new AINode(node.gameObject.x/64,node.gameObject.y/64);
-            gameObject[node.gameObject.x/64][node.gameObject.y/64].solid = true;
+            //gameObject[node.gameObject.x/64][node.gameObject.y/64] = new AINode(node.gameObject.x/64,node.gameObject.y/64);
+            //gameObject[node.gameObject.x/64][node.gameObject.y/64].solid = true;
             return;
         }
  

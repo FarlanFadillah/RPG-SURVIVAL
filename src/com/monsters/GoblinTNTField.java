@@ -22,6 +22,7 @@ public class GoblinTNTField extends Entity{
 	ImageManager im = new ImageManager();
 	private int xMove = 0;
 	private int yMove = 0;
+	private int spriteAttack1 = 1;
 	public int start, stop = 0;
 
 	public GoblinTNTField(int x, int y, ID id, EntityType et, EntityClass ec, Game game) {
@@ -33,17 +34,25 @@ public class GoblinTNTField extends Entity{
 		start = game.second;
 		getImage();
 		image = idleRight[0];
+		arahAttack = "kanan";
 		arah = "kanan";
 	}
 	
 	public void tick() {
+		if(attack1 == false) {
+			speed = 4;
+		}else if(attack1 == true) {
+			speed = 0;
+		}
+		
 		x += velX;
 		y += velY;
 		Collision();
 		spriteCounter();
 		playerControl();
-		//checkDistance();
+		checkDistance();
 		if(hp <= 0) {
+			speed = 0;
 			dead = true;
 		}
 	}
@@ -133,70 +142,109 @@ public class GoblinTNTField extends Entity{
 	
 	public void animatedSprite(){
 		if(dead == false) {
-			if(isUp() || isDown()|| isRight() || isLeft()) {
-				switch (arah) {
-				case "atas": 
-					if(spriteNum == 1) {image = runUp[0];}
-					if(spriteNum == 2) {image = runUp[1];}
-					if(spriteNum == 3) {image = runUp[2];}
-					if(spriteNum == 4) {image = runUp[3];}
-					if(spriteNum == 5) {image = runUp[4];}
-					if(spriteNum == 6) {image = runUp[5];}		break;
-				case "bawah":
-					if(spriteNum == 1) {image = runDown[0];}
-					if(spriteNum == 2) {image = runDown[1];}
-					if(spriteNum == 3) {image = runDown[2];}
-					if(spriteNum ==4) {image = runDown[3];}
-					if(spriteNum ==5) {image = runDown[4];}
-					if(spriteNum ==6) {image = runDown[5];}	break;
-				case "kanan":
-					if(spriteNum == 1) {image = runRight[0];}
-					if(spriteNum == 2) {image = runRight[1];}
-					if(spriteNum == 3) {image = runRight[2];}
-					if(spriteNum ==4) {image = runRight[3];}
-					if(spriteNum ==5) {image = runRight[4];}
-					if(spriteNum ==6) {image = runRight[5];}	break;
-				case "kiri":
-					if(spriteNum == 1) {image = runLeft[0];}
-					if(spriteNum == 2) {image = runLeft[1];}
-					if(spriteNum == 3) {image = runLeft[2];}
-					if(spriteNum ==4) {image = runLeft[3];}
-					if(spriteNum ==5) {image = runLeft[4];}
-					if(spriteNum ==65) {image = runLeft[5];}	break;
+			if(attack1 == false) {
+				if(isUp() || isDown()|| isRight() || isLeft()) {
+					switch (arah) {
+					case "atas": 
+						if(spriteNum == 1) {image = runUp[0];}
+						if(spriteNum == 2) {image = runUp[1];}
+						if(spriteNum == 3) {image = runUp[2];}
+						if(spriteNum == 4) {image = runUp[3];}
+						if(spriteNum == 5) {image = runUp[4];}
+						if(spriteNum == 6) {image = runUp[5];}		break;
+					case "bawah":
+						if(spriteNum == 1) {image = runDown[0];}
+						if(spriteNum == 2) {image = runDown[1];}
+						if(spriteNum == 3) {image = runDown[2];}
+						if(spriteNum ==4) {image = runDown[3];}
+						if(spriteNum ==5) {image = runDown[4];}
+						if(spriteNum ==6) {image = runDown[5];}	break;
+					case "kanan":
+						if(spriteNum == 1) {image = runRight[0];}
+						if(spriteNum == 2) {image = runRight[1];}
+						if(spriteNum == 3) {image = runRight[2];}
+						if(spriteNum ==4) {image = runRight[3];}
+						if(spriteNum ==5) {image = runRight[4];}
+						if(spriteNum ==6) {image = runRight[5];}	break;
+					case "kiri":
+						if(spriteNum == 1) {image = runLeft[0];}
+						if(spriteNum == 2) {image = runLeft[1];}
+						if(spriteNum == 3) {image = runLeft[2];}
+						if(spriteNum ==4) {image = runLeft[3];}
+						if(spriteNum ==5) {image = runLeft[4];}
+						if(spriteNum ==65) {image = runLeft[5];}	break;
+					}
+					
+				}else {
+					switch (arah) {
+					case "atas": 
+						if(spriteNum == 1) {image = idleUp[0];}
+						if(spriteNum == 2) {image = idleUp[1];}
+						if(spriteNum == 3) {image = idleUp[2];}
+						if(spriteNum ==4) {image = idleUp[3];}
+						if(spriteNum ==5) {image = idleUp[4];}
+						if(spriteNum ==6) {image = idleUp[5];}	break;
+					case "bawah":
+						if(spriteNum == 1) {image = idleDown[0];}
+						if(spriteNum == 2) {image = idleDown[1];}
+						if(spriteNum == 3) {image = idleDown[2];}
+						if(spriteNum ==4) {image = idleDown[3];}
+						if(spriteNum ==5) {image = idleDown[4];}
+						if(spriteNum ==6) {image = idleDown[5];}	break;
+					case "kanan":
+						if(spriteNum == 1) {image = idleRight[0];}
+						if(spriteNum == 2) {image = idleRight[1];}
+						if(spriteNum == 3) {image = idleRight[2];}
+						if(spriteNum ==4) {image = idleRight[3];}
+						if(spriteNum ==5) {image = idleRight[4];}
+						if(spriteNum ==6) {image = idleRight[5];}	break;
+					case "kiri":
+						if(spriteNum == 1) {image = idleLeft[0];}
+						if(spriteNum == 2) {image = idleLeft[1];}
+						if(spriteNum == 3) {image = idleLeft[2];}
+						if(spriteNum ==4) {image = idleLeft[3];}
+						if(spriteNum ==5) {image = idleLeft[4];}
+						if(spriteNum ==6) {image = idleLeft[5];}	break;
+					}
 				}
-				
-			}else {
-				switch (arah) {
+			} else if(attack1 == true) {
+				//Attack 1 Animations
+				switch (arahAttack) {
 				case "atas": 
-					if(spriteNum == 1) {image = idleUp[0];}
-					if(spriteNum == 2) {image = idleUp[1];}
-					if(spriteNum == 3) {image = idleUp[2];}
-					if(spriteNum ==4) {image = idleUp[3];}
-					if(spriteNum ==5) {image = idleUp[4];}
-					if(spriteNum ==6) {image = idleUp[5];}	break;
+					if(spriteAttack1 == 1) {image = attackTNTUp[0];}
+					if(spriteAttack1 == 2) {image = attackTNTUp[1];}
+					if(spriteAttack1 == 3) {image = attackTNTUp[2];}
+					if(spriteAttack1 == 4) {image = attackTNTUp[3];}
+					if(spriteAttack1 == 5) {image = attackTNTUp[4];}
+					if(spriteAttack1 == 6) {image = attackTNTUp[5];}
+					if(spriteAttack1 == 7) {image = attackTNTUp[6];}	break;
 				case "bawah":
-					if(spriteNum == 1) {image = idleDown[0];}
-					if(spriteNum == 2) {image = idleDown[1];}
-					if(spriteNum == 3) {image = idleDown[2];}
-					if(spriteNum ==4) {image = idleDown[3];}
-					if(spriteNum ==5) {image = idleDown[4];}
-					if(spriteNum ==6) {image = idleDown[5];}	break;
+					if(spriteAttack1 == 1) {image = attackTNTDown[0];}
+					if(spriteAttack1 == 2) {image = attackTNTDown[1];}
+					if(spriteAttack1 == 3) {image = attackTNTDown[2];}
+					if(spriteAttack1 ==4) {image = attackTNTDown[3];}
+					if(spriteAttack1 ==5) {image = attackTNTDown[4];}
+					if(spriteAttack1 ==6) {image = attackTNTDown[5];}
+					if(spriteAttack1 == 7) {image = attackTNTDown[6];}	break;
 				case "kanan":
-					if(spriteNum == 1) {image = idleRight[0];}
-					if(spriteNum == 2) {image = idleRight[1];}
-					if(spriteNum == 3) {image = idleRight[2];}
-					if(spriteNum ==4) {image = idleRight[3];}
-					if(spriteNum ==5) {image = idleRight[4];}
-					if(spriteNum ==6) {image = idleRight[5];}	break;
+					if(spriteAttack1 == 1) {image = attackTNTRight[0];}
+					if(spriteAttack1 == 2) {image = attackTNTRight[1];}
+					if(spriteAttack1 == 3) {image = attackTNTRight[2];}
+					if(spriteAttack1 ==4) {image = attackTNTRight[3];}
+					if(spriteAttack1 ==5) {image = attackTNTRight[4];}
+					if(spriteAttack1 ==6) {image = attackTNTRight[5];}
+					if(spriteAttack1 == 7) {image = attackTNTRight[6];}	break;
 				case "kiri":
-					if(spriteNum == 1) {image = idleLeft[0];}
-					if(spriteNum == 2) {image = idleLeft[1];}
-					if(spriteNum == 3) {image = idleLeft[2];}
-					if(spriteNum ==4) {image = idleLeft[3];}
-					if(spriteNum ==5) {image = idleLeft[4];}
-					if(spriteNum ==6) {image = idleLeft[5];}	break;
+					if(spriteAttack1 == 1) {image = attackTNTLeft[0];}
+					if(spriteAttack1 == 2) {image = attackTNTLeft[1];}
+					if(spriteAttack1 == 3) {image = attackTNTLeft[2];}
+					if(spriteAttack1 ==4) {image = attackTNTLeft[3];}
+					if(spriteAttack1 ==5) {image = attackTNTLeft[4];}
+					if(spriteAttack1 ==6) {image = attackTNTLeft[5];}
+					if(spriteAttack1 == 7) {image = attackTNTLeft[6];}	break;
 				}
 			}
+			
 		}else {
 			if(spriteDead == 1) {image = death[0];}
 			if(spriteDead == 2) {image = death[1];}
@@ -274,6 +322,38 @@ public class GoblinTNTField extends Entity{
 			idleUp[4] = im.scaledImage(ss.grabImage(5, 1, 192, 192), 192,192);
 			idleUp[5] = im.scaledImage(ss.grabImage(6, 1, 192, 192), 192,192);
 			
+			attackTNTUp[0] = im.scaledImage(ss.grabImage(7, 3, 192, 192), 192,192);
+			attackTNTUp[1] = im.scaledImage(ss.grabImage(6, 3, 192, 192), 192,192);
+			attackTNTUp[2] = im.scaledImage(ss.grabImage(5, 3, 192, 192), 192,192);
+			attackTNTUp[3] = im.scaledImage(ss.grabImage(4, 3, 192, 192), 192,192);
+			attackTNTUp[4] = im.scaledImage(ss.grabImage(3, 3, 192, 192), 192,192);
+			attackTNTUp[5] = im.scaledImage(ss.grabImage(2, 3, 192, 192), 192,192);
+			attackTNTUp[6] = im.scaledImage(ss.grabImage(1, 3, 192, 192), 192,192);
+			
+			attackTNTDown[0] = im.scaledImage(ss.grabImage(1, 5, 192, 192), 192,192);
+			attackTNTDown[1] = im.scaledImage(ss.grabImage(2, 5, 192, 192), 192,192);
+			attackTNTDown[2] = im.scaledImage(ss.grabImage(3, 5, 192, 192), 192,192);
+			attackTNTDown[3] = im.scaledImage(ss.grabImage(4, 5, 192, 192), 192,192);
+			attackTNTDown[4] = im.scaledImage(ss.grabImage(5, 5, 192, 192), 192,192);
+			attackTNTDown[5] = im.scaledImage(ss.grabImage(6, 5, 192, 192), 192,192);
+			attackTNTDown[6] = im.scaledImage(ss.grabImage(7, 5, 192, 192), 192,192);
+			
+			attackTNTLeft[0] = im.scaledImage(ss.grabImage(7, 3, 192, 192), 192,192);
+			attackTNTLeft[1] = im.scaledImage(ss.grabImage(6, 3, 192, 192), 192,192);
+			attackTNTLeft[2] = im.scaledImage(ss.grabImage(5, 3, 192, 192), 192,192);
+			attackTNTLeft[3] = im.scaledImage(ss.grabImage(4, 3, 192, 192), 192,192);
+			attackTNTLeft[4] = im.scaledImage(ss.grabImage(3, 3, 192, 192), 192,192);
+			attackTNTLeft[5] = im.scaledImage(ss.grabImage(2, 3, 192, 192), 192,192);
+			attackTNTLeft[6] = im.scaledImage(ss.grabImage(1, 3, 192, 192), 192,192);
+			
+			attackTNTRight[0] = im.scaledImage(ss.grabImage(1, 5, 192, 192), 192,192);
+			attackTNTRight[1] = im.scaledImage(ss.grabImage(2, 5, 192, 192), 192,192);
+			attackTNTRight[2] = im.scaledImage(ss.grabImage(3, 5, 192, 192), 192,192);
+			attackTNTRight[3] = im.scaledImage(ss.grabImage(4, 5, 192, 192), 192,192);
+			attackTNTRight[4] = im.scaledImage(ss.grabImage(5, 5, 192, 192), 192,192);
+			attackTNTRight[5] = im.scaledImage(ss.grabImage(6, 5, 192, 192), 192,192);
+			attackTNTRight[6] = im.scaledImage(ss.grabImage(7, 5, 192, 192), 192,192);
+			
 			death[0] = im.scaledImage(ssdead.grabImage(1, 1, 128, 128), 128, 128);
 			death[1] = im.scaledImage(ssdead.grabImage(2, 1, 128, 128), 128, 128);
 			death[2] = im.scaledImage(ssdead.grabImage(3, 1, 128, 128), 128, 128);
@@ -315,14 +395,32 @@ public class GoblinTNTField extends Entity{
 	public void spriteCounter(){
 		spriteCounter++;
 		if(dead == false) {
-			if(spriteCounter > 6) {
-				if(spriteNum == 1) {spriteNum =2;}
-				else if(spriteNum ==2) {spriteNum =3;}
-				else if(spriteNum ==3) {spriteNum =4;}
-				else if(spriteNum ==4) {spriteNum =5;}
-				else if(spriteNum ==5) {spriteNum =6;}
-				else if(spriteNum ==6) {spriteNum =1;	setAction();}
-				spriteCounter =0;
+			if(attack1 == false) {
+				if(spriteCounter > 6) {
+					if(spriteNum == 1) {spriteNum =2;}
+					else if(spriteNum ==2) {spriteNum =3;}
+					else if(spriteNum ==3) {spriteNum =4;}
+					else if(spriteNum ==4) {spriteNum =5;}
+					else if(spriteNum ==5) {spriteNum =6;}
+					else if(spriteNum ==6) {spriteNum =1;	setAction();}
+					spriteCounter =0;
+				}
+			}
+			
+			else if(attack1 == true) {
+				//Counter Attack1
+				if(spriteCounter > 6) {
+					if(spriteAttack1 == 1) {spriteAttack1 =2;}
+					else if(spriteAttack1 ==2) {spriteAttack1 =3;}
+					else if(spriteAttack1 ==3) {spriteAttack1 =4;}
+					else if(spriteAttack1 ==4) {spriteAttack1 =5;}
+					else if(spriteAttack1 ==5) {spriteAttack1 =6;}
+					else if(spriteAttack1 ==6) {spriteAttack1 =7;}
+					else if(spriteAttack1 ==7) {spriteAttack1 =1;
+						attack1 = false;
+					}
+					spriteCounter =0;
+				}
 			}
 		}
 		

@@ -72,6 +72,13 @@ public abstract class Entity extends GameObject {
 	public BufferedImage[] treeRight = new BufferedImage[6];
 	public BufferedImage[] treeLeft = new BufferedImage[6];
 	
+	public BufferedImage[] attackTNTDown = new BufferedImage[7];
+	public BufferedImage[] attackTNTUp = new BufferedImage[7];
+	public BufferedImage[] attackTNTRight = new BufferedImage[7];
+	public BufferedImage[] attackTNTLeft = new BufferedImage[7];
+	
+	public BufferedImage[] attackBarrel = new BufferedImage[3];
+	
 	public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
 
 
