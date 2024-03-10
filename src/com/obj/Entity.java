@@ -80,6 +80,7 @@ public abstract class Entity extends GameObject {
 	public BufferedImage[] attackBarrel = new BufferedImage[3];
 	
 	public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
+	public Rectangle rangeArea = new Rectangle(0, 0, 0, 0);
 
 
 	public int spriteNum = 1 ; // Counter Animation

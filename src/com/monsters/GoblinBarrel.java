@@ -33,7 +33,7 @@ public class GoblinBarrel extends Entity{
 		hp = 50;
 		mana = 50;
 		stamina = 50;
-		speed = 1;
+		speed = 2;
 		start = game.second;
 		getImage();
 		image = idleRight[0];
@@ -77,14 +77,61 @@ public class GoblinBarrel extends Entity{
 	}
 	
 	public void setAction(int delay) {
-		if(onPath == true) {
-			int goalCol = (game.tryWorld.player.getX()/64);
-			int goalRow = (game.tryWorld.player.getY()/64);
+		//if(onPath == true) {
+		//	int goalCol = (game.tryWorld.player.getX()/64);
+		//	int goalRow = (game.tryWorld.player.getY()/64);
+		//	
+		//	searchPath(goalCol, goalRow);	
+		//}
+		int attackRangeX = Math.abs(x - game.tryWorld.player.getX());
+		int attackRangeY = Math.abs(y - game.tryWorld.player.getY());
+		
+		if(attackRangeX <= 64*2 && attackRangeY <= 64*2 && attack1 == false) {
+			stop = game.second;
+			if(stop - start >= delay) {
+				if(game.tryWorld.player.getX() <= x && x - game.tryWorld.player.getX() <= 64*3) {
+					setLeft(true);
+					setRight(false);
+					if(idlein){
+						idleout = true;
+					}
+					
+					spriteIdleIn = 1;
+					arah = "kiri";
+					
+				} else if(game.tryWorld.player.getX() >= x && game.tryWorld.player.getX() - x <= 64*3) {
+					setLeft(false);
+					setRight(true);
+					if(idlein){
+						idleout = true;
+					}
+					
+					spriteIdleIn = 1;
+					arah = "kanan";
+				}
+				
+				if(game.tryWorld.player.getY() <= y && y - game.tryWorld.player.getY() <= 64*3) {
+					setUp(true);
+					setDown(false);
+					if(idlein){
+						idleout = true;
+					}
+					
+					spriteIdleIn = 1;
+					arah = "atas";
+				} else if(game.tryWorld.player.getY() >= y && game.tryWorld.player.getY() - y <= 64*3) {
+					setUp(false);
+					setDown(true);
+					if(idlein){
+						idleout = true;
+					}
+					
+					spriteIdleIn = 1;
+					arah = "bawah";
+				}
+			}
 			
-			searchPath(goalCol, goalRow);
-			
-		}
-		else {
+		} else {
 			Random random = new Random();
 			int i = random.nextInt(100)+1; //pick up a number from 1 to 100
 			stop = game.second;
@@ -151,6 +198,13 @@ public class GoblinBarrel extends Entity{
 			}
 		}
 		
+		if(attackRangeX <= 40 && attackRangeY <= 40) {
+			setUp(false);
+			setDown(false);
+			setLeft(false);
+			setRight(false);
+			attack1 = true;
+		}
 	}
 
 	public void render(Graphics g) {
@@ -440,7 +494,7 @@ public class GoblinBarrel extends Entity{
 				else if(spriteDead == 10) {spriteDead = 11;}
 				else if(spriteDead == 11) {spriteDead = 12;}
 				else if(spriteDead == 12) {spriteDead = 13;}
-				else if(spriteDead == 13) {spriteDead = 14; game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(this.x, this.y)));	game.tryWorld.entity.remove(this);}
+				else if(spriteDead == 13) {spriteDead = 14; game.tryWorld.entity.remove(this);}
 				spriteCounter =0;
 			}
 		}

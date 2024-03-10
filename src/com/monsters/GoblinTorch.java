@@ -52,6 +52,7 @@ public class GoblinTorch extends Entity{
 		playerControl();
 		checkDistance();
 		attackCollision();
+		rangeCollision();
 		
 		if(hp <= 0) {
 			speed = 0;
@@ -81,53 +82,197 @@ public class GoblinTorch extends Entity{
 	}
 	
 	public void setAction(int delay) {
+		//if(onPath == true) {
+		//	int goalCol = (game.tryWorld.player.getX()/64);
+		//	int goalRow = (game.tryWorld.player.getY()/64);
+		//	
+		//	searchPath(goalCol, goalRow);	
+		//}
+		int attackRangeX = Math.abs(x - game.tryWorld.player.getX());
+		int attackRangeY = Math.abs(y - game.tryWorld.player.getY());
 		
-		Random random = new Random();
-		int i = random.nextInt(100)+1; //pick up a number from 1 to 100
-		stop = game.second;
-		if(stop - start >= delay) {
-			if(i <= 15) {
-				setUp(true);
-				setDown(false);
-				setLeft(false);
-				setRight(false);
-				arah = "atas";
+		if(attackRangeX <= 64*3 && attackRangeY <= 64*3 && attack1 == false) {
+			stop = game.second;
+			if(stop - start >= delay) {
+				if(game.tryWorld.player.getX() <= x && x - game.tryWorld.player.getX() <= 64*3) {
+					setLeft(true);
+					setRight(false);
+					
+					arah = "kiri";
+					System.out.println("kirrrriiiiii");
+					
+				} else if(game.tryWorld.player.getX() >= x && game.tryWorld.player.getX() - x <= 64*3) {
+					setLeft(false);
+					setRight(true);
+					
+					arah = "kanan";
+					System.out.println("kanaaaaaaaannnnn");
+				}
+				
+				if(game.tryWorld.player.getY() <= y && y - game.tryWorld.player.getY() <= 64*3) {
+					setUp(true);
+					setDown(false);
+					
+					arah = "atas";
+					System.out.println("ataaaaaassss");
+					
+				} else if(game.tryWorld.player.getY() >= y && game.tryWorld.player.getY() - y <= 64*3) {
+					setUp(false);
+					setDown(true);
+					
+					arah = "bawah";
+					System.out.println("bwaaaaaaah");
+				}
 			}
-			if(i > 15 && i <= 30) {
-				setUp(false);
-				setDown(true);
-				setLeft(false);
-				setRight(false);
-				arah = "bawah";	
+			
+			if(attackRangeX <= 40 && attackRangeY <= 40) {
+				attack1 = true;
+				stop = game.second;
+				if(stop - start >= delay) {
+					if(game.tryWorld.player.getX() <= x && x - game.tryWorld.player.getX() <= 40) {
+						setLeft(true);
+						setRight(false);
+						
+						arahAttack = "kiri";
+						
+					} else if(game.tryWorld.player.getX() >= x && game.tryWorld.player.getX() - x <= 40) {
+						setLeft(false);
+						setRight(true);
+						
+						arahAttack = "kanan";
+					}
+					
+					if(game.tryWorld.player.getY() <= y && y - game.tryWorld.player.getY() <= 40) {
+						setUp(true);
+						setDown(false);
+						
+						arahAttack = "atas";
+						
+					} else if(game.tryWorld.player.getY() >= y && game.tryWorld.player.getY() - y <= 40) {
+						setUp(false);
+						setDown(true);
+						
+						arahAttack = "bawah";
+					}
+				}
 			}
-			if(i > 30 && i <= 45) {
-				setLeft(true);
-				setRight(false);
-				setUp(false);
-				setDown(false);
-				arah = "kiri";
+			
+		} else {
+			checkArah();
+			Random random = new Random();
+			int i = random.nextInt(100)+1; //pick up a number from 1 to 100
+			stop = game.second;
+			if(stop - start >= delay){
+				if(i <= 20) {
+					setUp(true);
+					setDown(false);
+					setLeft(false);
+					setRight(false);
+					
+					arah = "atas";
+					
+					
+				}
+				if(i > 20 && i <= 40) {
+					setUp(false);
+					setDown(true);
+					setLeft(false);
+					setRight(false);
+					
+					arah = "bawah";
+					
+				}
+				if(i > 40 && i <= 60) {
+					setLeft(true);
+					setRight(false);
+					setUp(false);
+					setDown(false);
+					
+					arah = "kiri";
+					
+				}
+				if(i > 60 && i <= 80) {
+					setLeft(false);
+					setRight(true);
+					setUp(false);
+					setDown(false);
+					
+					arah = "kanan";
+					
+				}
+				if(i > 80 && i <=100) {
+					setLeft(false);
+					setRight(false);
+					setUp(false);
+					setDown(false);
+					
+				}
+				start = stop;
 			}
-			if(i > 45 && i <= 60) {
-				setLeft(false);
-				setRight(true);
-				setUp(false);
-				setDown(false);
-				arah = "kanan";
-			}
-			if(i > 60 && i <=100) {
-				setLeft(false);
-				setRight(false);
-				setUp(false);
-				setDown(false);
-			}
-			start = stop;
+		}
+		
+	}
+	
+	public void checkArah() {
+		switch(arah) {
+		case "atas": 
+			rangeArea.x = x+48;
+			rangeArea.y = y+64;
+			rangeArea.width  = 80;
+			rangeArea.height = 16; break;
+		case "bawah":
+			rangeArea.x = x+48;
+			rangeArea.y = y+128;
+			rangeArea.width  = 80;
+			rangeArea.height = 16; break;
+		case "kanan":
+			rangeArea.x = x+128;
+			rangeArea.y = y+64;
+			rangeArea.width  = 16;
+			rangeArea.height = 64; break;
+		case "kiri":
+			rangeArea.x = x+48;
+			rangeArea.y = y+64;
+			rangeArea.width  = 16;
+			rangeArea.height = 64; break;
+		}
+	}
+	
+	public void setArah(String arah2) {
+		switch(arah2) {
+		case "atas":
+			setUp(false);
+			setDown(true);
+			setLeft(false);
+			setRight(false);
+			arah = "bawah"; break;
+		case "bawah": 
+			setUp(true);
+			setDown(false);
+			setLeft(false);
+			setRight(false);
+			arah = "atas"; break;
+		case "kanan": 
+			setUp(false);
+			setDown(false);
+			setLeft(true);
+			setRight(false);
+			arah = "kiri"; break;
+		case "kiri": 
+			setUp(false);
+			setDown(false);
+			setLeft(false);
+			setRight(true);
+			arah = "kanan"; break;
 		}
 	}
 
 	public void render(Graphics g) {
 		animatedSprite();
 		g.drawImage(image, x, y, null);
-		//g.fillRect(getBound().x, getBound().y, getBound().width, getBound().height);
+		g.fillRect(getBound().x, getBound().y, getBound().width, getBound().height);
+		g.fillRect(attackArea.x, attackArea.y, attackArea.width, attackArea.height);
+		g.fillRect(rangeArea.x, rangeArea.y, rangeArea.width, rangeArea.height);
 	}
 
 	public void Collision() {
@@ -150,6 +295,40 @@ public class GoblinTorch extends Entity{
 			if(this != temp && attackArea.intersects(temp.getBound()) &&temp.getID() == ID.Entity) {
 					temp.hp -= 10;
 					attackArea = new Rectangle(0, 0, 0, 0);
+			}
+
+		}
+		
+	}
+	
+	public void rangeCollision() {
+		
+		for (int i = 0; i < game.tryWorld.objects.size(); i++) {
+			GameObject temp = game.tryWorld.objects.get(i);
+			
+			if(this != temp && rangeArea.intersects(temp.getBound())) {
+				Random random = new Random();
+				int z = random.nextInt(2); //pick up a number from 1 to 100
+				switch(arah) {
+				case "atas":
+					String [] arah2 = {"bawah", "kanan", "kiri"};
+					setArah(arah2[z]);
+					break;
+				case "bawah": 
+					String [] arah21 = {"atas", "kanan", "kiri"};
+					setArah(arah21[z]);
+					break;
+				case "kanan":
+					String [] arah22 = {"atas", "bawah", "kiri"};
+					setArah(arah22[z]);
+					break;
+				case "kiri":
+					String [] arah23 = {"atas", "bawah", "kanan"};
+					setArah(arah23[z]);
+					break;
+				}
+				rangeArea = new Rectangle(0, 0, 0, 0);
+				return;
 			}
 
 		}
@@ -336,19 +515,19 @@ public class GoblinTorch extends Entity{
 			idleUp[4] = im.scaledImage(ss.grabImage(5, 1, 192, 192), 192,192);
 			idleUp[5] = im.scaledImage(ss.grabImage(6, 1, 192, 192), 192,192);
 			
-			attack1Up[0] = im.scaledImage(ss.grabImage(1, 7, 192, 192), 192,192);
-			attack1Up[1] = im.scaledImage(ss.grabImage(2, 7, 192, 192), 192,192);
-			attack1Up[2] = im.scaledImage(ss.grabImage(3, 7, 192, 192), 192,192);
-			attack1Up[3] = im.scaledImage(ss.grabImage(4, 7, 192, 192), 192,192);
-			attack1Up[4] = im.scaledImage(ss.grabImage(5, 7, 192, 192), 192,192);
-			attack1Up[5] = im.scaledImage(ss.grabImage(6, 7, 192, 192), 192,192);
+			attack1Up[0] = im.scaledImage(ss.grabImage(1, 5, 192, 192), 192,192);
+			attack1Up[1] = im.scaledImage(ss.grabImage(2, 5, 192, 192), 192,192);
+			attack1Up[2] = im.scaledImage(ss.grabImage(3, 5, 192, 192), 192,192);
+			attack1Up[3] = im.scaledImage(ss.grabImage(4, 5, 192, 192), 192,192);
+			attack1Up[4] = im.scaledImage(ss.grabImage(5, 5, 192, 192), 192,192);
+			attack1Up[5] = im.scaledImage(ss.grabImage(6, 5, 192, 192), 192,192);
 			
-			attack1Down[0] = im.scaledImage(ss.grabImage(1, 5, 192, 192), 192,192);
-			attack1Down[1] = im.scaledImage(ss.grabImage(2, 5, 192, 192), 192,192);
-			attack1Down[2] = im.scaledImage(ss.grabImage(3, 5, 192, 192), 192,192);
-			attack1Down[3] = im.scaledImage(ss.grabImage(4, 5, 192, 192), 192,192);
-			attack1Down[4] = im.scaledImage(ss.grabImage(5, 5, 192, 192), 192,192);
-			attack1Down[5] = im.scaledImage(ss.grabImage(6, 5, 192, 192), 192,192);
+			attack1Down[0] = im.scaledImage(ss.grabImage(1, 4, 192, 192), 192,192);
+			attack1Down[1] = im.scaledImage(ss.grabImage(2, 4, 192, 192), 192,192);
+			attack1Down[2] = im.scaledImage(ss.grabImage(3, 4, 192, 192), 192,192);
+			attack1Down[3] = im.scaledImage(ss.grabImage(4, 4, 192, 192), 192,192);
+			attack1Down[4] = im.scaledImage(ss.grabImage(5, 4, 192, 192), 192,192);
+			attack1Down[5] = im.scaledImage(ss.grabImage(6, 4, 192, 192), 192,192);
 			
 			attack1Left[0] = im.scaledImage(ss.grabImage(6, 7, 192, 192), 192,192);
 			attack1Left[1] = im.scaledImage(ss.grabImage(5, 7, 192, 192), 192,192);
@@ -460,7 +639,7 @@ public class GoblinTorch extends Entity{
 				else if(spriteDead == 10) {spriteDead = 11;}
 				else if(spriteDead == 11) {spriteDead = 12;}
 				else if(spriteDead == 12) {spriteDead = 13;}
-				else if(spriteDead == 13) {spriteDead = 14; game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(this.x, this.y)));	game.tryWorld.entity.remove(this);}
+				else if(spriteDead == 13) {spriteDead = 14;	game.tryWorld.entity.remove(this);}
 				spriteCounter =0;
 			}
 		}

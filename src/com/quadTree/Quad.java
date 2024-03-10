@@ -195,6 +195,8 @@ public class Quad {
     //remove object
     public QuadNode remove(QuadNode node){
         //search(node.pos).gameObject = null;
+    	//node.gameObject = null;
     	node = null;
-        return null;}
+        return null;
+    }
 }
