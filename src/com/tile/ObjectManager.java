@@ -3,14 +3,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ai.AINode;
-import com.blockList.Bridge;
 import com.blockList.Castle;
-import com.blockList.HighGround3x4;
-import com.blockList.HighGround6x4;
 import com.blockList.House;
 import com.blockList.SolidBlock;
 import com.blockList.Tower;
@@ -24,7 +20,6 @@ import com.monsters.GoblinBarrel;
 import com.monsters.GoblinTNTField;
 import com.monsters.GoblinTorch;
 import com.obj.GameObject;
-import com.playerlist.*;
 import com.quadTree.Point;
 import com.quadTree.Quad;
 import com.quadTree.QuadNode;
@@ -147,8 +142,8 @@ public class ObjectManager {
                         line = br.readLine();
                         line = br.readLine();
                     }else if(extractValueStr(line, "name").contains("player")){
-                        int x = extractValueInt(line, "x");
-                        int y = extractValueInt(line, "y");
+                        // int x = extractValueInt(line, "x");
+                        // int y = extractValueInt(line, "y");
                         //qt.insert(new QuadNode(new Point(x, y), new Archer(x, y, ID.Entity , EntityType.Player, EntityClass.Archer, game)),objects, gameObject);
                         line = br.readLine();
                         line = br.readLine();
@@ -158,18 +153,6 @@ public class ObjectManager {
                         int h =  extractValueInt(line, "height");
                         int w =  extractValueInt(line, "width");
                         qt.insert(new QuadNode(new Point(x, y-h), new SolidBlock(x, y, ID.Block, BlockType.SolidBlock, game, w, h)),objects, gameObject);
-                    }else if(extractValueStr(line, "name").contains("hg3x4") ){
-                        int x = extractValueInt(line, "x");
-                        int y = extractValueInt(line, "y");
-                        int h =  extractValueInt(line, "height");
-                    }else if(extractValueStr(line, "name").contains("hg6x4") ){
-                        int x = extractValueInt(line, "x");
-                        int y = extractValueInt(line, "y");
-                        int h =  extractValueInt(line, "height");
-                    }else if(extractValueStr(line, "name").contains("hzBridge") ){
-                        int x = extractValueInt(line, "x");
-                        int y = extractValueInt(line, "y");
-                        int h =  extractValueInt(line, "height");
                     }else if(extractValueStr(line, "name").contains("blueTower") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");

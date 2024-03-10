@@ -13,7 +13,6 @@ import com.ui.GUI;
 
 
 import com.blockList.Tree;
-import com.gameMechanics.Slot;
 
 public class MouseInput extends MouseAdapter{
 	
@@ -24,7 +23,6 @@ public class MouseInput extends MouseAdapter{
 	GUI gui;
 
 	public boolean dragged = false;
-	public Slot slotDragged;
 	public BufferedImage dragItem;
 	Entity player;
 	public MouseInput(Game game) {

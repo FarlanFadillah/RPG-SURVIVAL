@@ -10,14 +10,11 @@ import java.awt.image.BufferedImage;
 
 import com.ai.Pathfinder;
 import com.filehandler.SpriteSheet;
-import com.id.EntityType;
-import com.id.ID;
 import com.input.Camera;
 import com.input.KeyInput;
 import com.input.MouseInput;
 import com.map.Island;
 import com.obj.Entity;
-import com.obj.GameObject;
 import com.ui.GUI;
 
 public class Game extends Canvas implements Runnable{

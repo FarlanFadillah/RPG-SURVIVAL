@@ -13,7 +13,6 @@ import com.id.ID;
 import com.main.Game;
 import com.obj.Entity;
 import com.obj.GameObject;
-import com.quadTree.Point;
 import com.tile.ImageManager;
 
 public class GoblinTorch extends Entity{

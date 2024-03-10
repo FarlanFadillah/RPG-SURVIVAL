@@ -5,6 +5,7 @@ import com.obj.Skill;
 
 public class Skills {
     Game game;
+    @SuppressWarnings("unchecked")
     public Slot<Skill>[] skillSlots = new Slot[10];
     public Skills(Game game){
         this.game = game;

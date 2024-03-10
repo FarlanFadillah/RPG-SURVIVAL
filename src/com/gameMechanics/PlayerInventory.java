@@ -7,9 +7,13 @@ import com.obj.Item;
 
 public class PlayerInventory {
 	Game game;
+	@SuppressWarnings("unchecked")
 	public Slot<Item>[] consumeSlot = new Slot[36];
+	@SuppressWarnings("unchecked")
 	public Slot<Item>[] usedSlot = new Slot[42];
+	@SuppressWarnings("unchecked")
 	public Slot<Item>[] ingredientSlot = new Slot[36];
+	@SuppressWarnings("unchecked")
 	public Slot<Item>[] slots = new Slot[36];
     int col, row = 0;
     public PlayerInventory(Game game){

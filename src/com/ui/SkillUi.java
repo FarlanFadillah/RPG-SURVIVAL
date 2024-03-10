@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.Skills;
 import com.gameMechanics.Slot;
-import com.id.ItemType;
 import com.main.Game;
 import com.obj.Skill;
 import com.tile.ImageManager;

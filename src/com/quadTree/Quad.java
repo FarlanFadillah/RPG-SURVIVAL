@@ -1,7 +1,6 @@
 package com.quadTree;
 
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ai.AINode;
