@@ -3,7 +3,6 @@ package com.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import com.id.ItemType;
 import com.main.Game;
 import com.obj.Entity;
 
@@ -15,8 +14,10 @@ public class KeyInput implements KeyListener{
     public boolean holdCtrl = false;
     
     public KeyInput(Game game){
+        player = game.getPlayerObject();
 		this.game = game;
 	}
+    
     @Override
     public void keyTyped(KeyEvent e) {
         int key = e.getKeyChar();
@@ -27,6 +28,41 @@ public class KeyInput implements KeyListener{
             }else if(game.gameState == game.InventoryState){
                 game.gameState = game.playState;
             }
+        }else if(key == 'q' || key == 'Q'){
+            if(game.gameState == game.playState){
+                game.gameState = game.skillTabState;
+                game.getPlayerObject().stopMove();
+            }else if(game.gameState == game.skillTabState){
+                game.gameState = game.playState;
+            }
+        }else if(key == 'e' || key == 'E'){
+            if(game.gameState == game.playState){
+                System.out.println("ss");
+                game.tryWorld.entity.remove(game.tryWorld.player);
+                if(game.tryWorld.player.equals(game.tryWorld.fighter)){
+                    game.tryWorld.player = game.tryWorld.archer;
+                }else{
+                    game.tryWorld.player = game.tryWorld.fighter;
+                }
+                game.tryWorld.entity.add(game.tryWorld.player);
+                game.tryWorld.player.stopMove();
+                game.gui.ps.checkPlayer(game);
+                player = game.tryWorld.player;
+            }
+        }
+        char keyChar = e.getKeyChar();
+        if (Character.isDigit(keyChar)) {
+            switch (Integer.parseInt(String.valueOf(keyChar))) {
+                case 1:
+                player.changeEquipment(player.weapon);
+                break;
+                case 2:
+                player.changeEquipment(player.axe);
+                break;
+                default:
+                break;
+            }
+            System.out.println(player.holdingTools);
         }
     }
     @Override

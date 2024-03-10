@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
+import com.gameMechanics.Skills;
 import com.id.BlockType;
 import com.id.EntityClass;
 import com.id.EntityType;
@@ -37,7 +38,8 @@ public class Fighter extends Entity{
 		
 		playerInventory = new PlayerInventory(game);
 		playerEquipment = new PlayerEquipment(game);
-		
+		skills = new Skills(game);
+
 		hp = 100;
 		mana = 100;
 		stamina = 100;
@@ -98,9 +100,10 @@ public class Fighter extends Entity{
 			}
 			
 			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Item){
-				game.tryWorld.objects.remove(temp);
 				Item getItem = (Item) temp;
 				playerInventory.addItem(getItem);
+				game.tryWorld.objects.remove(temp);
+				game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(temp.x, temp.y)));
 			}
 
 		}
@@ -152,7 +155,7 @@ public class Fighter extends Entity{
 						if(spriteNum == 3) {image = runLeft[2];}
 						if(spriteNum ==4) {image = runLeft[3];}
 						if(spriteNum ==5) {image = runLeft[4];}
-						if(spriteNum ==65) {image = runLeft[5];}	break;
+						if(spriteNum ==6) {image = runLeft[5];}	break;
 					}
 					
 				}else {
@@ -684,24 +687,37 @@ public void getImage() {
 		Rectangle key = new Rectangle((e.getX() + (int)game.camera.getX())-5, (e.getY() + (int) game.camera.getY())-5, 10, 10);
 		for(int i = 0; i < game.tryWorld.objects.size(); i++) {
 			GameObject tempObject = game.tryWorld.objects.get(i);
-			if(tempObject.getBound().intersects(key.getBounds())&&tempObject.getID() == ID.Block){
+			if(key.getBounds().intersects(tempObject.getBound()) && tempObject.getID() == ID.Block && Math.abs(this.getBound().x - tempObject.getBound().x)<= 96 && Math.abs(this.getBound().y - tempObject.getBound().y)<= 96){
 				Block tempBlock = (Block) tempObject;
 				if(tempBlock.getBlockType() == BlockType.DestroyAble){
 					hit = (Block)tempBlock;
 					attack1 = false;
 					attack2 = false;
 					cutTree = true;
-					System.out.println("get");
-					break;
+					return;
 				}
 			}	
 		}
-		
 	}
 	
 	public void attack2() {
 		attack2 = false;
 		attackArea = new Rectangle(0, 0, 0, 0);
+		spriteAttack2 = 1;
+	}
+
+	@Override
+	public void checkEquipment(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(holdingTools == weapon){
+			if(e.getButton() == MouseEvent.BUTTON1){
+				attacking1(e);
+			}else{
+				attacking2(e);
+			}
+		}else if(holdingTools == axe){
+			checkTree(e, true);
+		}
 	}
 
 }

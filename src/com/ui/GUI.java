@@ -1,6 +1,5 @@
 package com.ui;
 
-import com.gameMechanics.PlayerEquipment;
 import com.main.Game;
 import com.obj.Entity;
 
@@ -11,7 +10,7 @@ public class GUI {
     public InventoryGUI inv;
     Game game;
     Entity player;
-    SkillUi skillUi;
+    public SkillUi skillUi;
     public GUI(Game game){
         this.game = game;
         inv = new InventoryGUI(game);
@@ -24,13 +23,17 @@ public class GUI {
     }
     public void tick(){
         inv.tick(game.gameState == game.InventoryState);
+        skillUi.tick(game.gameState == game.skillTabState);
     }
 
     public void draw(Graphics2D g2d){
-            // ps.drawPlayerIcon(g2d);
-            // ps.drawPlayerStats(g2d);
-            skillUi.drawSkillSlot(g2d);
-            inv.drawInventory(g2d); 
+        g2d.setFont(ps.f1);
+        String word = "FPS :" +String.valueOf(game.Guifps);
+        g2d.drawString(word, Game.WIDTH-inv.getWidthString(g2d, word)-16, 32);
+        ps.drawPlayerIcon(g2d);
+        ps.drawPlayerStats(g2d);
+        skillUi.drawSkillSlot(g2d);
+        inv.drawInventory(g2d);  
     }
     
 

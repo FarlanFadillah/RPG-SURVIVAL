@@ -9,10 +9,10 @@ public abstract class GameObject {
     public BufferedImage image;
     public int x, y;
     ID id;
-    public int hp;
+    public double hp;
 	public boolean highGround = false;
     public String name;
-
+    public boolean hover;
     public abstract void tick();
     public abstract void render(Graphics g);
     public abstract Rectangle getBound();

@@ -3,7 +3,6 @@ package com.ui;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.filehandler.SpriteSheet;
@@ -28,10 +27,11 @@ public class PlayerStats {
         g2d.drawString("HP      :"+String.valueOf(player.hp), 96, 32);
         g2d.drawString("MANA    :"+String.valueOf(player.mana), 96, x+16);
         g2d.drawString("STAMINA :"+String.valueOf((int)player.stamina), 96, x+32);
+        g2d.drawString("EQUIP   :"+String.valueOf(player.holdingTools), 96, x+48);
     }
 
     public void checkPlayer(Game game){
-        List<GameObject> objects = game.tryWorld.objects;
+        List<GameObject> objects = game.tryWorld.entity;
         for (int i = 0; i < objects.size(); i++) {
             GameObject temp = objects.get(i);
             if(temp.getID() == ID.Entity){

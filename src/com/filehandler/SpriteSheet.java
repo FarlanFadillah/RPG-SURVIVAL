@@ -24,4 +24,9 @@ public class SpriteSheet {
         BufferedImage img = image.getSubimage(x, y, w, h);
         return img;
     }
+
+    public BufferedImage grabImage(int col, int row, int w, int h, BufferedImage image2){
+        BufferedImage img = image2.getSubimage((col * w) - w, (row *h) - h, w, h);
+        return img;
+    }
 }

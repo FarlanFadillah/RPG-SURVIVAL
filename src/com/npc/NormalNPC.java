@@ -426,4 +426,10 @@ public class NormalNPC extends Entity{
 		
 	}
 
+	@Override
+	public void checkEquipment(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'checkEquipment'");
+	}
+
 }

@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import com.main.Game;
-import com.obj.Block;
 import com.obj.Entity;
 import com.obj.GameObject;
 import com.ui.GUI;
@@ -15,8 +14,6 @@ import com.ui.GUI;
 
 import com.blockList.Tree;
 import com.gameMechanics.Slot;
-import com.id.BlockType;
-import com.id.ID;
 
 public class MouseInput extends MouseAdapter{
 	
@@ -38,54 +35,70 @@ public class MouseInput extends MouseAdapter{
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e){
-		if(e.getButton() == MouseEvent.BUTTON1){
-			if(game.gameState == game.InventoryState){
-				game.gui.inv.dragItem(e, game.gui.inv.itemType);
-				if(!game.gui.inv.getBound().contains(e.getPoint()) && game.gui.inv.dragged && !game.gui.inv.equipment.getBound().contains(e.getPoint())) {
-					game.gui.inv.dropItem();
-					game.gameState = game.playState;
-				}
-			}else if(game.gameState == game.playState){
-				player.attacking1(e);
-				player.checkTree(e, true);
-				
-			}
-        }else if (e.getButton() == MouseEvent.BUTTON2){
-            
-        }else if (e.getButton() == MouseEvent.BUTTON3){
-        	
-        }
-		
-	}
-	
-
-	@Override
 	public void mouseMoved(MouseEvent e) {
 		mx = e.getX();
 		my = e.getY();
+		Rectangle mouse = new Rectangle(e.getX()+(int)game.camera.getX(), e.getY()+(int)game.camera.getY(), 1, 1);
 		if(game.gameState == game.InventoryState) {
 			gui.inv.mx = mx;
 			gui.inv.my = my;
+			gui.inv.hoverSlotInv(e);
+		}else if(game.gameState == game.playState){
+			gui.skillUi.slotHover(e);
+			for (int i = 0; i < game.tryWorld.objects.size(); i++) {
+				GameObject temp = game.tryWorld.objects.get(i);
+				if(temp.getBound().contains(mouse) && temp.getClass() == Tree.class){
+					temp.hover = true;
+					return;
+				}else{
+					temp.hover = false;
+				}
+			}
+			for (int i = 0; i < game.tryWorld.entity.size(); i++) {
+				GameObject temp = game.tryWorld.entity.get(i);
+				if(temp.getBound().contains(mouse)){
+					temp.hover = true;
+					return;
+				}else{
+					temp.hover = false;
+				}
+			}
+		}else if(game.gameState == game.skillTabState){
+			gui.skillUi.slotHover(e);
 		}
 	}
 	public void putBlock(Graphics2D g, int x, int y, double xx, double yy){
 
 	}
 	
+	public void drawPointer(Graphics2D g){
+		g.fillRect(mx, my, 5, 5);
+	}
+	
 	public void mousePressed(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1){
         	if(game.gameState == game.playState){
-
+				player.automationEquipment(e);
+				player.checkEquipment(e);
+				game.gui.skillUi.checkSlot(e);
     		}else if(game.gameState == game.InventoryState) {
-    			gui.inv.checkButton(e);
-    		}
+				gui.inv.checkButton(e);
+				if(game.gui.inv.getBound().contains(e.getPoint()) || game.gui.inv.equipment.getBound().contains(e.getPoint())){
+					game.gui.inv.dragItem(e, game.gui.inv.itemType);
+				}else if(!game.gui.inv.getBound().contains(e.getPoint()) && game.gui.inv.dragged && !game.gui.inv.equipment.getBound().contains(e.getPoint())) {
+					game.gui.inv.dropItem();
+					game.gameState = game.playState;
+				}
+    		}else if(game.gameState == game.skillTabState){
+				game.gui.skillUi.checkSlot(e);
+			}
             
         } else if (e.getButton() == MouseEvent.BUTTON2){
             
         } else if (e.getButton() == MouseEvent.BUTTON3) {
         	if(game.gameState == game.playState){
-    			player.attacking2(e);
+				player.automationEquipment(e);
+    			player.checkEquipment(e);
 
     		}else if(game.gameState == game.InventoryState) {
     

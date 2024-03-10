@@ -40,6 +40,8 @@ public class Game extends Canvas implements Runnable{
     public int pauseState = 2;
     public int menuState = 3;
     public int InventoryState = 4;
+    public int skillTabState = 5;
+
 
 	public Frame frame;
 
@@ -52,7 +54,10 @@ public class Game extends Canvas implements Runnable{
     //Game time
     public int second = 0;
 
-    private Entity player;
+    //GUI FPS
+    public double Guifps = 0;
+
+
 
     public Game(){
     	
@@ -151,7 +156,7 @@ public class Game extends Canvas implements Runnable{
 
 			if(timer >= 1000000000) {
                 second++;
-                System.out.println("fps : " + fps);
+                this.Guifps = fps;
 				fps = 0;
 				timer=0;
 			}

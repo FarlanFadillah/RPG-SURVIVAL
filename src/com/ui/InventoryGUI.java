@@ -15,6 +15,8 @@ import com.id.ItemType;
 import com.main.Game;
 import com.obj.Entity;
 import com.obj.Item;
+import com.quadTree.Point;
+import com.quadTree.QuadNode;
 
 public class InventoryGUI {
     SpriteSheet inventoryBox = new SpriteSheet("/assets/GUI/Banners/Carved_36Slides_WithFrame.png");
@@ -30,13 +32,13 @@ public class InventoryGUI {
     public float opacity = 0f;
     Game game;
     public Entity player;
-    public Slot[] slot;
+    public Slot<Item>[] slot;
     public ItemType itemType = ItemType.ingredient;
 
     //dragged item element
     public int draggedSlotNum;
     public boolean dragged = false;
-    public Slot slotDragged;
+    public Slot<Item> slotDragged;
     public BufferedImage dragItem;
     
     //Buttons
@@ -45,6 +47,12 @@ public class InventoryGUI {
 
     //Equipment Inventory
     public EquipmentGUI equipment;
+	private boolean hover;
+
+	//Item info
+	SpriteSheet infoCarved = new SpriteSheet("/assets/GUI/Banners/infoCarved.png");
+	int mousex, mousey;
+	Slot<Item> slotHover;
     public InventoryGUI(Game game){
         this.game = game;
         player = game.getPlayerObject();
@@ -76,6 +84,7 @@ public class InventoryGUI {
                 opacity += 0.1f;
             }
         }else{
+			hover = false;
             if(x > xstart){
                 x -= 50;
             }
@@ -95,17 +104,31 @@ public class InventoryGUI {
             drawButtons(g2d, x, y);
             drawItemStored(g2d, x, y);
             drawDraggedItem(g2d);
+			if(hover && !dragged){
+				
+					g2d.setColor(Color.CYAN);
+					String word = slotHover.type.toUpperCase();
+					if(mousey+infoCarved.image.getHeight()< Game.HEIGHT){
+						g2d.drawImage(infoCarved.image, mousex, mousey, null);
+						g2d.drawString(word, (mousex + infoCarved.image.getWidth()/2)-getWidthString(g2d, word)/2, mousey+16);
+					}else{
+						g2d.drawImage(infoCarved.image, mousex, mousey-infoCarved.image.getHeight(), null);
+						g2d.drawString(word, (mousex + infoCarved.image.getWidth()/2)-getWidthString(g2d, word)/2, mousey+16-infoCarved.image.getHeight());
+					}
+					g2d.setColor(Color.white);
+				
+			}
         }
 
     }
 
     public void dragItem(MouseEvent e, ItemType itemType) {
-		Slot[] slot;
+		Slot<Item>[] slot;
 		if(itemType == ItemType.Consume) slot = game.getPlayerObject().playerInventory.consumeSlot;
 		else if(itemType == ItemType.Used) slot = game.getPlayerObject().playerInventory.usedSlot;
 		else slot = game.getPlayerObject().playerInventory.ingredientSlot;
 		for (int i = 0; i < slot.length; i++) {
-			Slot temp = slot[i];
+			Slot<Item> temp = slot[i];
 			//Check collision on each slot
 			if(temp.getBound().contains(e.getPoint())) {
 				//drag item from slots
@@ -170,8 +193,10 @@ public class InventoryGUI {
     	if(itemType == ItemType.Consume) slot = game.getPlayerObject().playerInventory.consumeSlot;
     	else if(itemType == ItemType.Used) slot = game.getPlayerObject().playerInventory.usedSlot;
     	else slot = game.getPlayerObject().playerInventory.ingredientSlot;
+		
         for (int i = 0; i < slot.length; i++) {
             if(slot[i].type != null && !slot[i].equipment){
+				// g2d.fillRect(slot[i].getBound().x, slot[i].getBound().y, slot[i].getBound().width, slot[i].getBound().height);
 				g2d.drawImage(slot[i].icon, x+(slot[i].col*64), y+ (slot[i].row*64), null);
                 g2d.setColor(Color.white);
                 g2d.setFont(f1);
@@ -226,14 +251,42 @@ public class InventoryGUI {
 	}
 
     public void dropItem() {
-		
+		System.out.println(slotDragged.items.size());
+		int off = 0;
 		for(int i = 0; i < slotDragged.items.size(); i++) {
+			System.out.println(i);
 			Item temp = slotDragged.items.get(i);
-			temp.reSpawn(game.getPlayerObject().getX()+32, game.getPlayerObject().getY()+64);
-			game.tryWorld.objects.add(slotDragged.items.get(i));
+			temp.reSpawn(game.getPlayerObject().getX()+32+off, game.getPlayerObject().getY()+64+off);
+			game.tryWorld.qt.insert(new QuadNode(new Point(slotDragged.items.get(i).x, slotDragged.items.get(i).y), slotDragged.items.get(i)), game.tryWorld.entity, null);
+			off+=2;
 		}
 		slotDragged.emptySlot();
 		dragged = false;
 	}
 
+	public void hoverSlotInv(MouseEvent e){
+		Slot<Item>[] slot;
+		if(itemType == ItemType.Consume) slot = game.getPlayerObject().playerInventory.consumeSlot;
+		else if(itemType == ItemType.Used) slot = game.getPlayerObject().playerInventory.usedSlot;
+		else slot = game.getPlayerObject().playerInventory.ingredientSlot;
+		for (int i = 0; i < slot.length; i++) {
+			Slot<Item> temp = slot[i];
+			if(temp.getBound().contains(e.getPoint()) && temp.type != null) {
+				hover = true;
+				mousex = e.getX();
+				mousey = e.getY();
+				slotHover = temp;
+				return;
+			}else{
+				hover = false;
+			}
+		}
+	}
+
+	
+
+	public int getWidthString(Graphics2D g2, String text) {
+		int x = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+		return x;
+	}
 }

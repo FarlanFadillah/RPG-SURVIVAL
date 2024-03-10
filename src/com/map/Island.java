@@ -13,6 +13,7 @@ import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
 import com.main.Game;
+import com.obj.Entity;
 import com.obj.GameObject;
 import com.playerlist.*;
 import com.quadTree.Point;
@@ -40,12 +41,16 @@ public class Island extends Biome{
     AnimationHandler animHandler = new AnimationHandler();
 
     public Quad qt;
-    public Fighter player;
+    public Entity player;
+    public Archer archer;
+    public Fighter fighter;
     public List<GameObject> objects = new ArrayList<>();
     public List<GameObject> entity = new ArrayList<>();
     public Island(Game game) {
         super(game);
-        player = new Fighter(832, 1152, ID.Entity, EntityType.Player, EntityClass.Fighter, game);
+        archer = new Archer(832, 1152, ID.Entity, EntityType.Player, EntityClass.Archer, game);
+        fighter = new Fighter(832, 1152, ID.Entity, EntityType.Player, EntityClass.Fighter, game);
+        player = fighter;
         bm = new ObjectManager(game);
         tilem = new TileManager(game);
         this.mapPath = "/assets/Terrain/Islands.tmx";
@@ -75,7 +80,9 @@ public class Island extends Biome{
         drawAnimation(g2d, foam,terrainLayer.get(0), 58, 64, 32, xx, yy);
         drawTerrainLayer(g2d, xx, yy, tileSet, terrainLayer.get(1), tilem);
         drawObjectLayer(g2d, objects);
-        objects.clear();
+        if(game.gameState == game.playState){
+            objects.clear();
+        }
 
     }
 

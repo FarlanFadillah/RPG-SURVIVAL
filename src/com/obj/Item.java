@@ -40,7 +40,6 @@ public abstract class Item extends GameObject{
             }else if(spriteNum ==7) {
                 spriteNum =1;
             }
-            
             spriteCounter =0;
         }
         

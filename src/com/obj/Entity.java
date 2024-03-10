@@ -4,16 +4,24 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import com.blockList.Tree;
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
+import com.gameMechanics.Skills;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
 import com.main.Game;
 
 public abstract class Entity extends GameObject {
-    public int speed;
+    //Equipment being held
+	public String holdingTools = "hand";
+	public String hands = "hand";
+	public String weapon = "weapon";
+	public String axe = "axe";
+	
+	public int speed;
     public boolean up = false, down = false, right= false, left = false;
     public boolean dead = false;
     public String name;
@@ -26,6 +34,7 @@ public abstract class Entity extends GameObject {
 
 	public PlayerInventory playerInventory;
 	public PlayerEquipment playerEquipment;
+	public Skills skills;
 	
 	public SpriteSheet ss;
 	public String arah; //tanda arah
@@ -111,6 +120,10 @@ public abstract class Entity extends GameObject {
 	public abstract void getImage();
 	public abstract void attacking1(MouseEvent e);
 	public abstract void attacking2(MouseEvent e);
+	public abstract void checkEquipment(MouseEvent e);
+	public void changeEquipment(String EquipmentNum){
+		holdingTools = EquipmentNum;
+	}
 
     public void playerControl(){
 		if(isUp()) {
@@ -256,5 +269,24 @@ public abstract class Entity extends GameObject {
 			
 		}
 		
+	}
+	public void automationEquipment(MouseEvent e){
+		Rectangle mouse = new Rectangle(e.getX()+(int)game.camera.getX(), e.getY()+(int)game.camera.getY(), 1, 1);
+		for (int i = 0; i < game.tryWorld.objects.size(); i++) {
+			GameObject temp = game.tryWorld.objects.get(i);
+			if(temp.hover && temp.getClass().getSimpleName().equals(Tree.class.getSimpleName())){
+				holdingTools = axe;
+				return;
+			}else{
+				if(holdingTools == axe) holdingTools = hands;
+			}
+		}	
+		for (int i = 0; i < game.tryWorld.entity.size(); i++) {
+			GameObject temp = game.tryWorld.entity.get(i);
+			if(this!= temp && temp.getBound().contains(mouse)){
+				holdingTools = weapon;
+				return;
+			}
+		}
 	}
 }

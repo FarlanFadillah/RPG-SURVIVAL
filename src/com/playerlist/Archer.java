@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
+import com.gameMechanics.Skills;
 import com.id.BlockType;
 import com.id.EntityClass;
 import com.id.EntityType;
@@ -52,7 +53,8 @@ public class Archer extends Entity{
 		
 		playerInventory = new PlayerInventory(game);
 		playerEquipment = new PlayerEquipment(game);
-		
+		skills = new Skills(game);
+
 		hp = 100;
 		mana = 100;
 		stamina = 100;
@@ -109,9 +111,10 @@ public class Archer extends Entity{
 			}
 			
 			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Item){
-				game.tryWorld.objects.remove(temp);
 				Item getItem = (Item) temp;
 				playerInventory.addItem(getItem);
+				game.tryWorld.objects.remove(temp);
+				game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(temp.x, temp.y)));
 			}
 		}
 		
@@ -150,7 +153,7 @@ public class Archer extends Entity{
 						if(spriteNum == 3) {image = runLeft[2];}
 						if(spriteNum ==4) {image = runLeft[3];}
 						if(spriteNum ==5) {image = runLeft[4];}
-						if(spriteNum ==65) {image = runLeft[5];}	break;
+						if(spriteNum ==6) {image = runLeft[5];}	break;
 					}
 					
 				}else {
@@ -672,7 +675,9 @@ public class Archer extends Entity{
 	}
 	
 	public void attacking2 (MouseEvent e) {
-		attack2 = true;
+		this.mx = (int) (e.getX() + game.camera.getX());
+		this.my = (int) (e.getY() + game.camera.getY());
+		attack1 = true;
 		speed = 0;
 		float px = (float)((e.getX() + game.camera.getX()) - (x + getSize().getWidth()/2));
 		float py = (float)((e.getY() + game.camera.getY()) - (y + getSize().getHeight()/2));
@@ -682,14 +687,22 @@ public class Archer extends Entity{
 	    if(angle < 0){
 	        angle += 360;
 	    }
-	    if(angle > 315 && angle <= 360 || angle > 0 && angle <= 45) {
+	    if(angle > 337.5 && angle <= 360 || angle > 0 && angle <= 22.5) {
 	    	arahAttack = "kanan";
-	    }else if(angle > 45 && angle <= 135) {
+	    }else if(angle > 22.5 && angle <= 67.5) {
+	    	arahAttack = "bawahkanan";
+	    }else if(angle > 67.5 && angle <= 112.5) {
 	    	arahAttack = "bawah";
-	    }else if(angle > 135 && angle <= 225) {
+	    }else if(angle > 112.5 && angle <= 157.5) {
+	    	arahAttack = "bawahkiri";
+	    }else if(angle > 157.5 && angle <= 202.5) {
 	    	arahAttack = "kiri";
-	    }else {
+	    }else if(angle > 202.5 && angle <= 247.5) {
+	    	arahAttack = "ataskiri";
+	    }else if(angle > 247.5 && angle <= 292.5) {
 	    	arahAttack = "atas";
+	    }else {
+	    	arahAttack = "ataskanan";
 	    }
 	}
 
@@ -732,6 +745,20 @@ public class Archer extends Entity{
 	public void attack2() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void checkEquipment(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(holdingTools == weapon){
+			if(e.getButton() == MouseEvent.BUTTON1){
+				attacking1(e);
+			}else{
+				attacking2(e);
+			}
+		}else if(holdingTools == axe){
+			checkTree(e, true);
+		}
 	}
 
 }

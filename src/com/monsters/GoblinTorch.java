@@ -1,5 +1,6 @@
 package com.monsters;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
@@ -273,6 +274,9 @@ public class GoblinTorch extends Entity{
 		g.fillRect(getBound().x, getBound().y, getBound().width, getBound().height);
 		g.fillRect(attackArea.x, attackArea.y, attackArea.width, attackArea.height);
 		g.fillRect(rangeArea.x, rangeArea.y, rangeArea.width, rangeArea.height);
+		g.setColor(Color.red);
+		g.fillRect(x+(image.getWidth()/2)-25, y+image.getHeight()-48, (int)((hp/50)*50), 5);
+		g.setColor(Color.BLACK);
 	}
 
 	public void Collision() {
@@ -673,6 +677,12 @@ public class GoblinTorch extends Entity{
 	public void attack2() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void checkEquipment(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'checkEquipment'");
 	}
 
 }

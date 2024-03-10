@@ -1,5 +1,6 @@
 package com.monsters;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
@@ -122,8 +123,9 @@ public class GoblinTNTField extends Entity{
 	public void render(Graphics g) {
 		animatedSprite();
 		g.drawImage(image, x, y, null);
-		//g.fillRect(getBound().x, getBound().y, getBound().width, getBound().height);
-		
+		g.setColor(Color.red);
+		g.fillRect(x+(image.getWidth()/2)-25, y+image.getHeight()-48, (int)((hp/50)*50), 5);
+		g.setColor(Color.BLACK);
 	}
 
 	public void Collision() {
@@ -472,6 +474,12 @@ public class GoblinTNTField extends Entity{
 	public void attack2() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void checkEquipment(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'checkEquipment'");
 	}
 
 }

@@ -57,10 +57,13 @@ public class Quad {
         
         if (Math.abs(topLeft.x - botRight.x) <= 1 && Math.abs(topLeft.y - botRight.y) <= 1) {
             // We are at a quad of unit area; cannot subdivide further
-            if (n == null)
+            if (n == null){
                 n = node;
-            //gameObject[node.gameObject.x/64][node.gameObject.y/64] = new AINode(node.gameObject.x/64,node.gameObject.y/64);
-            //gameObject[node.gameObject.x/64][node.gameObject.y/64].solid = true;
+            }
+            if(gameObject != null){
+                gameObject[node.gameObject.x/64][node.gameObject.y/64] = new AINode(node.gameObject.x/64,node.gameObject.y/64);
+                gameObject[node.gameObject.x/64][node.gameObject.y/64].solid = true;
+            }
             return;
         }
  
@@ -193,10 +196,8 @@ public class Quad {
     }
     
     //remove object
-    public QuadNode remove(QuadNode node){
-        //search(node.pos).gameObject = null;
-    	//node.gameObject = null;
-    	node = null;
-        return null;
+    public void remove(QuadNode node){
+        node.gameObject = null;
+        node = null;
     }
 }

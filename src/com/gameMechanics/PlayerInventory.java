@@ -7,10 +7,10 @@ import com.obj.Item;
 
 public class PlayerInventory {
 	Game game;
-	public Slot[] consumeSlot = new Slot[36];
-    public Slot[] usedSlot = new Slot[42];
-    public Slot[] ingredientSlot = new Slot[36];
-    public Slot[] slots = new Slot[36];
+	public Slot<Item>[] consumeSlot = new Slot[36];
+	public Slot<Item>[] usedSlot = new Slot[42];
+	public Slot<Item>[] ingredientSlot = new Slot[36];
+	public Slot<Item>[] slots = new Slot[36];
     int col, row = 0;
     public PlayerInventory(Game game){
         this.game = game;
@@ -70,11 +70,11 @@ public class PlayerInventory {
         }
 	}
     //initialization the slot, total 36 slot.
-    public void setSlot(Slot[] slot){
+    public void setSlot(Slot<Item>[] slot){
         int i = 0, col = 0, row = 0;
         while (row < 6) {
 
-        	slot[i] = new Slot(col, row);
+        	slot[i] = new Slot<Item>(col, row, 50, 50, 22, 15, 64);
             col++;
             i++;
             if(col >= 6){

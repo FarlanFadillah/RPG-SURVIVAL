@@ -12,7 +12,6 @@ import com.id.ItemType;
 import com.item.Meat;
 import com.item.Money;
 import com.item.Sword;
-import com.item.Wood;
 import com.main.Game;
 import com.obj.Block;
 import com.quadTree.Point;
@@ -88,6 +87,19 @@ public class Tree extends Block {
                 itemDroped = true;
             }
             image = chopped;
+        }else if(hover){
+            if(spriteNum == 1) {
+                image = idle[4];
+            }
+            if(spriteNum == 2) {
+                image = idle[5];
+            }
+            if(spriteNum == 3) {
+                image = idle[6];
+            }
+            if(spriteNum == 4) {
+                image = idle[7];
+            }
         }else{
             if(spriteNum == 1) {
                 image = idle[0];
@@ -112,6 +124,12 @@ public class Tree extends Block {
             idle[1] = im.scaledImage(ss.grabImage(2, 1, 192, 192), 192, 192);
             idle[2] = im.scaledImage(ss.grabImage(3, 1, 192, 192), 192, 192);
             idle[3] = im.scaledImage(ss.grabImage(4, 1, 192, 192), 192, 192);
+
+
+            idle[4] = im.scaledImage(ss.grabImage(1, 3, 192, 192), 192, 192);
+            idle[5] = im.scaledImage(ss.grabImage(2, 3, 192, 192), 192, 192);
+            idle[6] = im.scaledImage(ss.grabImage(3, 3, 192, 192), 192, 192);
+            idle[7] = im.scaledImage(ss.grabImage(4, 3, 192, 192), 192, 192);
 
             chopped = ss.grabImage(3, 2, 192, 192);
 
