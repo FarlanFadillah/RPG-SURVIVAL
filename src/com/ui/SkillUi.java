@@ -82,9 +82,19 @@ public class SkillUi {
         }
     }
     private void drawSkillTreeIcon(Graphics2D g2d) {
-        for (int i = 0; i < player.skillTree.skillSlots.length; i++) {
-            Slot<Skill> temp = player.skillTree.skillSlots[i];
-            g2d.drawImage(temp.icon, xtab+temp.x, ytab+temp.y, null);
+        try {
+            for (int i = 0; i < game.getPlayerObject().skillTree.skillSlots.length; i++) {
+                Slot<Skill> temp = game.getPlayerObject().skillTree.skillSlots[i];
+                g2d.drawImage(temp.icon, xtab+temp.x, ytab+temp.y, null);
+
+                if(temp.lock){
+                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+                    g2d.fillRect(xtab+temp.x, ytab+temp.y, temp.width, temp.height);
+                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+                }
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
         }
     }
 
@@ -116,8 +126,7 @@ public class SkillUi {
     public void checkSkillTree(MouseEvent e){
         for (int i = 0; i < player.skillTree.skillSlots.length; i++) {
             Slot<Skill> temp = player.skillTree.skillSlots[i];
-            if(temp.getBound(xtab, ytab).contains(e.getPoint())){
-
+            if(temp.getBound(xtab, ytab).contains(e.getPoint()) && !temp.lock){
                 return;
             }
         }

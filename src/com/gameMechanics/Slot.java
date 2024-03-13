@@ -26,6 +26,7 @@ public class Slot<E> implements Cloneable{
     int sizeSlot;
     int offW;
     int offH;
+    public boolean lock = false;
     public Slot(int col, int row, int width, int height, int offW, int offH, int sizeSlot){
         this.col = col;
         this.row = row;

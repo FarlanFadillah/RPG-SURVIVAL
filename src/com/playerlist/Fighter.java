@@ -19,6 +19,7 @@ import com.obj.Entity;
 import com.obj.GameObject;
 import com.obj.Item;
 import com.quadTree.Point;
+import com.skills.Fire;
 import com.tile.ImageManager;
 
 
@@ -41,6 +42,7 @@ public class Fighter extends Entity{
 		playerEquipment = new PlayerEquipment(game);
 		skills = new Skills(game);
 		skillTree = new Skilltree();
+		skillTree.setSlot(new Fire(0, 0, ID.Skill));
 
 		hp = 100;
 		mana = 100;

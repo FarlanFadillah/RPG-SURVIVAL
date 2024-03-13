@@ -9,6 +9,7 @@ import com.filehandler.SpriteSheet;
 import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
 import com.gameMechanics.Skills;
+import com.gameMechanics.Skilltree;
 import com.id.BlockType;
 import com.id.EntityClass;
 import com.id.EntityType;
@@ -20,6 +21,7 @@ import com.obj.GameObject;
 import com.obj.Item;
 import com.quadTree.Point;
 import com.quadTree.QuadNode;
+import com.skills.Water;
 import com.tile.ImageManager;
 
 import projectile.ArrowProjectile;
@@ -54,6 +56,8 @@ public class Archer extends Entity{
 		playerInventory = new PlayerInventory(game);
 		playerEquipment = new PlayerEquipment(game);
 		skills = new Skills(game);
+		skillTree = new Skilltree();
+		skillTree.setSlot(new Water(0, 0, ID.Skill));
 
 		hp = 100;
 		mana = 100;
