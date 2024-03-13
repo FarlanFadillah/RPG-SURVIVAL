@@ -89,6 +89,7 @@ public class MouseInput extends MouseAdapter{
 				}
     		}else if(game.gameState == game.skillTabState){
 				game.gui.skillUi.checkSlot(e);
+				game.gui.skillUi.checkSkillTree(e);
 			}
             
         } else if (e.getButton() == MouseEvent.BUTTON2){

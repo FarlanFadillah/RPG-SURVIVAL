@@ -8,6 +8,7 @@ import com.filehandler.SpriteSheet;
 import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
 import com.gameMechanics.Skills;
+import com.gameMechanics.Skilltree;
 import com.id.BlockType;
 import com.id.EntityClass;
 import com.id.EntityType;
@@ -39,6 +40,7 @@ public class Fighter extends Entity{
 		playerInventory = new PlayerInventory(game);
 		playerEquipment = new PlayerEquipment(game);
 		skills = new Skills(game);
+		skillTree = new Skilltree();
 
 		hp = 100;
 		mana = 100;

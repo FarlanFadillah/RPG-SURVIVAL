@@ -9,6 +9,7 @@ import com.filehandler.SpriteSheet;
 import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
 import com.gameMechanics.Skills;
+import com.gameMechanics.Skilltree;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
@@ -35,6 +36,7 @@ public abstract class Entity extends GameObject {
 	public PlayerInventory playerInventory;
 	public PlayerEquipment playerEquipment;
 	public Skills skills;
+	public Skilltree skillTree;
 	
 	public SpriteSheet ss;
 	public String arah; //tanda arah

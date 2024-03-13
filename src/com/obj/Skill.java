@@ -19,7 +19,7 @@ public abstract class Skill extends GameObject{
     }
 
     public void getImages(){
-        int col = 0;
+        int col = 1;
         for (int i = 0; i < images.length; i++) {
             images[i] = im.scaledImage(ss.grabImage(col, 1, 32, 32, icon), 64, 64);
             col++;
