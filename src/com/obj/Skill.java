@@ -7,12 +7,14 @@ import com.id.ID;
 import com.tile.ImageManager;
 
 public abstract class Skill extends GameObject{
+    public int requiredLevel;
     public String name;
     public int level, dmg, exp;
     public BufferedImage icon;
     public SpriteSheet ss;
     public ImageManager im = new ImageManager();
     public BufferedImage[] images = new BufferedImage[6];
+    public int skillNum;
     public Skill(int x, int y, ID id) {
         super(x, y, id);
         ss = new SpriteSheet("/assets/Skills/Free_Skills.png");

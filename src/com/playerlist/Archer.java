@@ -63,6 +63,7 @@ public class Archer extends Entity{
 		mana = 100;
 		stamina = 100;
 		speed = 4;
+		level = 2;
 		
 		getImage();
 		image = idleRight[0];

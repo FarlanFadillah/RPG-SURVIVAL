@@ -28,7 +28,6 @@ public class TNTProjectile extends Block{
 	float rotate;
 	boolean collisioncheck = true;
 	
-	private GameObject Player;
 	public String arah;
 	
 	public TNTProjectile(int x, int y, ID id, BlockType bt, Game game, int mx, int my, float rotate, String arah) {
@@ -58,10 +57,11 @@ public class TNTProjectile extends Block{
 		
 		x += velX;
 		y += velY;
+		rotate += 25;
 		attackCollision();
 		stop = game.second;
 		if(stop - start >= 5) {
-			game.tryWorld.objects.remove(this);
+			game.tryWorld.entity.remove(this);
 		}
 		
 	}
@@ -72,8 +72,8 @@ public class TNTProjectile extends Block{
 		AffineTransform tx = AffineTransform.getRotateInstance(Math.toRadians(rotate), locationX, locationY);
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 		//g.fillRect(getBound().x, getBound().y, getBound().width, getBound().height);
-		g.drawImage(op.filter(image, null), x-32, y-32, null);
-		rotate += 25;
+		g.drawImage(op.filter(image, null), x, y, null);
+		
 		
 	}
 
@@ -100,7 +100,6 @@ public class TNTProjectile extends Block{
 							image = ss2.grabImage(1, 1, 64, 64);
 							temp2.hp -= 50;
 							collisioncheck = false;
-							Player = temp2;
 					}
 				}
 			}

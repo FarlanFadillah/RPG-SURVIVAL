@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 import com.obj.Item;
 import com.obj.Skill;
+import com.tile.ImageManager;
 
 public class Slot<E> implements Cloneable{
+    ImageManager im = new ImageManager();
     public int MAX = 32;
     public boolean full = false;
 
@@ -27,6 +29,8 @@ public class Slot<E> implements Cloneable{
     int offW;
     int offH;
     public boolean lock = false;
+    public boolean select = false;
+    public Skill skill;
     public Slot(int col, int row, int width, int height, int offW, int offH, int sizeSlot){
         this.col = col;
         this.row = row;
@@ -76,9 +80,18 @@ public class Slot<E> implements Cloneable{
             if(items.size() == MAX){
                 full = true;
             }
-        }else if(item.getClass() == Skill.class){
-            this.MAX = 1; full = true;
-            items.add(item);  
+            return;
+        }else if(item.getClass().getSuperclass() == Skill.class){
+            if(!full){
+                Skill temp = (Skill) item;
+                lock = true;
+                type = "Skills";
+                MAX = 1;
+                full = true;
+                icon = temp.icon;
+                skill = temp;
+            }
+            return;
         }
     }
     public void removeItem(E item) {
@@ -106,9 +119,19 @@ public class Slot<E> implements Cloneable{
     	for(int i = 0; i < items.size(); i++) {
     		slot.items.add(items.get(i));
     	}
-    	slot.type = this.type;
+        slot.type = this.type;
     	slot.icon = this.icon;
     	return slot;
+    }
+
+    public Slot<Skill> CopySkillSlot(){
+        Slot<Skill> slot = new Slot<Skill>(col, row, width, height, offW,offH,sizeSlot);
+        slot.skill = skill;
+        slot.type = type;
+        slot.icon = icon;
+
+        // System.out.println(slot.skill + " " + slot.type + " " + slot.icon.getWidth());
+        return slot ;
     }
 
     public void emptySlot() {
@@ -120,8 +143,9 @@ public class Slot<E> implements Cloneable{
     }
     public void emptySlot(int MAX) {
         items.removeAll(items);
+        skill = null;
         this.MAX = MAX;
-        this.full = true;
+        this.full = false;
         this.type = null;
         this.icon = null;
     }
@@ -133,6 +157,13 @@ public class Slot<E> implements Cloneable{
         }
         type = slotDragged.type;
         icon = slotDragged.icon;
+        full = slotDragged.full;
+    }
+    public void fillSkill(Slot<Skill> slotDragged) {
+        // TODO Auto-generated method stub
+        skill = slotDragged.skill;
+        type = slotDragged.type;
+        icon = im.scaledImage(slotDragged.icon, 48, 48);
         full = slotDragged.full;
     }
     public void fillEquipment(Slot<E> slotDragged) {

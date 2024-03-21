@@ -21,9 +21,7 @@ public class Skills {
         int col = 0;
         for (int i = 0; i < skillSlots.length; i++) {
             skillSlots[i] = new Slot<Skill>(col, 0, 48, 48, 0, 0, 48);
-            skillSlots[i].type = "Skills";
             skillSlots[i].MAX = 1;
-            skillSlots[i].icon = im.scaledImage(fire.images[0], 48, 48);
             col++;
         }
     }

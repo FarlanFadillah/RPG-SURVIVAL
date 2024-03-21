@@ -31,7 +31,12 @@ public class MouseInput extends MouseAdapter{
 		player = game.getPlayerObject();
 		image = Tree.ss.grabImage(1, 1, 192, 192);
 	}
-
+	@Override
+	public void mouseDragged(MouseEvent e){
+		if(game.gameState == game.skillTabState){
+			gui.skillUi.checkPlusButtonHover(e);
+		}
+	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		mx = e.getX();
@@ -63,6 +68,8 @@ public class MouseInput extends MouseAdapter{
 			}
 		}else if(game.gameState == game.skillTabState){
 			gui.skillUi.slotHover(e);
+			gui.skillUi.mousePos(e);
+			gui.skillUi.skillTreeHover(e);
 		}
 	}
 	public void putBlock(Graphics2D g, int x, int y, double xx, double yy){
@@ -90,6 +97,7 @@ public class MouseInput extends MouseAdapter{
     		}else if(game.gameState == game.skillTabState){
 				game.gui.skillUi.checkSlot(e);
 				game.gui.skillUi.checkSkillTree(e);
+				gui.skillUi.checkPlusButton(e, true);
 			}
             
         } else if (e.getButton() == MouseEvent.BUTTON2){
@@ -109,6 +117,9 @@ public class MouseInput extends MouseAdapter{
 	@Override
 	public void mouseReleased(MouseEvent e){
 		player.attack2();
+		if(game.gameState == game.skillTabState){
+			gui.skillUi.checkPlusButton(e, false);
+		}
 	}
 	
 }

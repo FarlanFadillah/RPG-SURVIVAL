@@ -52,7 +52,7 @@ public class ArrowProjectile extends Block{
 		attackCollision();
 		stop = game.second;
 		if(stop - start >= 5) {
-			game.tryWorld.objects.remove(this);
+			game.tryWorld.entity.remove(this);
 		}
 		
 	}

@@ -27,13 +27,17 @@ public class GUI {
     }
 
     public void draw(Graphics2D g2d){
-        g2d.setFont(ps.f1);
-        String word = "FPS :" +String.valueOf(game.Guifps);
-        g2d.drawString(word, Game.WIDTH-inv.getWidthString(g2d, word)-16, 32);
-        ps.drawPlayerIcon(g2d);
-        ps.drawPlayerStats(g2d);
-        skillUi.drawSkillSlot(g2d);
-        inv.drawInventory(g2d);  
+        if(game.gameState == game.mapState){
+            g2d.drawImage(game.tryWorld.worldMap, 0, 0, Game.WIDTH, Game.HEIGHT, null);
+        }else{
+            g2d.setFont(ps.f1);
+            String word = "FPS :" +String.valueOf(game.Guifps);
+            g2d.drawString(word, Game.WIDTH-inv.getWidthString(g2d, word)-16, 32);
+            ps.drawPlayerIcon(g2d);
+            ps.drawPlayerStats(g2d);
+            skillUi.drawSkillSlot(g2d);
+            inv.drawInventory(g2d);  
+        }
     }
     
 

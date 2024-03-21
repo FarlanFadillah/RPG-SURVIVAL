@@ -1,4 +1,5 @@
 package com.tile;
+import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -107,7 +108,7 @@ public class ObjectManager {
         return arrays;
 	}
 
-    public void TMXFileReaderObject(String path, String layer, Quad qt, List<GameObject> objects, AINode[][] gameObject){
+    public void TMXFileReaderObject(String path, String layer, Quad qt, List<GameObject> objects, AINode[][] gameObject, Graphics2D g2dMap){
         System.out.println("Read Object!!");
         String keyword = layer;  // Ganti dengan kata kunci yang ingin dicari
 		InputStream in = getClass().getResourceAsStream(path);
@@ -127,7 +128,11 @@ public class ObjectManager {
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
-                        qt.insert(new QuadNode(new Point(x, y-h), new Tree(x, y-h, ID.Block, BlockType.DestroyAble, game)), objects, gameObject);
+                        Tree object = new Tree(x, y-h, ID.Block, BlockType.DestroyAble, game);
+                        if(g2dMap != null) {
+                            g2dMap.drawImage(object.image, x, y-h, null);
+                        }
+                        qt.insert(new QuadNode(new Point(x, y-h), object), objects, gameObject);
                     }else if(extractValueStr(line, "name").contains("enemy")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");

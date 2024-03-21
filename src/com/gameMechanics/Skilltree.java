@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.id.ID;
 import com.obj.Skill;
-import com.skills.Air;
 import com.skills.Fire;
 import com.tile.ImageManager;
 
@@ -19,22 +18,26 @@ public class Skilltree {
     }
 
     public void setSlot(Skill skill){
-        skillSlots[0] = new Slot<Skill>(1, 1, 64, 64, 0, 0, 64);
-        skillSlots[1] = new Slot<Skill>(2, 1, 64, 64, 0, 0, 64);
-        skillSlots[2] = new Slot<Skill>(3, 1, 64, 64, 0, 0, 64);
-        skillSlots[3] = new Slot<Skill>(3, 2, 64, 64, 0, 0, 64);
-        skillSlots[4] = new Slot<Skill>(3, 3, 64, 64, 0, 0, 64);
-        skillSlots[5] = new Slot<Skill>(2, 4, 64, 64, 0, 0, 64);
-        skillSlots[6] = new Slot<Skill>(4, 4, 64, 64, 0, 0, 64);
-        skillSlots[7] = new Slot<Skill>(1, 4, 64, 64, 0, 0, 64);
+        skillSlots[0] = new Slot<Skill>(0, 0, 64, 64, 18, 32, 64);
+        skillSlots[1] = new Slot<Skill>(2, 0, 64, 64, 18, 32, 64);
+        skillSlots[2] = new Slot<Skill>(4, 0, 64, 64, 18, 32, 64);
+        skillSlots[3] = new Slot<Skill>(0, 2, 64, 64, 18, 32, 64);
+        skillSlots[4] = new Slot<Skill>(2, 2, 64, 64, 18, 32, 64);
+        skillSlots[5] = new Slot<Skill>(4, 2, 64, 64, 18, 32, 64);
+        skillSlots[6] = new Slot<Skill>(0, 4, 64, 64, 18, 32, 64);
+        skillSlots[7] = new Slot<Skill>(2, 4, 64, 64, 18, 32, 64);
         
         for (int i = 0; i < 6; i++) {
-            skillSlots[i].lock = true;
-            skillSlots[i].addItem(skill);
-            skillSlots[i].type = "Skills";
-            skillSlots[i].MAX = 1;
-            skillSlots[i].icon = im.scaledImage(skill.images[i], 64, 64);
+            skill.skillNum = i;
+            skill.icon = im.scaledImage(skill.images[i], 64, 64);
+            if(skill.getClass().equals(Fire.class)){
+                Fire fire = new Fire(0, 0, ID.Skill);
+                fire.requiredLevel = i+1;
+                fire.icon = im.scaledImage(skill.images[i], 64, 64);
+                skillSlots[i].addItem(fire);
+            }
         }
+        skillSlots[0].lock = false;
     }
     
 }

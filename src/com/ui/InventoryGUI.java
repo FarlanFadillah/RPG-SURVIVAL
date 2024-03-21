@@ -209,13 +209,11 @@ public class InventoryGUI {
     }
     
     public void drawDraggedItem(Graphics2D g2d) {
-    	if(game.gameState == game.InventoryState){
-			if(dragged){
-				g2d.drawImage(dragItem, mx-dragItem.getWidth()/2, my-dragItem.getHeight()/2, null);
-				g2d.setFont(f1);
-				g2d.setColor(Color.white);
-				g2d.drawString(String.valueOf(draggedSlotNum), (mx+dragItem.getWidth()/2)-19, (my+dragItem.getHeight()/2)-10);
-			}
+    	if(game.gameState == game.InventoryState && dragged){
+			g2d.drawImage(dragItem, mx-dragItem.getWidth()/2, my-dragItem.getHeight()/2, null);
+			g2d.setFont(f1);
+			g2d.setColor(Color.white);
+			g2d.drawString(String.valueOf(draggedSlotNum), (mx+dragItem.getWidth()/2)-19, (my+dragItem.getHeight()/2)-10);
 		}
     }
     
@@ -245,7 +243,7 @@ public class InventoryGUI {
 			usedTab.pressed = false;
 			consumeTab.pressed = false;
 			itemType = ItemType.ingredient;
-		}else if(closeTab.getBound().contains(e.getPoint())){
+		}else if(closeTab.getBoundButton().contains(e.getPoint())){
 			game.gameState = game.playState;
 		}
 	}

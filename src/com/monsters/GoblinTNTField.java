@@ -18,7 +18,6 @@ import com.quadTree.Point;
 import com.quadTree.QuadNode;
 import com.tile.ImageManager;
 
-import projectile.ArrowProjectile;
 import projectile.TNTProjectile;
 
 public class GoblinTNTField extends Entity{
@@ -645,7 +644,6 @@ public class GoblinTNTField extends Entity{
 	    }else {
 	    	arahAttack = "ataskiri";
 	    }
-	    System.out.println(angle);
 	}
 
 	@Override

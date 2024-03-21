@@ -21,15 +21,15 @@ public class KeyInput implements KeyListener{
     @Override
     public void keyTyped(KeyEvent e) {
         int key = e.getKeyChar();
-        if(key == 'c' || key == 'C'){
-            if(game.gameState == game.playState){
+        if(key == KeyEvent.VK_TAB){
+            if(game.gameState == game.playState || game.gameState == game.skillTabState){
                 game.gameState = game.InventoryState;
                 game.getPlayerObject().stopMove();
             }else if(game.gameState == game.InventoryState){
                 game.gameState = game.playState;
             }
         }else if(key == 'q' || key == 'Q'){
-            if(game.gameState == game.playState){
+            if(game.gameState == game.playState || game.gameState == game.InventoryState){
                 game.gameState = game.skillTabState;
                 game.getPlayerObject().stopMove();
             }else if(game.gameState == game.skillTabState){
@@ -49,20 +49,20 @@ public class KeyInput implements KeyListener{
                 game.gui.ps.checkPlayer(game);
                 player = game.tryWorld.player;
             }
-        }
-        char keyChar = e.getKeyChar();
-        if (Character.isDigit(keyChar)) {
-            switch (Integer.parseInt(String.valueOf(keyChar))) {
-                case 1:
-                player.changeEquipment(player.weapon);
-                break;
-                case 2:
-                player.changeEquipment(player.axe);
-                break;
-                default:
-                break;
+        }else if(key == 'm' || key == 'M'){
+            if(game.gameState == game.playState){
+                game.gameState = game.mapState;
+            }else{
+                game.gameState = game.playState;
             }
-            System.out.println(player.holdingTools);
+        }
+        if(game.gameState == game.playState){
+            char keyChar = e.getKeyChar();
+            if (Character.isDigit(keyChar)) {
+                int x = Integer.parseInt(String.valueOf(keyChar));
+                if(x>0)System.out.println(game.getPlayerObject().skills.skillSlots[x-1].skill);
+                else System.out.println(game.getPlayerObject().skills.skillSlots[9].skill);
+            }
         }
     }
     @Override

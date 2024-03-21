@@ -26,7 +26,7 @@ public abstract class Entity extends GameObject {
     public boolean up = false, down = false, right= false, left = false;
     public boolean dead = false;
     public String name;
-    public int mana, xp;
+    public int level,mana, xp, skillPoint = 2;
 	public float stamina;
     public float velX=0, velY=0;
     public EntityType et;

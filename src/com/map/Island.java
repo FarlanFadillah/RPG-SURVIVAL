@@ -1,6 +1,5 @@
 package com.map;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -46,6 +45,8 @@ public class Island extends Biome{
     public Fighter fighter;
     public List<GameObject> objects = new ArrayList<>();
     public List<GameObject> entity = new ArrayList<>();
+
+
     public Island(Game game) {
         super(game);
         archer = new Archer(832, 1152, ID.Entity, EntityType.Player, EntityClass.Archer, game);
@@ -73,7 +74,7 @@ public class Island extends Biome{
     }
 
     @Override
-    public void draw(Graphics g, Graphics2D g2d, double xx, double yy) {
+    public void draw(Graphics2D g2d, double xx, double yy) {
         // TODO Auto-generated method stub
         drawTerrainLayer(g2d, xx, yy, tileSet, terrainLayer.get(0), tilem);
         foam = animHandler.animatedSprite8Frame(foam, foams.idle);
@@ -83,7 +84,8 @@ public class Island extends Biome{
         if(game.gameState == game.playState){
             objects.clear();
         }
-
+        
+        initiateMap = false;
     }
 
     @Override
@@ -94,6 +96,8 @@ public class Island extends Biome{
         AINode = new AINode[tilem.WIDTHMAP][tilem.HEIGHTMAP];
         System.out.println(tilem.WIDTHMAP + " " + tilem.HEIGHTMAP);
         qt = new Quad(new Point(0,0), new Point(tilem.WIDTHMAP*64, tilem.HEIGHTMAP*64), game);
+        worldMap = new BufferedImage(tilem.WIDTHMAP*64, tilem.HEIGHTMAP*64, BufferedImage.TYPE_INT_ARGB);
+        g2dMap = (Graphics2D) worldMap.createGraphics();
         qt.insert(new QuadNode(new Point(player.x, player.y), player), entity, AINode);
         addTerrainLayer(mapPath, "Tile Layer 2", terrainLayer, tilem);
         addObjectLayer(mapPath, "Object Layer 1", bm, qt, entity, AINode);

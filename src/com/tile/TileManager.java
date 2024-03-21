@@ -56,16 +56,20 @@ public class TileManager {
 		}
 	}
 
-    public void draw(Graphics2D g2, double xx, double yy, TileMap[] map, int[][] maptile) {
+    public void draw(Graphics2D g2, double xx, double yy, TileMap[] map, int[][] maptile, Graphics2D g2dMap) {
 		int col=0;
 		int row=0;
 		while(col<WIDTHMAP && row<HEIGHTMAP) {
 			while(col<WIDTHMAP) {
 				int tile = maptile[col][row];
+				if(g2dMap != null){
+					g2dMap.drawImage(map[tile].image, col*pixels, row*pixels, null);
+				}
 				if(col*pixels< xx +Game.WIDTH && col*pixels> xx - pixels && row*pixels< yy + Game.HEIGHT&& row*pixels > yy - pixels) {
 					if(tile == 42){
 					}else{
 						g2.drawImage(map[tile].image, col*pixels, row*pixels, null);
+						
 					}
 				}	
 			    col++;

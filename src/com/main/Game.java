@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable{
     
 	private static final long serialVersionUID = 1L;
 	
-	public static final int HEIGHT = 480; // ukuran frame
+	public static final int HEIGHT = 560; // ukuran frame
     public static final int WIDTH = HEIGHT * 16/9;
 
     private boolean running;
@@ -38,6 +38,7 @@ public class Game extends Canvas implements Runnable{
     public int menuState = 3;
     public int InventoryState = 4;
     public int skillTabState = 5;
+    public int mapState = 6;
 
 
 	public Frame frame;
@@ -66,6 +67,7 @@ public class Game extends Canvas implements Runnable{
         addKeyListener(key);
 		this.addMouseListener(mouse);
 		addMouseMotionListener(mouse);
+        setFocusTraversalKeysEnabled(false);
 		// Memuat gambar kursor kustom ke BufferedImage
         BufferedImage customCursorImage = new SpriteSheet("/assets/GUI/Pointers/01.png").image;
 
@@ -97,10 +99,9 @@ public class Game extends Canvas implements Runnable{
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
         /////////////////////////////////////////
-        g.fillRect(0, 0, getWidth(), getHeight());
         
         g2d.translate(-camera.getX(), -camera.getY());
-        tryWorld.draw(g, g2d, camera.getX(), camera.getY());
+        tryWorld.draw(g2d, camera.getX(), camera.getY());
         g2d.translate(camera.getX(), camera.getY());
             
         //////////////////////////////////////

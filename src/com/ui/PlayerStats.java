@@ -28,6 +28,7 @@ public class PlayerStats {
         g2d.drawString("MANA    :"+String.valueOf(player.mana), 96, x+16);
         g2d.drawString("STAMINA :"+String.valueOf((int)player.stamina), 96, x+32);
         g2d.drawString("EQUIP   :"+String.valueOf(player.holdingTools), 96, x+48);
+        g2d.drawString("SP      :"+String.valueOf(player.skillPoint), 96, x+64);
     }
 
     public void checkPlayer(Game game){

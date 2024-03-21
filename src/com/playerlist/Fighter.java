@@ -48,6 +48,7 @@ public class Fighter extends Entity{
 		mana = 100;
 		stamina = 100;
 		speed = 4;
+		level = 3;
 
 		getImage();
 		image = idleRight[0];
