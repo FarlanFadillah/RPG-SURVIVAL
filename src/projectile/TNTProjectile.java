@@ -15,30 +15,37 @@ import com.obj.Entity;
 import com.obj.GameObject;
 import com.tile.ImageManager;
 
-public class ArrowProjectile extends Block{
+public class TNTProjectile extends Block{
 	
-	public SpriteSheet ss = new SpriteSheet("/assets/Projectiles/Arrow.png");
+	public SpriteSheet ss = new SpriteSheet("/assets/Projectiles/Dynamite.png");
+	public SpriteSheet ss2 = new SpriteSheet("/assets/Effects/Explosions.png");
 	ImageManager im = new ImageManager();
+	
+	public float GRAVITYy = 0;
 	
 	float velX = 0;
 	float velY = 0;
 	float rotate;
 	boolean collisioncheck = true;
 	
-	private GameObject Enemy;
+	private GameObject Player;
 	public String arah;
 	
-	public ArrowProjectile(int x, int y, ID id, BlockType bt, Game game, int mx, int my, float rotate, String arah) {
+	public TNTProjectile(int x, int y, ID id, BlockType bt, Game game, int mx, int my, float rotate, String arah) {
 		super(x, y, id, bt, game);
 		int diffX = mx - x;
         int diffY = my - y;
+        
+        //if(arah == "kiri" || arah == "kanan") {
+        //	GRAVITYy = 0.5f;
+        //}
 
         // Hitung sudut antara kedua titik
         double angle = Math.atan2(diffY, diffX);
 
         // Hitung komponen kecepatan x dan y berdasarkan sudut
-        velX = (float) (Math.cos(angle) * 15);
-        velY = (float) (Math.sin(angle) * 15);
+        velX = (float) (Math.cos(angle) * 5);
+        velY = (float) (Math.sin(angle) * 5);
 		this.rotate = rotate;
 		image = ss.grabImage(1, 1, 64, 64);
 		start = game.second;
@@ -47,6 +54,8 @@ public class ArrowProjectile extends Block{
 	}
 
 	public void tick() {
+		//velY += GRAVITYy;
+		
 		x += velX;
 		y += velY;
 		attackCollision();
@@ -64,6 +73,7 @@ public class ArrowProjectile extends Block{
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 		//g.fillRect(getBound().x, getBound().y, getBound().width, getBound().height);
 		g.drawImage(op.filter(image, null), x-32, y-32, null);
+		rotate += 25;
 		
 	}
 
@@ -84,70 +94,16 @@ public class ArrowProjectile extends Block{
 		if(collisioncheck == true) {
 			for (int i = 0; i < game.tryWorld.objects.size(); i++) {
 				GameObject temp = game.tryWorld.objects.get(i);
-				if(this != temp && getBound().intersects(temp.getBound()) && temp.getID() == ID.Entity && temp.getClass() != ArrowProjectile.class) {
+				if(this != temp && getBound().intersects(temp.getBound()) && temp.getID() == ID.Entity && temp.getClass() != TNTProjectile.class) {
 						Entity temp2 = (Entity)temp;
-						if(temp2.getEntityType() == EntityType.Monster) {
-							image = ss.grabImage(1, 2, 64, 64);
-							velX = 0;
-							velY = 0;
+						if(temp2.getEntityType() == EntityType.Player) {
+							image = ss2.grabImage(1, 1, 64, 64);
 							temp2.hp -= 50;
 							collisioncheck = false;
-							Enemy = temp2;
+							Player = temp2;
 					}
 				}
 			}
-		}else {
-			switch (arah) {
-			case "atas":
-				x = Enemy.x+(int)(Enemy.getSize().getWidth()/2);
-				y = Enemy.y+(int)(Enemy.getSize().getHeight()/2)+25;
-								
-				break;
-
-			case "ataskanan":
-				x = Enemy.x+(int)(Enemy.getSize().getWidth()/2)-20;
-				y = Enemy.y+(int)(Enemy.getSize().getHeight()/2)+20;
-				
-				break;
-			
-			case "ataskiri":
-				x = Enemy.x+(int)(Enemy.getSize().getWidth()/2)+20;
-				y = Enemy.y+(int)(Enemy.getSize().getHeight()/2)+20;
-				
-				break;
-			
-			case "kanan":
-				x = Enemy.x+(int)(Enemy.getSize().getWidth()/2)-25;
-				y = Enemy.y+(int)(Enemy.getSize().getHeight()/2);
-				
-				break;
-			
-			case "kiri":
-				x = Enemy.x+(int)(Enemy.getSize().getWidth()/2)+25;
-				y = Enemy.y+(int)(Enemy.getSize().getHeight()/2);
-				
-				break;
-			
-			case "bawahkanan":
-				x = Enemy.x+(int)(Enemy.getSize().getWidth()/2)-20;
-				y = Enemy.y+(int)(Enemy.getSize().getHeight()/2)-20;
-				
-				break;
-			
-			case "bawahkiri":
-				x = Enemy.x+(int)(Enemy.getSize().getWidth()/2)+20;
-				y = Enemy.y+(int)(Enemy.getSize().getHeight()/2)-20;
-				
-				break;
-				
-			case "bawah":
-				x = Enemy.x+(int)(Enemy.getSize().getWidth()/2);
-				y = Enemy.y+(int)(Enemy.getSize().getHeight()/2)-25;
-				
-				break;
-				
-			}
-		
 		}
 		
 	}

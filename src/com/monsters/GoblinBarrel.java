@@ -46,8 +46,9 @@ public class GoblinBarrel extends Entity{
 		Collision();
 		spriteCounter();
 		playerControl();
-		checkDistance();
-		attackCollision();
+		//checkDistance();
+		//attackCollision();
+		//rangeCollision();
 		if(hp <= 0) {
 			speed = 0;
 			dead = true;
@@ -62,16 +63,16 @@ public class GoblinBarrel extends Entity{
 		xMove += velX;
 		yMove += velY;
 		setAction(2);
-		if(xMove >= 128) {
+		if(xMove >= 64) {
 	        xMove = 0;
 		}
-	    if(xMove <= -128) {
+	    if(xMove <= -64) {
 	        xMove = 0;
 	    }
-	    if(yMove <= 128) {
+	    if(yMove <= 64) {
 	    	yMove = 0;
 	    }
-	    if(yMove <= -128) {
+	    if(yMove <= -64) {
 	    	yMove = 0;
 	    }
 	}
@@ -132,6 +133,7 @@ public class GoblinBarrel extends Entity{
 			}
 			
 		} else {
+			checkArah();
 			Random random = new Random();
 			int i = random.nextInt(100)+1; //pick up a number from 1 to 100
 			stop = game.second;
@@ -206,13 +208,72 @@ public class GoblinBarrel extends Entity{
 			attack1 = true;
 		}
 	}
+	
+	public void checkArah() {
+		switch(arah) {
+		case "atas": 
+			rangeArea.x = x+32;
+			rangeArea.y = y+16;
+			rangeArea.width  = 64;
+			rangeArea.height = 16; break;
+		case "bawah":
+			rangeArea.x = x+32;
+			rangeArea.y = y+112;
+			rangeArea.width  = 64;
+			rangeArea.height = 16; break;
+		case "kanan":
+			rangeArea.x = x+96;
+			rangeArea.y = y+32;
+			rangeArea.width  = 16;
+			rangeArea.height = 64; break;
+		case "kiri":
+			rangeArea.x = x+16;
+			rangeArea.y = y+32;
+			rangeArea.width  = 16;
+			rangeArea.height = 64; break;
+		}
+	}
+	
+	public void setArah(String arah2) {
+		switch(arah2) {
+		case "atas":
+			setUp(false);
+			setDown(true);
+			setLeft(false);
+			setRight(false);
+			arah = "bawah"; break;
+		case "bawah": 
+			setUp(true);
+			setDown(false);
+			setLeft(false);
+			setRight(false);
+			arah = "atas"; break;
+		case "kanan": 
+			setUp(false);
+			setDown(false);
+			setLeft(true);
+			setRight(false);
+			arah = "kiri"; break;
+		case "kiri": 
+			setUp(false);
+			setDown(false);
+			setLeft(false);
+			setRight(true);
+			arah = "kanan"; break;
+		}
+	}
 
 	public void render(Graphics g) {
+		
 		animatedSprite();
 		g.drawImage(image, x, y, null);
 		g.setColor(Color.red);
 		g.fillRect(x+(image.getWidth()/2)-25, y+image.getHeight()-16, (int)((hp/50)*50), 5);
 		g.setColor(Color.BLACK);
+		
+		//g.fillRect(getBound().x, getBound().y, getBound().width, getBound().height);
+		//g.fillRect(attackArea.x, attackArea.y, attackArea.width, attackArea.height);
+		//g.fillRect(rangeArea.x, rangeArea.y, rangeArea.width, rangeArea.height);
 	}
 
 	public void Collision() {
@@ -235,6 +296,40 @@ public class GoblinBarrel extends Entity{
 			if(this != temp && attackArea.intersects(temp.getBound()) &&temp.getID() == ID.Entity) {
 					temp.hp -= 100;
 					attackArea = new Rectangle(0, 0, 0, 0);
+			}
+
+		}
+		
+	}
+	
+public void rangeCollision() {
+		
+		for (int i = 0; i < game.tryWorld.objects.size(); i++) {
+			GameObject temp = game.tryWorld.objects.get(i);
+			
+			if(this != temp && rangeArea.intersects(temp.getBound())) {
+				Random random = new Random();
+				int z = random.nextInt(2); //pick up a number from 1 to 100
+				switch(arah) {
+				case "atas":
+					String [] arah2 = {"bawah", "kanan", "kiri"};
+					setArah(arah2[z]);
+					break;
+				case "bawah": 
+					String [] arah21 = {"atas", "kanan", "kiri"};
+					setArah(arah21[z]);
+					break;
+				case "kanan":
+					String [] arah22 = {"atas", "bawah", "kiri"};
+					setArah(arah22[z]);
+					break;
+				case "kiri":
+					String [] arah23 = {"atas", "bawah", "kanan"};
+					setArah(arah23[z]);
+					break;
+				}
+				rangeArea = new Rectangle(0, 0, 0, 0);
+				return;
 			}
 
 		}
@@ -460,20 +555,17 @@ public class GoblinBarrel extends Entity{
 					else if(spriteAttack1 ==5) {spriteAttack1 =6;}
 					else if(spriteAttack1 ==6) {spriteAttack1 =7;}
 					else if(spriteAttack1 ==7) {spriteAttack1 =8;}
-					else if(spriteAttack1 ==8) {spriteAttack1 =9;}
-					else if(spriteAttack1 ==9) {spriteAttack1 =1;
+					else if(spriteAttack1 ==8) {spriteAttack1 =9;
 					
-						//Attack Collision On not fixed
-						attackArea.x = x+64;
-						attackArea.y = y+64;
-						attackArea.width  = 128;
-						attackArea.height = 40;
-						
-						attack1 = false;
-						
-						//Attack Collision Off
-						attackArea = new Rectangle(0, 0, 0, 0);
+					//Attack Collision On
+					
+					attackArea.x = x-22;
+					attackArea.y  = y-22;
+					attackArea.width  = 176;
+					attackArea.height = 176;
+					
 					}
+					else if(spriteAttack1 ==9) {spriteAttack1 =1;}
 					spriteCounter =0;
 
 				}
@@ -483,7 +575,12 @@ public class GoblinBarrel extends Entity{
 		
 		else if(dead == true) {
 			if(spriteCounter > 8) {
-				if(spriteDead == 1) {spriteDead = 2;}
+				if(spriteDead == 1) {spriteDead = 2;
+				attack1 = false;
+				
+				//Attack Collision Off
+				attackArea = new Rectangle(0, 0, 0, 0);
+				}
 				else if(spriteDead == 2) {spriteDead = 3;}
 				else if(spriteDead == 3) {spriteDead = 4;}
 				else if(spriteDead == 4) {spriteDead = 5;}

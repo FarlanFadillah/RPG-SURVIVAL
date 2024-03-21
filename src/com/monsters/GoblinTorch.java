@@ -50,9 +50,9 @@ public class GoblinTorch extends Entity{
 		Collision();
 		spriteCounter();
 		playerControl();
-		checkDistance();
-		attackCollision();
-		rangeCollision();
+		//checkDistance();
+		//attackCollision();
+		//rangeCollision();
 		
 		if(hp <= 0) {
 			speed = 0;
@@ -67,16 +67,16 @@ public class GoblinTorch extends Entity{
 		xMove += velX;
 		yMove += velY;
 		setAction(2);
-		if(xMove >= 192) {
+		if(xMove >= 128) {
 	        xMove = 0;
 		}
-	    if(xMove <= -192) {
+	    if(xMove <= -128) {
 	        xMove = 0;
 	    }
-	    if(yMove <= 192) {
+	    if(yMove <= 128) {
 	    	yMove = 0;
 	    }
-	    if(yMove <= -192) {
+	    if(yMove <= -128) {
 	    	yMove = 0;
 	    }
 	}
