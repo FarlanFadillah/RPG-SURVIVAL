@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 
 import com.main.Game;
@@ -25,16 +26,37 @@ public class MouseInput extends MouseAdapter{
 	public boolean dragged = false;
 	public BufferedImage dragItem;
 	Entity player;
+
+	public int prevX, prevY;
 	public MouseInput(Game game) {
 		this.game = game;
 		this.gui = game.gui;
 		player = game.getPlayerObject();
 		image = Tree.ss.grabImage(1, 1, 192, 192);
 	}
+	
 	@Override
 	public void mouseDragged(MouseEvent e){
 		if(game.gameState == game.skillTabState){
 			gui.skillUi.checkPlusButtonHover(e);
+		}else if(game.gameState == game.mapState){
+			if(!new Rectangle(game.gui.mapX, game.gui.mapY, (int)(game.gui.mh.worldMap.getWidth() * game.gui.currentScale), (int)(game.gui.mh.worldMap.getHeight() * game.gui.currentScale)).contains(new Rectangle(prevX, prevY, 1,1)))return;
+			
+
+			
+			int deltaX = e.getX() - prevX;
+			int deltaY = e.getY() - prevY;
+
+			if(game.gui.mapX + deltaX < 0 && game.gui.mapX+(int)(game.gui.mh.worldMap.getWidth()*game.gui.currentScale)+deltaX > Game.WIDTH){
+				game.gui.mapX += deltaX;
+			}
+
+			if(game.gui.mapY + deltaY < 0 && game.gui.mapY+(int)(game.gui.mh.worldMap.getHeight()*game.gui.currentScale)+deltaY > Game.HEIGHT){
+				game.gui.mapY += deltaY;
+			}
+
+			prevX = e.getX();
+			prevY = e.getY();
 		}
 	}
 	@Override
@@ -81,6 +103,8 @@ public class MouseInput extends MouseAdapter{
 	}
 	
 	public void mousePressed(MouseEvent e) {
+		prevX = e.getX();
+		prevY = e.getY();
         if (e.getButton() == MouseEvent.BUTTON1){
         	if(game.gameState == game.playState){
 				player.automationEquipment(e);

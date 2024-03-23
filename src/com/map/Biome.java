@@ -22,13 +22,6 @@ public abstract class Biome {
     public String spriteSheetDir;// directory spritesheet.png
     AnimationHandler animHandler = new AnimationHandler();
 
-    //World Map Image
-    public BufferedImage worldMap;
-    Graphics2D g2dMap;
-
-    //Boolean for render map once
-    boolean initiateMap = true;
-
     public Biome(Game game){
         this.game = game;
     }
@@ -53,17 +46,13 @@ public abstract class Biome {
     //xx, dan yy, adalah variable dari camera.
     //tile set merupakan kumpulan spritesheet untuk terrain
     public void drawTerrainLayer(Graphics2D g2, double xx, double yy, TileMap[] tileSet, int[][] layer, TileManager tilem){
-        if(initiateMap){
-            tilem.draw(g2, xx, yy, tileSet, layer, g2dMap);
-        }else{
-            tilem.draw(g2, xx, yy, tileSet, layer, null);
-        }
+        tilem.draw(g2, xx, yy, tileSet, layer);
     }
 
     //menammbahkan object layer
     // addObjectLayer("Object Layer 1") menammbahkan object yang ada di Object layer 1 ke dalam ObjectLayer (list)
     public void addObjectLayer(String path, String layerKey, ObjectManager bm, Quad qt, List<GameObject> objects, AINode[][] gameObject){
-        bm.TMXFileReaderObject(path, layerKey, qt, objects, gameObject, null);
+        bm.TMXFileReaderObject(path, layerKey, qt, objects, gameObject);
     }
     //render Object Layer
     // drawObjectLayer(g, objectLayer.get(0), xx, yy) render objectLayer pertama
@@ -100,7 +89,7 @@ public abstract class Biome {
     //Menambahkan transparant block yang memiliki collision
     // index -> index yang menunjukkan letak transparen block anda
     public void addSolidLayer(String layerName, ObjectManager bm, int index, Quad qt, List<GameObject> objects, AINode[][] gameObject){
-        bm.TMXFileReaderObject(mapPath, layerName, qt, objects, gameObject, null);
+        bm.TMXFileReaderObject(mapPath, layerName, qt, objects, gameObject);
     }
 
     //membaca sekaligus membagi spriteSheet dengan grid 64 pixel

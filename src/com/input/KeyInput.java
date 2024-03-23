@@ -54,6 +54,7 @@ public class KeyInput implements KeyListener{
                 game.gameState = game.mapState;
             }else{
                 game.gameState = game.playState;
+                game.gui.resetMap();
             }
         }
         if(game.gameState == game.playState){

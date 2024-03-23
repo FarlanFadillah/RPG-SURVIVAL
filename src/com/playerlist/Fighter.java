@@ -21,6 +21,7 @@ import com.obj.Item;
 import com.quadTree.Point;
 import com.skills.Fire;
 import com.tile.ImageManager;
+import com.ui.Message;
 
 
 public class Fighter extends Entity{
@@ -109,6 +110,7 @@ public class Fighter extends Entity{
 				playerInventory.addItem(getItem);
 				game.tryWorld.objects.remove(temp);
 				game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(temp.x, temp.y)));
+				game.gui.sm.addMessage(new Message("adding " + getItem.getClass().getSimpleName(), game.second));
 			}
 
 		}

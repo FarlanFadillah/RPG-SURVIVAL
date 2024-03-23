@@ -1,18 +1,15 @@
 package com.main;
 
 import java.awt.Canvas;
-import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import com.ai.Pathfinder;
-import com.filehandler.SpriteSheet;
 import com.input.Camera;
 import com.input.KeyInput;
 import com.input.MouseInput;
+import com.input.MouseWheelHandler;
 import com.map.Island;
 import com.obj.Entity;
 import com.ui.GUI;
@@ -21,12 +18,13 @@ public class Game extends Canvas implements Runnable{
     
 	private static final long serialVersionUID = 1L;
 	
-	public static final int HEIGHT = 560; // ukuran frame
+	public static final int HEIGHT = 480; // ukuran frame
     public static final int WIDTH = HEIGHT * 16/9;
 
     private boolean running;
     public KeyInput key;
     public MouseInput mouse;
+    public MouseWheelHandler mouseWheel;
     //Coba Coba
     public Island tryWorld = new Island(this);
     public Pathfinder pFinder = new Pathfinder(this);
@@ -64,18 +62,20 @@ public class Game extends Canvas implements Runnable{
 		key = new KeyInput(this);
         key.player = getPlayerObject();
         mouse = new MouseInput(this);
+        mouseWheel = new MouseWheelHandler(this);
         addKeyListener(key);
 		this.addMouseListener(mouse);
 		addMouseMotionListener(mouse);
+        addMouseWheelListener(mouseWheel);
         setFocusTraversalKeysEnabled(false);
 		// Memuat gambar kursor kustom ke BufferedImage
-        BufferedImage customCursorImage = new SpriteSheet("/assets/GUI/Pointers/01.png").image;
+        // BufferedImage customCursorImage = new SpriteSheet("/assets/GUI/Pointers/01.png").image;
 
         // Membuat objek Cursor kustom
-        Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(customCursorImage,new java.awt.Point(0, 0), "Custom Cursor");
+        // Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(customCursorImage,new java.awt.Point(0, 0), "Custom Cursor");
 
         // Mengatur kursor kustom untuk JFrame
-        frame.frame.setCursor(customCursor);
+        // frame.frame.setCursor(customCursor);
         start();
     }
     public static void main(String[] args) {

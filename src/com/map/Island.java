@@ -45,7 +45,7 @@ public class Island extends Biome{
     public Fighter fighter;
     public List<GameObject> objects = new ArrayList<>();
     public List<GameObject> entity = new ArrayList<>();
-
+    public MapHandler mapH;
 
     public Island(Game game) {
         super(game);
@@ -84,8 +84,6 @@ public class Island extends Biome{
         if(game.gameState == game.playState){
             objects.clear();
         }
-        
-        initiateMap = false;
     }
 
     @Override
@@ -96,12 +94,12 @@ public class Island extends Biome{
         AINode = new AINode[tilem.WIDTHMAP][tilem.HEIGHTMAP];
         System.out.println(tilem.WIDTHMAP + " " + tilem.HEIGHTMAP);
         qt = new Quad(new Point(0,0), new Point(tilem.WIDTHMAP*64, tilem.HEIGHTMAP*64), game);
-        worldMap = new BufferedImage(tilem.WIDTHMAP*64, tilem.HEIGHTMAP*64, BufferedImage.TYPE_INT_ARGB);
-        g2dMap = (Graphics2D) worldMap.createGraphics();
+        
         qt.insert(new QuadNode(new Point(player.x, player.y), player), entity, AINode);
         addTerrainLayer(mapPath, "Tile Layer 2", terrainLayer, tilem);
         addObjectLayer(mapPath, "Object Layer 1", bm, qt, entity, AINode);
         addSolidLayer("SolidLayer", bm, 0, qt, entity, AINode);
+
     }
     
 }

@@ -14,7 +14,7 @@ public class TileManager {
     
     //Size of a Map
 	public int WIDTHMAP, HEIGHTMAP;
-    int pixels = 64;
+    public int pixels = 64;
     int tile_w = 64;
 	int tile_h = 64;
 	public Game game;
@@ -56,15 +56,12 @@ public class TileManager {
 		}
 	}
 
-    public void draw(Graphics2D g2, double xx, double yy, TileMap[] map, int[][] maptile, Graphics2D g2dMap) {
+    public void draw(Graphics2D g2, double xx, double yy, TileMap[] map, int[][] maptile) {
 		int col=0;
 		int row=0;
 		while(col<WIDTHMAP && row<HEIGHTMAP) {
 			while(col<WIDTHMAP) {
 				int tile = maptile[col][row];
-				if(g2dMap != null){
-					g2dMap.drawImage(map[tile].image, col*pixels, row*pixels, null);
-				}
 				if(col*pixels< xx +Game.WIDTH && col*pixels> xx - pixels && row*pixels< yy + Game.HEIGHT&& row*pixels > yy - pixels) {
 					if(tile == 42){
 					}else{
