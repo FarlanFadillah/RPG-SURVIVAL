@@ -144,9 +144,11 @@ public class ObjectManager {
                         }else if(enClass.contains("goblinBarrel")) {
                             GoblinBarrel object = new GoblinBarrel(x, y, ID.Entity , EntityType.Monster, EntityClass.Goblins, game);
                             qt.insert(new QuadNode(new Point(x, y), object),objects, gameObject);
+                            allGameObjects.add(object);
                         }else if(enClass.contains("goblinTorch")) {
                             GoblinTorch object = new GoblinTorch(x, y, ID.Entity , EntityType.Monster, EntityClass.Goblins, game);
                             qt.insert(new QuadNode(new Point(x, y), object),objects, gameObject);
+                            allGameObjects.add(object);
                         }
                         line = br.readLine();
                         line = br.readLine();
@@ -168,20 +170,24 @@ public class ObjectManager {
                         int h =  extractValueInt(line, "height");
                         Tower object = new Tower(x, y-h, ID.Block, BlockType.unDestroyAble, game);
                         qt.insert(new QuadNode(new Point(x, y-h), object),objects, gameObject);
+                        allGameObjects.add(object);
                     }else if(extractValueStr(line, "name").contains("blueHouse") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
                         House object = new House(x, y-h, ID.Block, BlockType.unDestroyAble, game);
                         qt.insert(new QuadNode(new Point(x, y-h), object),objects, gameObject);
+                        allGameObjects.add(object);
                     }else if(extractValueStr(line, "name").contains("blueCastle") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
                         Castle object = new Castle(x, y-h, ID.Block, BlockType.unDestroyAble, game);
                         qt.insert(new QuadNode(new Point(x, y-h), object),objects, gameObject);
+                        allGameObjects.add(object);
                     }
 				}
+                
             } else {
                 System.out.println("Kata kunci tidak ditemukan dalam file.");
             }

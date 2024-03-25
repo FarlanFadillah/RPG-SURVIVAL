@@ -628,7 +628,7 @@ public void getImage() {
 				else if(spriteDead == 10) {spriteDead = 11;}
 				else if(spriteDead == 11) {spriteDead = 12;}
 				else if(spriteDead == 12) {spriteDead = 13;}
-				else if(spriteDead == 13) {spriteDead = 14; game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(this.x, this.y))); game.tryWorld.entity.remove(this);}
+				else if(spriteDead == 13) {spriteDead = 14;game.tryWorld.entity.remove(this); dead = true;}
 				spriteCounter =0;
 			}
 		}
@@ -683,7 +683,6 @@ public void getImage() {
 		
 		try {
 			hit.getHit = true;
-			System.out.println("hit");
 		} catch (Exception ex) {
 			// TODO: handle exception
 		}

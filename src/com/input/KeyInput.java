@@ -41,7 +41,7 @@ public class KeyInput implements KeyListener{
                 game.tryWorld.entity.remove(game.tryWorld.player);
                 if(game.tryWorld.player.equals(game.tryWorld.fighter)){
                     game.tryWorld.player = game.tryWorld.archer;
-                }else{
+                }else {
                     game.tryWorld.player = game.tryWorld.fighter;
                 }
                 game.tryWorld.entity.add(game.tryWorld.player);

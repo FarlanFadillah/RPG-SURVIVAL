@@ -166,6 +166,7 @@ public class SkillUi {
                 temp.fillSkill(selectSkill);
                 System.out.println(temp.skill + " " + temp.type + " " + temp.icon.getWidth());
                 skillSelect = false;
+                selectSkill.select = false;
                 selectSkill = null;
                 return;
             }else if(temp.getBound(x, y).contains(e.getPoint()) && skillSelect == false && game.gameState == game.skillTabState && temp.skill != null){
@@ -193,10 +194,11 @@ public class SkillUi {
             Slot<Skill> temp = game.getPlayerObject().skillTree.skillSlots[i];
             if(temp.getBound(xtab, ytab).contains(e.getPoint()) && !temp.lock && skillSelect == false && temp.skill != null){
                 skillSelect = true;
-                selectSkill = temp.CopySkillSlot();
+                selectSkill = temp;
                 temp.select = true;
                 return;
             }else if(temp.getBound(xtab, ytab).contains(e.getPoint()) && !temp.lock && skillSelect == true){
+                selectSkill.select = false;
                 selectSkill = null;
                 skillSelect = false;
                 temp.select = false;

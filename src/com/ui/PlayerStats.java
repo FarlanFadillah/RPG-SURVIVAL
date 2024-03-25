@@ -13,6 +13,9 @@ import com.main.Game;
 import com.obj.Entity;
 import com.obj.GameObject;
 
+import projectile.ArrowProjectile;
+import projectile.TNTProjectile;
+
 public class PlayerStats {
     SpriteSheet ss = new SpriteSheet("/assets/GUI/PlayerIcon/FighterPP.png");
     BufferedImage playerIcon;
@@ -35,7 +38,7 @@ public class PlayerStats {
         List<GameObject> objects = game.tryWorld.entity;
         for (int i = 0; i < objects.size(); i++) {
             GameObject temp = objects.get(i);
-            if(temp.getID() == ID.Entity){
+            if(temp.getID() == ID.Entity && temp.getClass() != TNTProjectile.class && temp.getClass() != ArrowProjectile.class){
                 Entity entityTemp = (Entity) temp;
                 if(entityTemp.getEntityType() == EntityType.Player && entityTemp.getEntityClass() == EntityClass.Archer){
                     playerIcon = ss.grabImage(2, 1, 64, 64);
