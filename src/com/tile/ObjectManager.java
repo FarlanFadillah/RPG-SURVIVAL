@@ -24,6 +24,7 @@ import com.obj.GameObject;
 import com.quadTree.Point;
 import com.quadTree.Quad;
 import com.quadTree.QuadNode;
+import com.ui.MapObjects;
 
 public class ObjectManager {
     private int WIDTHMAP, HEIGHTMAP;
@@ -34,7 +35,7 @@ public class ObjectManager {
 	int pixels = 64;
     Game game;
 
-    public List<GameObject> allGameObjects = new ArrayList<>();
+    public List<MapObjects> allMapObjects = new ArrayList<>();
     public ObjectManager(Game game){
         this.game = game;
         
@@ -132,7 +133,7 @@ public class ObjectManager {
                         int h =  extractValueInt(line, "height");
                         Tree object = new Tree(x, y-h, ID.Block, BlockType.DestroyAble, game);
                         qt.insert(new QuadNode(new Point(x, y-h), object), objects, gameObject);
-                        allGameObjects.add(object);
+                        allMapObjects.add(new MapObjects(object.image, x, y-h));
                     }else if(extractValueStr(line, "name").contains("enemy")){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
@@ -140,15 +141,21 @@ public class ObjectManager {
                         if(enClass.contains("goblinTNT")){
                             GoblinTNTField object = new GoblinTNTField(x, y, ID.Entity , EntityType.Monster, EntityClass.Goblins, game);
                             qt.insert(new QuadNode(new Point(x, y), object),objects, gameObject);
-                            allGameObjects.add(object);
+                            MapObjects temp = new MapObjects(object.image, x, y);
+                            temp.type = "entity";
+                            allMapObjects.add(temp);
                         }else if(enClass.contains("goblinBarrel")) {
                             GoblinBarrel object = new GoblinBarrel(x, y, ID.Entity , EntityType.Monster, EntityClass.Goblins, game);
                             qt.insert(new QuadNode(new Point(x, y), object),objects, gameObject);
-                            allGameObjects.add(object);
+                            MapObjects temp = new MapObjects(object.image, x, y);
+                            temp.type = "entity";
+                            allMapObjects.add(temp);
                         }else if(enClass.contains("goblinTorch")) {
                             GoblinTorch object = new GoblinTorch(x, y, ID.Entity , EntityType.Monster, EntityClass.Goblins, game);
                             qt.insert(new QuadNode(new Point(x, y), object),objects, gameObject);
-                            allGameObjects.add(object);
+                            MapObjects temp = new MapObjects(object.image, x, y);
+                            temp.type = "entity";
+                            allMapObjects.add(temp);
                         }
                         line = br.readLine();
                         line = br.readLine();
@@ -170,21 +177,21 @@ public class ObjectManager {
                         int h =  extractValueInt(line, "height");
                         Tower object = new Tower(x, y-h, ID.Block, BlockType.unDestroyAble, game);
                         qt.insert(new QuadNode(new Point(x, y-h), object),objects, gameObject);
-                        allGameObjects.add(object);
+                        allMapObjects.add(new MapObjects(object.image, x, y-h));
                     }else if(extractValueStr(line, "name").contains("blueHouse") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
                         House object = new House(x, y-h, ID.Block, BlockType.unDestroyAble, game);
                         qt.insert(new QuadNode(new Point(x, y-h), object),objects, gameObject);
-                        allGameObjects.add(object);
+                        allMapObjects.add(new MapObjects(object.image, x, y-h));
                     }else if(extractValueStr(line, "name").contains("blueCastle") ){
                         int x = extractValueInt(line, "x");
                         int y = extractValueInt(line, "y");
                         int h =  extractValueInt(line, "height");
                         Castle object = new Castle(x, y-h, ID.Block, BlockType.unDestroyAble, game);
                         qt.insert(new QuadNode(new Point(x, y-h), object),objects, gameObject);
-                        allGameObjects.add(object);
+                        allMapObjects.add(new MapObjects(object.image, x, y-h));
                     }
 				}
                 

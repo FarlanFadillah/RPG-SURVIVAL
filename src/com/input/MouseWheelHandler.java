@@ -24,7 +24,7 @@ public class MouseWheelHandler implements MouseWheelListener{
             {
                 scale = 0.9;
             }
-            if( game.gui.currentScale * scale >= 1.5 || game.gui.currentScale *scale <= 0.1) return;
+            if( game.gui.currentScale * scale >= 0.3 || game.gui.currentScale *scale <= 0.1) return;
             
 
             double mouseRelativeToImageX = e.getX() - game.gui.mapX;

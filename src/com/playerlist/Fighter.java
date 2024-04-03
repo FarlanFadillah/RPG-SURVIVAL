@@ -110,7 +110,7 @@ public class Fighter extends Entity{
 				playerInventory.addItem(getItem);
 				game.tryWorld.objects.remove(temp);
 				game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(temp.x, temp.y)));
-				game.gui.sm.addMessage(new Message("adding " + getItem.getClass().getSimpleName(), game.second));
+				game.gui.sm.addMessage(new Message("adding " + getItem.getClass().getSimpleName(), game.second, 4));
 			}
 
 		}

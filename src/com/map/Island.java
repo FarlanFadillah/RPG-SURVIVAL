@@ -53,7 +53,6 @@ public class Island extends Biome{
         fighter = new Fighter(832, 1152, ID.Entity, EntityType.Player, EntityClass.Fighter, game);
         player = archer;
         bm = new ObjectManager(game);
-        bm.allGameObjects.add(player);
         tilem = new TileManager(game);
         this.mapPath = "/assets/Terrain/Islands.tmx";
         this.spriteSheetDir = "/assets/Terrain/Tilemap_Flat.png";

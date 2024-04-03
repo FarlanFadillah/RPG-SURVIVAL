@@ -5,7 +5,6 @@ import com.map.MapHandler;
 import com.obj.Entity;
 
 import java.awt.Graphics2D;
-import java.util.Map;
 
 public class GUI {
     public PlayerStats ps = new PlayerStats();
@@ -27,9 +26,7 @@ public class GUI {
         sm = new ScrollingMessages(game);
 
         mh = new MapHandler(game, game.tryWorld.tilem.WIDTHMAP*64, game.tryWorld.tilem.HEIGHTMAP*64);
-        mh.drawMapTerrain(game.tryWorld.terrainLayer.get(0), game.tryWorld.tilem.WIDTHMAP, game.tryWorld.tilem.HEIGHTMAP, 64);
-        mh.drawMapTerrain(game.tryWorld.terrainLayer.get(1), game.tryWorld.tilem.WIDTHMAP, game.tryWorld.tilem.HEIGHTMAP, 64);
-
+        
         resetMap();
     }
     public void init(){
@@ -45,11 +42,13 @@ public class GUI {
         if(game.gameState == game.mapState){
             mh.drawMap(g2d, mapX, mapY, currentScale);
         }else{
+
             g2d.setFont(ps.f1);
             String word = "FPS :" +String.valueOf(game.Guifps);
             g2d.drawString(word, Game.WIDTH-inv.getWidthString(g2d, word)-16, 32);
             ps.drawPlayerIcon(g2d);
             ps.drawPlayerStats(g2d);
+            mh.drawMiniMap(g2d, (int)game.camera.getX(), (int)game.camera.getY());
             if(sm.messages.size() > 0){
                 sm.showMessage(g2d, 128);
             }

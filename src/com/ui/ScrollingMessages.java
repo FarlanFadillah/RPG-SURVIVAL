@@ -35,7 +35,7 @@ public class ScrollingMessages {
                 g2d.setColor(Color.white);
                 g2d.drawString(message.text, 10, (row*getHeightString(g2d, message.text))+y);
                 g2d.setColor(Color.BLACK);
-                if(current - message.start >= 4){
+                if(current - message.start >= message.delay){
                     messages.remove(message);
                 }
                 row++;

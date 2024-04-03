@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 import com.main.Game;
 import com.obj.Entity;
+import com.ui.Message;
 
 public class KeyInput implements KeyListener{
 	Game game;
@@ -50,8 +51,10 @@ public class KeyInput implements KeyListener{
                 player = game.tryWorld.player;
             }
         }else if(key == 'm' || key == 'M'){
-            if(game.gameState == game.playState){
+            if(game.gameState == game.playState && game.gui.mh.mapDone){
                 game.gameState = game.mapState;
+            }else if(game.gameState == game.playState && !game.gui.mh.mapDone){
+                game.gui.sm.addMessage(new Message("Generating Map, please wait!", game.second, 2));
             }else{
                 game.gameState = game.playState;
                 game.gui.resetMap();

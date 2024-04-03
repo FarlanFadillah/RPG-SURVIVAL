@@ -12,6 +12,7 @@ import com.input.MouseInput;
 import com.input.MouseWheelHandler;
 import com.map.Island;
 import com.obj.Entity;
+import com.thread.SecondThread;
 import com.ui.GUI;
 
 public class Game extends Canvas implements Runnable{
@@ -54,7 +55,8 @@ public class Game extends Canvas implements Runnable{
     public double Guifps = 0;
 
 
-
+    public SecondThread thread;
+    public Thread twoThread;
     public Game(){
     	
         gameState = playState;
@@ -76,6 +78,10 @@ public class Game extends Canvas implements Runnable{
 
         // Mengatur kursor kustom untuk JFrame
         // frame.frame.setCursor(customCursor);
+
+        thread = new SecondThread(this);
+        twoThread = new Thread(thread);
+        twoThread.start();
         start();
     }
     public static void main(String[] args) {
