@@ -23,6 +23,7 @@ public abstract class Entity extends GameObject {
 	public String axe = "axe";
 	
 	public int speed;
+	public boolean isOpeningChest = false;
     public boolean up = false, down = false, right= false, left = false;
     public boolean dead = false;
     public String name;
@@ -34,6 +35,7 @@ public abstract class Entity extends GameObject {
 	protected EntityClass ec;
 
 	public PlayerInventory playerInventory;
+	public PlayerEquipment temporaryPlayerEquipment;
 	public PlayerEquipment playerEquipment;
 	public Skills skills;
 	public Skilltree skillTree;
@@ -291,4 +293,6 @@ public abstract class Entity extends GameObject {
 			}
 		}
 	}
+
+    public abstract void openChest(MouseEvent e);
 }

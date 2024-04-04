@@ -108,6 +108,7 @@ public class MouseInput extends MouseAdapter{
         	if(game.gameState == game.playState){
 				player.automationEquipment(e);
 				player.checkEquipment(e);
+				player.openChest(e);
 				game.gui.skillUi.checkSlot(e);
     		}else if(game.gameState == game.InventoryState) {
 				gui.inv.checkButton(e);

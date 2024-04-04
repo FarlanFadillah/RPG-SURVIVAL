@@ -94,5 +94,11 @@ public class Pawn extends Entity{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'checkEquipment'");
     }
+
+    @Override
+    public void openChest(MouseEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'openChest'");
+    }
     
 }

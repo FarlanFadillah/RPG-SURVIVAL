@@ -49,6 +49,8 @@ public class InventoryGUI {
     public EquipmentGUI equipment;
 	private boolean hover;
 
+	//Chest Inventory
+	public ChestInventory chestInventory;
 	//Item info
 	SpriteSheet infoCarved = new SpriteSheet("/assets/GUI/Banners/infoCarved.png");
 	int mousex, mousey;
@@ -58,6 +60,7 @@ public class InventoryGUI {
         player = game.getPlayerObject();
 		game.getPlayerObject().playerInventory.usedSlotSet();
         equipment = new EquipmentGUI(game);
+		chestInventory = new ChestInventory(game);
         setTabButton();
     }
     private void setTabButton() {
@@ -76,6 +79,7 @@ public class InventoryGUI {
 	}
 	public void tick(boolean openInventory){
         equipment.tick(itemType == ItemType.Used && openInventory);
+		chestInventory.tick(game.getPlayerObject().isOpeningChest);
         if(openInventory){
             if(x < xstop){
                 x += 50;
@@ -101,6 +105,7 @@ public class InventoryGUI {
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
             g2d.drawImage(inventoryBox.image, x, y, null);
             equipment.drawEquipmentSlot(g2d);
+			chestInventory.drawInventorytSlot(g2d);
             drawButtons(g2d, x, y);
             drawItemStored(g2d, x, y);
             drawDraggedItem(g2d);

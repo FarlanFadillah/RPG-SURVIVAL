@@ -726,4 +726,10 @@ public void getImage() {
 		}
 	}
 
+	@Override
+	public void openChest(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'openChest'");
+	}
+
 }

@@ -686,4 +686,10 @@ public class GoblinTNTField extends Entity{
 		game.tryWorld.qt.insert(new QuadNode(new Point(this.getX()+image.getWidth()/2, this.getY()+image.getHeight()/2), new TNTProjectile(this.getX()+image.getWidth()/2, this.getY()+image.getHeight()/2, ID.Entity, BlockType.Projectile, game, (int)game.tryWorld.player.getX() + (int)game.tryWorld.player.getSize().getWidth()/2, (int)game.tryWorld.player.getY() + (int)game.tryWorld.player.getSize().getHeight()/2, angle, arahAttack)), game.tryWorld.entity, null);
 	}
 
+	@Override
+	public void openChest(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'openChest'");
+	}
+
 }

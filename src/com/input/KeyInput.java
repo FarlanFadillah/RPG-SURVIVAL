@@ -28,6 +28,7 @@ public class KeyInput implements KeyListener{
                 game.getPlayerObject().stopMove();
             }else if(game.gameState == game.InventoryState){
                 game.gameState = game.playState;
+                game.getPlayerObject().isOpeningChest = false;
             }
         }else if(key == 'q' || key == 'Q'){
             if(game.gameState == game.playState || game.gameState == game.InventoryState){
@@ -35,6 +36,7 @@ public class KeyInput implements KeyListener{
                 game.getPlayerObject().stopMove();
             }else if(game.gameState == game.skillTabState){
                 game.gameState = game.playState;
+                game.getPlayerObject().isOpeningChest = false;
             }
         }else if(key == 'e' || key == 'E'){
             if(game.gameState == game.playState){

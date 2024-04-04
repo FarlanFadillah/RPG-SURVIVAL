@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.ai.AINode;
 import com.blockList.Castle;
+import com.blockList.Chest;
 import com.blockList.House;
 import com.blockList.SolidBlock;
 import com.blockList.Tower;
@@ -111,7 +112,7 @@ public class ObjectManager {
         return arrays;
 	}
 
-    public void TMXFileReaderObject(String path, String layer, Quad qt, List<GameObject> objects, AINode[][] gameObject){
+    public void TMXFileReaderObject(String path, String layer, Quad qt, List<GameObject> objects, AINode[][] gameObject, List<Chest> chests){
         System.out.println("Read Object!!");
         String keyword = layer;  // Ganti dengan kata kunci yang ingin dicari
 		InputStream in = getClass().getResourceAsStream(path);
@@ -192,6 +193,13 @@ public class ObjectManager {
                         Castle object = new Castle(x, y-h, ID.Block, BlockType.unDestroyAble, game);
                         qt.insert(new QuadNode(new Point(x, y-h), object),objects, gameObject);
                         allMapObjects.add(new MapObjects(object.image, x, y-h));
+                    }else if(extractValueStr(line, "name").contains("Chest") ){
+                        int x = extractValueInt(line, "x");
+                        int y = extractValueInt(line, "y");
+                        Chest object = new Chest(x, y, ID.Block, BlockType.unDestroyAble, game);
+                        qt.insert(new QuadNode(new Point(x, y), object),objects, gameObject);
+                        chests.add(object);
+                        allMapObjects.add(new MapObjects(object.image, x, y));
                     }
 				}
                 

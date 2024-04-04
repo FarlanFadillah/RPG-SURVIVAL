@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.anim.AnimationHandler;
 import com.anim.Foam;
+import com.blockList.Chest;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
@@ -29,6 +30,7 @@ public class Island extends Biome{
     public TileMap[] tileSet = new TileMap[300];
     
     public List<GameObject> gameObject = new ArrayList<>();
+    public List<Chest> chests = new ArrayList<>();
     public AINode[][] AINode;
 
     public TileManager tilem;
@@ -97,7 +99,7 @@ public class Island extends Biome{
         
         qt.insert(new QuadNode(new Point(player.x, player.y), player), entity, AINode);
         addTerrainLayer(mapPath, "Tile Layer 2", terrainLayer, tilem);
-        addObjectLayer(mapPath, "Object Layer 1", bm, qt, entity, AINode);
+        addObjectLayer(mapPath, "Object Layer 1", bm, qt, entity, AINode, chests);
         addSolidLayer("SolidLayer", bm, 0, qt, entity, AINode);
 
     }

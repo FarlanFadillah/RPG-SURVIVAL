@@ -18,6 +18,7 @@ import com.ui.MapObjects;
 
 public class MapHandler {
     Game game;
+
     //World Map Image
     public BufferedImage worldMap;
     public Graphics2D g2dMap;
@@ -34,9 +35,6 @@ public class MapHandler {
 
         minimapImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g2dMiniMap = minimapImage.createGraphics();
-
-
-        
     }
 
     public void drawMapTerrain(int[][] maptile, int WIDTHMAP, int HEIGHTMAP, int pixels) {
