@@ -200,6 +200,8 @@ public class ObjectManager {
                         qt.insert(new QuadNode(new Point(x, y), object),objects, gameObject);
                         chests.add(object);
                         allMapObjects.add(new MapObjects(object.image, x, y));
+                        line = br.readLine();
+                        line = br.readLine();
                     }
 				}
                 

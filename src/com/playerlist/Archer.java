@@ -119,10 +119,12 @@ public class Archer extends Entity{
 			
 			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Item){
 				Item getItem = (Item) temp;
-				playerInventory.addItem(getItem);
-				game.tryWorld.objects.remove(temp);
-				game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(temp.x, temp.y)));
-				game.gui.sm.addMessage(new Message("adding " + getItem.getClass().getSimpleName(), game.second, 4));
+				boolean success = playerInventory.addItem(getItem);
+				if(success){
+					game.tryWorld.objects.remove(temp);
+					game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(temp.x, temp.y)));
+					game.gui.sm.addMessage(new Message("adding " + getItem.getClass().getSimpleName(), game.second, 4));
+				}
 			}
 		}
 		

@@ -6,11 +6,13 @@ import java.awt.image.BufferedImage;
 
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.PlayerInventory;
+import com.gameMechanics.Slot;
 import com.id.BlockType;
 import com.id.ID;
 import com.main.Game;
 import com.obj.Block;
 import com.obj.Entity;
+import com.obj.Item;
 import com.playerlist.Archer;
 
 public class Chest extends Block{
@@ -24,6 +26,9 @@ public class Chest extends Block{
 
     public int openCounter = 1, closeCounter = 1;
 
+    @SuppressWarnings("unchecked")
+    public Slot<Item>[] slotChest = new Slot[16]; 
+
     public Chest(int x, int y, ID id, BlockType bt, Game game) {
         super(x, y, id, bt, game);
         //TODO Auto-generated constructor stub
@@ -31,6 +36,8 @@ public class Chest extends Block{
         getImage();
         image = closeChest[0];
         closeCounter = 3;
+
+        setSlot();
         
     }
 
@@ -167,6 +174,46 @@ public class Chest extends Block{
     }
     public void close(){
         open = false;
+    }
+
+    public void setSlot(){
+        int i = 0, col = 0, row = 0;
+        while(row < 4) {
+            slotChest[i] = new Slot<Item>(col, row, 48, 48, 8, 8, 64);
+
+            col++;
+            i++;
+
+            if(col >= 4){
+                col = 0;
+                row++;
+            }
+        }
+    }
+
+    public boolean addItem(Slot<Item> slot){
+        for (int i = 0; i < 16; i++) {
+            try {
+                if(!slotChest[i].full && slotChest[i].type.equals(slot.type) && slotChest[i].items.size()+slot.items.size() <= slotChest[i].MAX){
+                    slotChest[i].fill(slot);
+                    return true;
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+            
+        }
+
+        for (int i = 0; i < 16; i++) {
+            if(slotChest[i].type == null){
+                slotChest[i].fill(slot);
+                return true;
+            }else if(!slotChest[i].full && slotChest[i].type.equals(slot.type) && slotChest[i].items.size()+slot.items.size() <= slotChest[i].MAX){
+                slotChest[i].fill(slot);
+                return true;
+            }
+        }
+        return false;
     }
 }
 

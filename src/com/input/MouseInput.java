@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 
 import com.main.Game;
 import com.obj.Entity;
-import com.obj.GameObject;
 import com.ui.GUI;
 
 
@@ -66,27 +65,19 @@ public class MouseInput extends MouseAdapter{
 		if(game.gameState == game.InventoryState) {
 			gui.inv.mx = mx;
 			gui.inv.my = my;
-			gui.inv.hoverSlotInv(e);
+			try {
+				gui.inv.hoverSlotInv(e);
+			} catch (Exception ex) {
+				// TODO: handle exception
+			}
+
+			//for condition opening chest
+			if(game.getPlayerObject().isOpeningChest){
+				gui.inv.chestInventory.hoverSlotChest(e);
+			}
 		}else if(game.gameState == game.playState){
 			gui.skillUi.slotHover(e);
-			for (int i = 0; i < game.tryWorld.objects.size(); i++) {
-				GameObject temp = game.tryWorld.objects.get(i);
-				if(temp.getBound().contains(mouse) && temp.getClass() == Tree.class){
-					temp.hover = true;
-					return;
-				}else{
-					temp.hover = false;
-				}
-			}
-			for (int i = 0; i < game.tryWorld.entity.size(); i++) {
-				GameObject temp = game.tryWorld.entity.get(i);
-				if(temp.getBound().contains(mouse)){
-					temp.hover = true;
-					return;
-				}else{
-					temp.hover = false;
-				}
-			}
+			game.getPlayerObject().checkMouseHoverOnObject(mouse);
 		}else if(game.gameState == game.skillTabState){
 			gui.skillUi.slotHover(e);
 			gui.skillUi.mousePos(e);
@@ -112,11 +103,19 @@ public class MouseInput extends MouseAdapter{
 				game.gui.skillUi.checkSlot(e);
     		}else if(game.gameState == game.InventoryState) {
 				gui.inv.checkButton(e);
-				if(game.gui.inv.getBound().contains(e.getPoint()) || game.gui.inv.equipment.getBound().contains(e.getPoint())){
+
+				//for condition opening chest
+				if(game.getPlayerObject().isOpeningChest){
+					gui.inv.chestInventory.checkChestSlot(e);
+					gui.inv.chestInventory.hoverSlotChest(e);
+				}
+				if(game.gui.inv.getBound().contains(e.getPoint())){
 					game.gui.inv.dragItem(e, game.gui.inv.itemType);
+				}else if(game.gui.inv.equipment.getBound().contains(e.getPoint())){
+					game.gui.inv.equipment.checkEquipmentSlot(e);
 				}else if(!game.gui.inv.getBound().contains(e.getPoint()) && game.gui.inv.dragged && !game.gui.inv.equipment.getBound().contains(e.getPoint())) {
-					game.gui.inv.dropItem();
-					game.gameState = game.playState;
+					// game.gui.inv.dropItem();
+					// game.gameState = game.playState;
 				}
     		}else if(game.gameState == game.skillTabState){
 				game.gui.skillUi.checkSlot(e);

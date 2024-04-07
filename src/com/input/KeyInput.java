@@ -13,6 +13,7 @@ public class KeyInput implements KeyListener{
     
     //Key Feature
     public boolean holdCtrl = false;
+    public boolean holdShift = false;
     
     public KeyInput(Game game){
         player = game.getPlayerObject();
@@ -83,7 +84,9 @@ public class KeyInput implements KeyListener{
         }else if(game.gameState == game.InventoryState) {
         	if(key == KeyEvent.VK_CONTROL) {
         		holdCtrl = true;
-        	}
+        	}else if(e.getKeyCode() == KeyEvent.VK_SHIFT){
+                holdShift = true;
+            }
         }
 
     }
@@ -100,7 +103,9 @@ public class KeyInput implements KeyListener{
         }else if(game.gameState == game.InventoryState) {
         	if(key == KeyEvent.VK_CONTROL) {
         		holdCtrl = false;
-        	}
+        	}else if(e.getKeyCode() == KeyEvent.VK_SHIFT){
+                holdShift = false;
+            }
         }
     }
 

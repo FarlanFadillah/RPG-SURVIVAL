@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
+import com.blockList.Chest;
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
@@ -107,10 +108,12 @@ public class Fighter extends Entity{
 			
 			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Item){
 				Item getItem = (Item) temp;
-				playerInventory.addItem(getItem);
-				game.tryWorld.objects.remove(temp);
-				game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(temp.x, temp.y)));
-				game.gui.sm.addMessage(new Message("adding " + getItem.getClass().getSimpleName(), game.second, 4));
+				boolean success = playerInventory.addItem(getItem);
+				if(success){
+					game.tryWorld.objects.remove(temp);
+					game.tryWorld.qt.remove(game.tryWorld.qt.search(new Point(temp.x, temp.y)));
+					game.gui.sm.addMessage(new Message("adding " + getItem.getClass().getSimpleName(), game.second, 4));
+				}
 			}
 
 		}
@@ -729,7 +732,20 @@ public void getImage() {
 	@Override
 	public void openChest(MouseEvent e) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'openChest'");
+		Rectangle key = new Rectangle((e.getX() + (int)game.camera.getX())-5, (e.getY() + (int) game.camera.getY())-5, 1, 1); 
+		for (int i = 0; i < game.tryWorld.chests.size(); i++) {
+			Chest temp = game.tryWorld.chests.get(i);
+			if(temp.getBound().contains(key.getBounds()) && temp.rangeCheck(this.x+image.getWidth()/2, this.y+image.getHeight()/2)){
+				isOpeningChest = true;
+				if(temp.open){
+					temp.open = false;
+				}else{
+					temp.open = true;
+				}
+				game.gui.inv.chestInventory.chestOpen = temp;
+				return;
+			}
+		}	
 	}
 
 }

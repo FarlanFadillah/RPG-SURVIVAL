@@ -47,7 +47,7 @@ public class InventoryGUI {
 
     //Equipment Inventory
     public EquipmentGUI equipment;
-	private boolean hover;
+	public boolean hover;
 
 	//Chest Inventory
 	public ChestInventory chestInventory;
@@ -58,7 +58,6 @@ public class InventoryGUI {
     public InventoryGUI(Game game){
         this.game = game;
         player = game.getPlayerObject();
-		game.getPlayerObject().playerInventory.usedSlotSet();
         equipment = new EquipmentGUI(game);
 		chestInventory = new ChestInventory(game);
         setTabButton();
@@ -78,7 +77,7 @@ public class InventoryGUI {
 
 	}
 	public void tick(boolean openInventory){
-        equipment.tick(itemType == ItemType.Used && openInventory);
+        equipment.tick(itemType == ItemType.Used && openInventory && !game.getPlayerObject().isOpeningChest);
 		chestInventory.tick(game.getPlayerObject().isOpeningChest);
         if(openInventory){
             if(x < xstop){
@@ -106,6 +105,12 @@ public class InventoryGUI {
             g2d.drawImage(inventoryBox.image, x, y, null);
             equipment.drawEquipmentSlot(g2d);
 			chestInventory.drawInventorytSlot(g2d);
+			if(game.getPlayerObject().isOpeningChest){
+				chestInventory.drawSlot(g2d);
+			}
+			if(itemType == ItemType.Used){
+				equipment.drawEpuipment(g2d);
+			}
             drawButtons(g2d, x, y);
             drawItemStored(g2d, x, y);
             drawDraggedItem(g2d);
@@ -137,32 +142,32 @@ public class InventoryGUI {
 			//Check collision on each slot
 			if(temp.getBound().contains(e.getPoint())) {
 				//drag item from slots
-				if(temp.items.size() > 0 && dragged == false && game.key.holdCtrl == false){
+				if(temp.items.size() > 0 && dragged == false && game.key.holdCtrl == false && game.key.holdShift == false){
 					slotDragged = temp.Copy();
 					temp.emptySlot();
 					dragged = true;
 					dragItem = slotDragged.icon;
 					draggedSlotNum = slotDragged.items.size();
-					break;
+					return;
 				//split and drag item from slot
-				}else if(temp.items.size() > 0 && dragged == false && game.key.holdCtrl == true && temp.items.size() > 1){
+				}else if(temp.items.size() > 0 && dragged == false && game.key.holdCtrl == true && game.key.holdShift == false &&  temp.items.size() > 1){
 					slotDragged = temp.splitCopy();
 					dragged = true;
 					dragItem = slotDragged.icon;
 					draggedSlotNum = slotDragged.items.size();
-					break;
+					return;
 				//put dragged item to empty selected slot
 				}else if(temp.items.size() <= 0 && dragged == true && slotDragged.items.get(0).getItemType() == itemType){
 					temp.fill(slotDragged);
 					slotDragged.emptySlot();
 					dragged = false;
-					break;
+					return;
 				//put dragged item to slot that already has the same type of item (fail if the target slot already full)
 				}else if(temp.items.size() > 0 && dragged == true && temp.type.equals(slotDragged.type) && temp.full == false && slotDragged.items.size()+temp.items.size() > temp.MAX == false && slotDragged.items.get(0).getItemType() == itemType){
 					temp.fill(slotDragged);
 					slotDragged.emptySlot();
 					dragged = false;
-					break;
+					return;
 				/*
 				 * Place the drawn item into a slot that has the same type of item, 
 				 * but the number of drawn items is only placed until the slot is full.
@@ -170,25 +175,11 @@ public class InventoryGUI {
 				}else if(temp.items.size() > 0 && dragged == true && temp.type.equals(slotDragged.type) && temp.full == false && slotDragged.items.size()+temp.items.size() > temp.MAX == true && slotDragged.items.get(0).getItemType() == itemType) {
 					temp.fillUntilFull(slotDragged, slotDragged.items.size() - temp.items.size());
 					draggedSlotNum = slotDragged.items.size();
-					break;
-				}
-			}
-			if(temp.getBound(equipment.x, equipment.y).contains(e.getPoint())){
-				System.out.println(temp.MAX);
-				if(temp.items.size() > 0 && dragged == false){
-					slotDragged = temp.Copy();
-
-					temp.emptySlot(1);
-
-					dragged = true;
-					dragItem = slotDragged.icon;
-					draggedSlotNum = slotDragged.items.size(); 
-					break;
-				}else if(temp.items.size() <= 0 && dragged == true && slotDragged.items.get(0).getItemType() == itemType && temp.equipment == true && temp.equipmentType.equals(slotDragged.items.get(0).equipmentType)){
-					temp.fill(slotDragged);
-					slotDragged.emptySlot();
-					dragged = false;
-					break;
+					return;
+				}else if(temp.items.size() > 0 && dragged == false && game.key.holdShift == true && game.getPlayerObject().isOpeningChest){
+					boolean succes = chestInventory.chestOpen.addItem(temp);
+					if(succes) temp.emptySlot();
+					return;
 				}
 			}
 		}
@@ -206,9 +197,7 @@ public class InventoryGUI {
                 g2d.setColor(Color.white);
                 g2d.setFont(f1);
 				g2d.drawString(String.valueOf(slot[i].items.size()), x+(slot[i].col*64)+44, y+ (slot[i].row*64)+55);
-            }else if(slot[i].type != null && slot[i].equipment){
-				g2d.drawImage(slot[i].icon, equipment.x+(slot[i].x), equipment.y+(slot[i].y), null);
-			}
+            }
         }
         
     }

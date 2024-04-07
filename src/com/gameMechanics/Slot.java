@@ -119,6 +119,7 @@ public class Slot<E> implements Cloneable{
     	for(int i = 0; i < items.size(); i++) {
     		slot.items.add(items.get(i));
     	}
+        slot.full = this.full;
         slot.type = this.type;
     	slot.icon = this.icon;
     	return slot;
@@ -196,6 +197,8 @@ public class Slot<E> implements Cloneable{
     	items.removeAll(slot.items);
     	slot.type = this.type;
     	slot.icon = this.icon;
+
+        this.full = false;
     	return slot;
 	} 
 

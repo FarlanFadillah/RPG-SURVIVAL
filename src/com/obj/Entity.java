@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import com.blockList.Chest;
 import com.blockList.Tree;
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.PlayerEquipment;
@@ -278,8 +279,11 @@ public abstract class Entity extends GameObject {
 		Rectangle mouse = new Rectangle(e.getX()+(int)game.camera.getX(), e.getY()+(int)game.camera.getY(), 1, 1);
 		for (int i = 0; i < game.tryWorld.objects.size(); i++) {
 			GameObject temp = game.tryWorld.objects.get(i);
-			if(temp.hover && temp.getClass().getSimpleName().equals(Tree.class.getSimpleName())){
+			if(temp.getBound().contains(mouse) && temp.getClass().getSimpleName().equals(Tree.class.getSimpleName())){
 				holdingTools = axe;
+				return;
+			}else if(temp.getBound().contains(mouse) && temp.getClass().getSimpleName().equals(Chest.class.getSimpleName())){
+				holdingTools = hands;
 				return;
 			}else{
 				if(holdingTools == axe) holdingTools = hands;
@@ -295,4 +299,25 @@ public abstract class Entity extends GameObject {
 	}
 
     public abstract void openChest(MouseEvent e);
+
+	public void checkMouseHoverOnObject(Rectangle mouse){
+		for (int i = 0; i < game.tryWorld.objects.size(); i++) {
+			GameObject temp = game.tryWorld.objects.get(i);
+			if(temp.getBound().contains(mouse)){
+				temp.hover = true;
+				return;
+			}else{
+				temp.hover = false;
+			}
+		}
+		for (int i = 0; i < game.tryWorld.entity.size(); i++) {
+			GameObject temp = game.tryWorld.entity.get(i);
+			if(temp.getBound().contains(mouse)){
+				temp.hover = true;
+				return;
+			}else{
+				temp.hover = false;
+			}
+		}
+	}
 }

@@ -53,7 +53,7 @@ public class Island extends Biome{
         super(game);
         archer = new Archer(832, 1152, ID.Entity, EntityType.Player, EntityClass.Archer, game);
         fighter = new Fighter(832, 1152, ID.Entity, EntityType.Player, EntityClass.Fighter, game);
-        player = archer;
+        player = fighter;
         bm = new ObjectManager(game);
         tilem = new TileManager(game);
         this.mapPath = "/assets/Terrain/Islands.tmx";
