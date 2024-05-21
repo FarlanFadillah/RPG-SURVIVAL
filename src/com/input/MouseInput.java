@@ -59,6 +59,7 @@ public class MouseInput extends MouseAdapter{
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		gui.getCurrentMousePost(e.getX(), e.getY());
 		mx = e.getX();
 		my = e.getY();
 		Rectangle mouse = new Rectangle(e.getX()+(int)game.camera.getX(), e.getY()+(int)game.camera.getY(), 1, 1);
@@ -78,6 +79,7 @@ public class MouseInput extends MouseAdapter{
 		}else if(game.gameState == game.playState){
 			gui.skillUi.slotHover(e);
 			game.getPlayerObject().checkMouseHoverOnObject(mouse);
+			gui.tileMec.hoverTiles(e);
 		}else if(game.gameState == game.skillTabState){
 			gui.skillUi.slotHover(e);
 			gui.skillUi.mousePos(e);
@@ -101,6 +103,8 @@ public class MouseInput extends MouseAdapter{
 				player.checkEquipment(e);
 				player.openChest(e);
 				game.gui.skillUi.checkSlot(e);
+				game.gui.tileMec.tileClick(e);
+				
     		}else if(game.gameState == game.InventoryState) {
 				gui.inv.checkButton(e);
 
@@ -121,9 +125,25 @@ public class MouseInput extends MouseAdapter{
 				game.gui.skillUi.checkSlot(e);
 				game.gui.skillUi.checkSkillTree(e);
 				gui.skillUi.checkPlusButton(e, true);
+			}else if(game.gameState == game.BlueprintWindow){
+				game.gui.blueprintGUI.checkBlueprintClick(e);
 			}
             
         } else if (e.getButton() == MouseEvent.BUTTON2){
+			if(game.gameState == game.playState){
+				if(player.holdingTools == player.hammer){
+					// if(gui.blueprintGUI.open){
+					// 	gui.blueprintGUI.open = false;
+					// }else{
+					// 	gui.blueprintGUI.open = true;
+					// }
+					game.gameState = game.BlueprintWindow;
+				}
+			}else if(game.gameState == game.BlueprintWindow){
+				if(player.holdingTools == player.hammer){
+					game.gameState = game.playState;
+				}
+			}
             
         } else if (e.getButton() == MouseEvent.BUTTON3) {
         	if(game.gameState == game.playState){

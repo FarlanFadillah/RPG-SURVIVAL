@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
 import java.util.ArrayList;
 
 import com.filehandler.SpriteSheet;
@@ -40,6 +42,9 @@ public class InventoryGUI {
     public boolean dragged = false;
     public Slot<Item> slotDragged;
     public BufferedImage dragItem;
+	
+	//Blured Background
+	public BufferedImage bluredBackground;
     
     //Buttons
     public Button usedTab, consumeTab, ingredientTab, closeTab;
@@ -96,12 +101,18 @@ public class InventoryGUI {
             }
         }
     }
+
     public void drawInventory(Graphics2D g2d){
         if(x > xstart){
             g2d.setColor(Color.BLACK);
+
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
             g2d.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+			// g2d.drawImage(bluredBackground, 0,0, null);
+
+
             g2d.drawImage(inventoryBox.image, x, y, null);
             equipment.drawEquipmentSlot(g2d);
 			chestInventory.drawInventorytSlot(g2d);
@@ -274,11 +285,44 @@ public class InventoryGUI {
 			}
 		}
 	}
-
-	
-
 	public int getWidthString(Graphics2D g2, String text) {
 		int x = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
 		return x;
 	}
+	public BufferedImage blurImage(BufferedImage image, int radius) {
+        int size = radius * 2 + 1;
+        float[] data = new float[size * size];
+
+        float sigma = radius / 3.0f;
+        float twoSigmaSquare = 2.0f * sigma * sigma;
+        float sigmaRoot = (float) Math.sqrt(twoSigmaSquare * Math.PI);
+        int center = size / 2;
+        float total = 0;
+
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                int dx = x - center;
+                int dy = y - center;
+                float distance = dx * dx + dy * dy;
+                data[y * size + x] = (float) Math.exp(-distance / twoSigmaSquare) / sigmaRoot;
+                total += data[y * size + x];
+            }
+        }
+
+        for (int i = 0; i < data.length; i++) {
+            data[i] /= total;
+        }
+
+        Kernel kernel = new Kernel(size, size, data);
+        ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
+        BufferedImage blurredImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        op.filter(image, blurredImage);
+
+        return blurredImage;
+    }
+
+	public void getBlurBackground(){
+		bluredBackground = blurImage(game.tryWorld.tilem.screen, 3);
+	}
+	
 }

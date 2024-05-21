@@ -24,9 +24,9 @@ public class KeyInput implements KeyListener{
     public void keyTyped(KeyEvent e) {
         int key = e.getKeyChar();
         if(key == KeyEvent.VK_TAB){
+            // game.gui.inv.getBlurBackground();
             if(game.gameState == game.playState || game.gameState == game.skillTabState){
                 game.gameState = game.InventoryState;
-                game.getPlayerObject().stopMove();
             }else if(game.gameState == game.InventoryState){
                 game.gameState = game.playState;
                 game.getPlayerObject().isOpeningChest = false;
@@ -34,7 +34,6 @@ public class KeyInput implements KeyListener{
         }else if(key == 'q' || key == 'Q'){
             if(game.gameState == game.playState || game.gameState == game.InventoryState){
                 game.gameState = game.skillTabState;
-                game.getPlayerObject().stopMove();
             }else if(game.gameState == game.skillTabState){
                 game.gameState = game.playState;
                 game.getPlayerObject().isOpeningChest = false;
@@ -49,7 +48,6 @@ public class KeyInput implements KeyListener{
                     game.tryWorld.player = game.tryWorld.fighter;
                 }
                 game.tryWorld.entity.add(game.tryWorld.player);
-                game.tryWorld.player.stopMove();
                 game.gui.ps.checkPlayer(game);
                 player = game.tryWorld.player;
             }
@@ -75,11 +73,21 @@ public class KeyInput implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
+
         if(game.gameState == game.playState) {
         	if(key == KeyEvent.VK_W) player.setUp(true);
         	if(key == KeyEvent.VK_S) player.setDown(true);
         	if(key == KeyEvent.VK_D) player.setRight(true);
         	if(key == KeyEvent.VK_A) player.setLeft(true);
+
+            Entity player = game.getPlayerObject();
+            if(e.getKeyCode() == KeyEvent.VK_T){
+                if(player.holdingTools != player.hammer){
+                   player.changeEquipment(player.hammer);
+                }else{
+                    player.changeEquipment(player.hands);
+                }
+            }
         	
         }else if(game.gameState == game.InventoryState) {
         	if(key == KeyEvent.VK_CONTROL) {

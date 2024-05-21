@@ -56,9 +56,9 @@ public class GoblinTNTField extends Entity{
 		Collision();
 		spriteCounter();
 		playerControl();
-		checkDistance();
-		attackCollision();
-		rangeCollision();
+		// checkDistance();
+		// attackCollision();
+		// rangeCollision();
 		
 		if(hp <= 0) {
 			speed = 0;

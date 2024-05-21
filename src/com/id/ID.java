@@ -1,5 +1,5 @@
 package com.id;
 
 public enum ID {
-    Entity(), Block(), Item(), Skill;
+    Entity(), Block(), Item(), Skill(), Blueprint();
 }

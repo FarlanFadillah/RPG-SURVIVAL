@@ -1,10 +1,9 @@
 package com.gameMechanics;
 
 
-import com.id.ID;
 import com.id.ItemType;
-import com.item.Sword;
 import com.main.Game;
+import com.obj.BluePrint;
 import com.obj.Item;
 
 public class PlayerInventory {
@@ -23,11 +22,6 @@ public class PlayerInventory {
         setSlot(consumeSlot, "consume");
         setSlot(ingredientSlot, "ingredient");
         setSlot(usedSlot, "used");
-
-
-		for (int i = 0; i < 36; i++) {
-			usedSlot[i].addItem(new Sword(0, 0, ID.Item, ItemType.Used));;
-		}
     }
     public boolean addItem(Item item){
     	for (int i = 0; i < 36; i++) {
@@ -131,6 +125,48 @@ public class PlayerInventory {
 
 		return false;
     }
+    public boolean checkIngredient(BluePrint bluprintBuilding) {
+        // TODO Auto-generated method stub
+		boolean[] canBuild = new boolean[bluprintBuilding.ingredients.size()];
+		for (int i = 0; i < bluprintBuilding.ingredients.size(); i++) {
+			String ingredient = (String) bluprintBuilding.ingredients.keySet().toArray()[i];
+			int value = bluprintBuilding.ingredients.get(ingredient);
+			for (int j = 0; j < ingredientSlot.length; j++) {
+				if(ingredientSlot[j].type == null) continue;
+				if(ingredientSlot[j].items.get(0).name.equals(ingredient) && ingredientSlot[j].items.size() >= value){
+					canBuild[i] = true;
+					break;
+				}else{
+					canBuild[i] = false;
+				}
+			}
+		}
+		for (int i = 0; i < canBuild.length; i++) {
+			if(canBuild[i] == false){
+				System.out.println("ingredient less");
+				return false;
+			}
+		}
+
+		cutIngredient(bluprintBuilding);
+		return true;
+    }
+	private void cutIngredient(BluePrint bluprintBuilding) {
+		for (int i = 0; i < bluprintBuilding.ingredients.size(); i++) {
+			String ingredient = (String) bluprintBuilding.ingredients.keySet().toArray()[i];
+			int value = bluprintBuilding.ingredients.get(ingredient);
+			for (int j = 0; j < ingredientSlot.length; j++) {
+				if(ingredientSlot[j].type == null) continue;
+				if(ingredientSlot[j].items.get(0).name.equals(ingredient) && ingredientSlot[j].items.size() >= value){
+					while(value > 0){
+						ingredientSlot[j].removeItem(ingredientSlot[j].items.remove(ingredientSlot[j].items.size()-1));
+						value--;
+					}
+					break;
+				}
+			}
+		}
+	}
 	
 	
 }

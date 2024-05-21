@@ -1,6 +1,9 @@
 package com.tile;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,8 +22,17 @@ public class TileManager {
 	int tile_h = 64;
 	public Game game;
 	ImageManager imageManager = new ImageManager();
+
+	public BufferedImage screen;
+	public Graphics2D g2dScreen;
+	
+
+
     public TileManager(Game game){
 		this.game = game;
+
+		screen = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		g2dScreen = (Graphics2D) screen.createGraphics();
     }
     public void getTiles(String path, TileMap[] map, int size) {
         ss = new SpriteSheet(path);
@@ -59,6 +71,7 @@ public class TileManager {
     public void draw(Graphics2D g2, double xx, double yy, TileMap[] map, int[][] maptile) {
 		int col=0;
 		int row=0;
+
 		while(col<WIDTHMAP && row<HEIGHTMAP) {
 			while(col<WIDTHMAP) {
 				int tile = maptile[col][row];
@@ -66,7 +79,15 @@ public class TileManager {
 					if(tile == 42){
 					}else{
 						g2.drawImage(map[tile].image, col*pixels, row*pixels, null);
-						
+						//For Blured Image pending
+						// g2dScreen.drawImage(map[tile].image, colScreen*pixels, rowScreen*pixels, null);
+						game.gui.tileMec.drawHoverTile(col*pixels, row*pixels, g2);
+						// colScreen++;
+
+						// if(colScreen*pixels > Game.WIDTH){
+						// 	colScreen = 0;
+						// 	rowScreen++;
+						// }
 					}
 				}	
 			    col++;

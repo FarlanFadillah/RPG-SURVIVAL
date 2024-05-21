@@ -38,6 +38,7 @@ public class Game extends Canvas implements Runnable{
     public int InventoryState = 4;
     public int skillTabState = 5;
     public int mapState = 6;
+    public int BlueprintWindow = 7;
 
 
 	public Frame frame;
@@ -108,6 +109,7 @@ public class Game extends Canvas implements Runnable{
         
         g2d.translate(-camera.getX(), -camera.getY());
         tryWorld.draw(g2d, camera.getX(), camera.getY());
+        gui.drawToTerrain(g2d);
         g2d.translate(camera.getX(), camera.getY());
             
         //////////////////////////////////////
@@ -120,7 +122,10 @@ public class Game extends Canvas implements Runnable{
         if(gameState == playState){
             camera.tick(this);
             tryWorld.tick(camera.getX(), camera.getY());
+        }else{
+            getPlayerObject().stopMove();
         }
+        
         gui.tick();
     }
     @Override

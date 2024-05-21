@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import com.obj.BluePrint;
 import com.obj.Item;
 import com.obj.Skill;
 import com.tile.ImageManager;
@@ -31,6 +32,8 @@ public class Slot<E> implements Cloneable{
     public boolean lock = false;
     public boolean select = false;
     public Skill skill;
+
+    public BluePrint bluePrintStored;
     public Slot(int col, int row, int width, int height, int offW, int offH, int sizeSlot){
         this.col = col;
         this.row = row;
@@ -43,6 +46,15 @@ public class Slot<E> implements Cloneable{
         this.offH = offH;
         rectangle = new Rectangle(x, y, width, height);
     }
+
+    public int getX(){
+        return (col*sizeSlot)+offW;
+    }
+
+    public int getY(){
+        return (row*sizeSlot)+offH;
+    }
+
     public Slot(int x, int y, int width, int height){
         this.x = x;
         this.y = y;
@@ -58,6 +70,7 @@ public class Slot<E> implements Cloneable{
         return new Rectangle(this.x+x, this.y+y, width, height);
     }
     public void addItem(E item){
+        
         if(item.getClass().getSuperclass().equals(Item.class)){
             try {
                 Item temp = (Item) item;
@@ -92,6 +105,15 @@ public class Slot<E> implements Cloneable{
                 skill = temp;
             }
             return;
+        }else if(item.getClass() == BluePrint.class){
+            if(!full){
+                BluePrint temp = (BluePrint) item;
+                bluePrintStored = temp;
+                type = "blueprint";
+                MAX = 1;
+                full = true;
+                icon = temp.bpicon;
+            }
         }
     }
     public void removeItem(E item) {
@@ -99,6 +121,9 @@ public class Slot<E> implements Cloneable{
     	if(items.size() < MAX) {
     		full = false;
     	}
+        if(items.size() <= 0){
+            this.emptySlot();
+        }
     }
     public void moveSlot(int col, int row){
         this.col = col;

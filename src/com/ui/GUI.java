@@ -1,5 +1,7 @@
 package com.ui;
 
+import com.buildingMechanics.BlueprintGUI;
+import com.buildingMechanics.TileInteractionGui;
 import com.main.Game;
 import com.map.MapHandler;
 import com.obj.Entity;
@@ -7,8 +9,13 @@ import com.obj.Entity;
 import java.awt.Graphics2D;
 
 public class GUI {
+    //Mouse Moving check
+    public boolean mouseIsMoving = false;
+
     public PlayerStats ps = new PlayerStats();
     public InventoryGUI inv;
+    public TileInteractionGui tileMec;
+    public BlueprintGUI blueprintGUI;
     Game game;
     Entity player;
     public SkillUi skillUi;
@@ -26,7 +33,8 @@ public class GUI {
         sm = new ScrollingMessages(game);
 
         mh = new MapHandler(game, game.tryWorld.tilem.WIDTHMAP*64, game.tryWorld.tilem.HEIGHTMAP*64);
-        
+        tileMec = new TileInteractionGui(game);
+        blueprintGUI = new BlueprintGUI(game);
         resetMap();
     }
     public void init(){
@@ -36,6 +44,8 @@ public class GUI {
         sm.tick();
         inv.tick(game.gameState == game.InventoryState);
         skillUi.tick(game.gameState == game.skillTabState);
+        blueprintGUI.tick();
+        tileMec.hoverTilesIfPlayerMoving();
     }
     
     public void draw(Graphics2D g2d){
@@ -54,15 +64,37 @@ public class GUI {
             }
             skillUi.drawSkillSlot(g2d);
             inv.drawInventory(g2d);  
+            blueprintGUI.drawWindow(g2d);
+            blueprintGUI.drawBlueprints(g2d);
+
+            if(lastXMouseMove != currentXMouseMove || lastYMouseMove != currentYMouseMove){
+                mouseIsMoving = true;
+                lastXMouseMove = currentXMouseMove;
+                lastYMouseMove = currentYMouseMove;
+            }else{
+                mouseIsMoving = false;
+            }
         }
 
     }
+
+    public void drawToTerrain(Graphics2D g2d){
+        tileMec.drawBluprintBuilding(g2d);
+    }
+
     public void resetMap() {
         // TODO Auto-generated method stub
         mapX = 0;
         mapY = 0;
         currentScale = 0.1406408618241001;
     }
+    public int lastXMouseMove = 0, lastYMouseMove = 0;
+    public int currentXMouseMove = 0, currentYMouseMove = 0;
+    public void getCurrentMousePost(int x, int y){
+        currentXMouseMove = x;
+        currentYMouseMove = y;
+    }
+    
     
 
     

@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import com.blockList.Chest;
 import com.filehandler.SpriteSheet;
+import com.gameMechanics.BluePrintMech;
 import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
 import com.gameMechanics.Skills;
@@ -60,6 +61,7 @@ public class Archer extends Entity{
 		skills = new Skills(game);
 		skillTree = new Skilltree();
 		skillTree.setSlot(new Water(0, 0, ID.Skill));
+		bluePrintMech = new BluePrintMech();
 
 		hp = 100;
 		mana = 100;
@@ -86,6 +88,9 @@ public class Archer extends Entity{
 		Collision();
 		playerControl();
 		spriteCounter();
+
+		getCurrentX(x, y);
+		entityMovingChecking();
 		
 		if(hp <= 0) {
 			dead = true;

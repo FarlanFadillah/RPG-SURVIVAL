@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 
 import com.blockList.Chest;
 import com.filehandler.SpriteSheet;
+import com.gameMechanics.BluePrintMech;
 import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
 import com.gameMechanics.Skills;
@@ -45,12 +46,14 @@ public class Fighter extends Entity{
 		skills = new Skills(game);
 		skillTree = new Skilltree();
 		skillTree.setSlot(new Fire(0, 0, ID.Skill));
+		bluePrintMech = new BluePrintMech();
+
 
 		hp = 100;
 		mana = 100;
 		stamina = 100;
 		speed = 4;
-		level = 3;
+		level = 10;
 
 		getImage();
 		image = idleRight[0];
@@ -73,6 +76,10 @@ public class Fighter extends Entity{
 		playerControl();
 		spriteCounter();
 		attackCollision();
+
+		getCurrentX(x, y);
+		entityMovingChecking();
+
 		
 		if(hp <= 0) {
 			dead = true;

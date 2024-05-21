@@ -1,12 +1,11 @@
 package com.obj;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-
 import com.blockList.Chest;
 import com.blockList.Tree;
 import com.filehandler.SpriteSheet;
+import com.gameMechanics.BluePrintMech;
 import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.PlayerInventory;
 import com.gameMechanics.Skills;
@@ -22,13 +21,19 @@ public abstract class Entity extends GameObject {
 	public String hands = "hand";
 	public String weapon = "weapon";
 	public String axe = "axe";
+	public String hammer = "hammer";
+    public String building = "building";
+
 	
+	public boolean isMoving = false;
 	public int speed;
 	public boolean isOpeningChest = false;
     public boolean up = false, down = false, right= false, left = false;
     public boolean dead = false;
     public String name;
-    public int level,mana, xp, skillPoint = 2;
+
+    public int level,mana,xp,skillPoint = 4;
+
 	public float stamina;
     public float velX=0, velY=0;
     public EntityType et;
@@ -38,6 +43,7 @@ public abstract class Entity extends GameObject {
 	public PlayerInventory playerInventory;
 	public PlayerEquipment temporaryPlayerEquipment;
 	public PlayerEquipment playerEquipment;
+	public BluePrintMech bluePrintMech;
 	public Skills skills;
 	public Skilltree skillTree;
 	
@@ -318,6 +324,20 @@ public abstract class Entity extends GameObject {
 			}else{
 				temp.hover = false;
 			}
+		}
+	}
+	public int lastXPost = 0, lastYPost = 0, currentXPost = 0, currentYPost = 0;
+	public void getCurrentX(int x, int y){
+		currentXPost = x;
+		currentYPost = y;
+	}
+	public void entityMovingChecking(){
+		if(lastXPost != currentXPost || lastYPost != currentYPost){
+			isMoving = true;
+			lastXPost = currentXPost;
+			lastYPost = currentYPost;
+		}else{
+			isMoving = false;
 		}
 	}
 }
