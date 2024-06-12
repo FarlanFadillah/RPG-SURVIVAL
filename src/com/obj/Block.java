@@ -15,6 +15,8 @@ public abstract class Block extends GameObject {
 	public int spriteCounter = 0;
     public BufferedImage[] idle = new BufferedImage[10];
 
+    public int damageReceived = 0;
+
     public boolean getHit = false;
 
     public Block(int x, int y, ID id, BlockType bt, Game game) {
@@ -23,7 +25,6 @@ public abstract class Block extends GameObject {
         this.game = game;
         //TODO Auto-generated constructor stub
     }
-
     public abstract void tick();
     public abstract void render(Graphics g);
     public abstract Rectangle renderOrder();

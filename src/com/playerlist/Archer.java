@@ -577,10 +577,10 @@ public class Archer extends Entity{
 	}
 
 	@Override
-	public void hit() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'hit'");
-	}
+    public void hit(int damage) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'hit'");
+    }
 	
 	public void spriteCounter(){
 		spriteCounter++;
@@ -727,9 +727,9 @@ public class Archer extends Entity{
 	
 	@Override
 	public void hitTree(){
-		
+		System.out.println(hit.getClass());
 		try {
-			hit.getHit = true;
+			hit.hit(25);
 		} catch (Exception ex) {
 			// TODO: handle exception
 		}

@@ -34,7 +34,7 @@ public class Chest extends Block{
         //TODO Auto-generated constructor stub
         inventory = new PlayerInventory(game);
         getImage();
-        image = closeChest[0];
+        image = closeChest[2];
         closeCounter = 3;
 
         setSlot();
@@ -56,7 +56,7 @@ public class Chest extends Block{
         // TODO Auto-generated method stub
         
         animatedSprite();
-        g.drawImage(image, x, y, 64, 64, null);
+        g.drawImage(image, x, y, null);
     }
 
     @Override
@@ -68,15 +68,15 @@ public class Chest extends Block{
     @Override
     public void getImage() {
         
-        openChest[0] = ss.grabImage(1, 1, 32, 32);
-        openChest[1] = ss.grabImage(2, 1, 32, 32);
-        openChest[2] = ss.grabImage(3, 1, 32, 32);
-        openChest[3] = ss.grabImage(4, 1, 32, 32);
-        openChest[4] = ss.grabImage(5, 1, 32, 32);
+        openChest[0] = ss.grabImage(1, 1, 64, 64);
+        openChest[1] = ss.grabImage(2, 1, 64, 64);
+        openChest[2] = ss.grabImage(3, 1, 64, 64);
+        openChest[3] = ss.grabImage(4, 1, 64, 64);
+        openChest[4] = ss.grabImage(5, 1, 64, 64);
 
-        closeChest[0] = ss.grabImage(5, 1, 32, 32);
-        closeChest[1] = ss.grabImage(4, 1, 32, 32);
-        closeChest[2] = ss.grabImage(1, 1, 32, 32);
+        closeChest[0] = ss.grabImage(5, 1, 64, 64);
+        closeChest[1] = ss.grabImage(4, 1, 64, 64);
+        closeChest[2] = ss.grabImage(1, 1, 64, 64);
 
     }
 
@@ -93,7 +93,7 @@ public class Chest extends Block{
     }
 
     @Override
-    public void hit() {
+    public void hit(int damage) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'hit'");
     }
@@ -126,7 +126,7 @@ public class Chest extends Block{
         if(open){
             closeCounter = 1;
             spriteCounter++;
-            if(spriteCounter > 10) {
+            if(spriteCounter > 3) {
                 if(openCounter == 1){
                     openCounter = 2;
                 }else if(openCounter == 2){
@@ -143,7 +143,7 @@ public class Chest extends Block{
         }else{
             openCounter = 1;
             spriteCounter++;
-            if(spriteCounter > 10) {
+            if(spriteCounter > 3) {
                 if(closeCounter == 1){
                     closeCounter = 2;
                 }else if(closeCounter == 2){

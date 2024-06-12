@@ -91,10 +91,10 @@ public class Meat extends Item{
     }
 
 	@Override
-	public void hit() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void hit(int damage) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'hit'");
+    }
 	
 	public void getImage(){
         try {

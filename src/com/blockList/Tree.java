@@ -9,9 +9,6 @@ import com.filehandler.SpriteSheet;
 import com.id.BlockType;
 import com.id.ID;
 import com.id.ItemType;
-import com.item.Meat;
-import com.item.Money;
-import com.item.Sword;
 import com.item.Wood;
 import com.main.Game;
 import com.obj.Block;
@@ -78,12 +75,9 @@ public class Tree extends Block {
             if(!itemDroped){
                 Random rand = new Random();
                 int r = rand.nextInt(2)+1;
-                System.out.println(r);
-                if(r == 1){
-                    game.tryWorld.qt.insert(new QuadNode(new Point(x+32, y+32), new Money(x+32, y+32, ID.Item, ItemType.ingredient)),game.tryWorld.entity, null);
-                }if (r==2){
+                    game.tryWorld.qt.insert(new QuadNode(new Point(x-32, y+96), new Wood(x-32, y+96, ID.Item, ItemType.ingredient)),game.tryWorld.entity, null);
                     game.tryWorld.qt.insert(new QuadNode(new Point(x+32, y+32), new Wood(x+32, y+32, ID.Item, ItemType.ingredient)),game.tryWorld.entity, null);
-                }
+                    game.tryWorld.qt.insert(new QuadNode(new Point(x+64, y+96), new Wood(x+64, y+96, ID.Item, ItemType.ingredient)),game.tryWorld.entity, null);
                 itemDroped = true;
             }
             image = chopped;
@@ -140,6 +134,8 @@ public class Tree extends Block {
         }
     }
 
+    
+
     public void spriteCounter(){
         if (getHit) {
             spriteCounter++;
@@ -148,7 +144,7 @@ public class Tree extends Block {
                     spriteHitNum =2;
                 }else if(spriteHitNum ==2) {
                     spriteHitNum =1;
-                    hp -=100;
+                    hp -= damageReceived;
                     getHit = false;
                 }
                 spriteCounter = 0;
@@ -179,8 +175,9 @@ public class Tree extends Block {
     }
 
     @Override
-    public void hit() {
-        // TODO Auto-generated method stub
+    public void hit(int damage) {
+        getHit = true;
+        damageReceived = damage;
     }
 
     

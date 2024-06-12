@@ -159,9 +159,9 @@ public class ArrowProjectile extends Block{
 	}
 
 	@Override
-	public void hit() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'hit'");
-	}
+    public void hit(int damage) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'hit'");
+    }
 
 }

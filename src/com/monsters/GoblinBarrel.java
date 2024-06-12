@@ -502,9 +502,11 @@ public void rangeCollision() {
 		return new Rectangle(x, y, image.getWidth(), image.getHeight());
 	}
 
-	public void hit() {
-		throw new UnsupportedOperationException("Unimplemented method 'hit'");
-	}
+	@Override
+    public void hit(int damage) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'hit'");
+    }
 	
 	public void spriteCounter(){
 		spriteCounter++;

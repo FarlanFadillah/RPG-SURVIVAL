@@ -60,8 +60,10 @@ public class Fighter extends Entity{
 		arah = "kanan";
 		arahAttack = "kanan";
 		arahTree = "kanan";
+		getUnlimitedItem();
 		
 	}
+	
 
 	public void tick() {
 		if(attack1 == false && attack2 == false) {
@@ -109,8 +111,8 @@ public class Fighter extends Entity{
 				y += velY * -1;
 			}
 			if(this != temp && getBound().intersects(temp.getBound()) &&temp.getID() == ID.Entity) {
-					x += velX * -1;
-					y += velY * -1;
+				x += velX * -1;
+				y += velY * -1;
 			}
 			
 			if(getBound().intersects(temp.getBound()) && temp.getID() == ID.Item){
@@ -521,9 +523,10 @@ public void getImage() {
 	}
 
 	@Override
-	public void hit() {
-		throw new UnsupportedOperationException("Unimplemented method 'hit'");
-	}
+    public void hit(int damage) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'hit'");
+    }
 	
 	public void spriteCounter(){
 		spriteCounter++;
@@ -692,7 +695,7 @@ public void getImage() {
 	public void hitTree(){
 		
 		try {
-			hit.getHit = true;
+			hit.hit(25);
 		} catch (Exception ex) {
 			// TODO: handle exception
 		}

@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.List;
 
 import com.ai.AINode;
+import com.blockList.Chest;
 import com.id.ID;
 import com.main.Game;
 import com.obj.GameObject;
@@ -56,6 +57,10 @@ public class Quad {
         
         if (Math.abs(topLeft.x - botRight.x) <= 1 && Math.abs(topLeft.y - botRight.y) <= 1) {
             // We are at a quad of unit area; cannot subdivide further
+            if(node.gameObject.getClass() == Chest.class && game.tryWorld != null){
+                Chest temp = (Chest) node.gameObject;
+                game.tryWorld.chests.add(temp);
+            }
             if (n == null){
                 n = node;
             }

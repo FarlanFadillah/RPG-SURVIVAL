@@ -53,7 +53,7 @@ public class House extends Block{
     }
 
     @Override
-    public void hit() {
+    public void hit(int damage) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'hit'");
     }

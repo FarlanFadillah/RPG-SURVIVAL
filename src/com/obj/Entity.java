@@ -13,6 +13,8 @@ import com.gameMechanics.Skilltree;
 import com.id.EntityClass;
 import com.id.EntityType;
 import com.id.ID;
+import com.id.ItemType;
+import com.item.Wood;
 import com.main.Game;
 
 public abstract class Entity extends GameObject {
@@ -118,6 +120,12 @@ public abstract class Entity extends GameObject {
 		this.ec = ec;
         this.game = game;
     }
+
+	public void getUnlimitedItem(){
+		for (int i = 0; i < 32; i++) {
+			playerInventory.addItem(new Wood(i, i, ID.Block, ItemType.ingredient));
+		}
+	}
     
     public void setAction() {
     	

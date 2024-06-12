@@ -12,9 +12,12 @@ public class BluePrint extends GameObject{
     public BufferedImage bpicon;
     public SpriteSheet itemImage = new SpriteSheet("/assets/blueprints/BluePrintItem.png");
     public SpriteSheet icon;
-    public BufferedImage buildingImage;
+//    public BufferedImage buildingImage;
+
+    public Block building;
 
     public HashMap<String, Integer> ingredients = new HashMap<>();
+
 
     public BluePrint(int x, int y, ID id, String name, int col, int row) {
         super(x, y, id);
@@ -55,7 +58,7 @@ public class BluePrint extends GameObject{
     }
 
     @Override
-    public void hit() {
+    public void hit(int damage) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'hit'");
     }

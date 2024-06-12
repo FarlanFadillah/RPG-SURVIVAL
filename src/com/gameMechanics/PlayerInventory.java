@@ -128,17 +128,29 @@ public class PlayerInventory {
     public boolean checkIngredient(BluePrint bluprintBuilding) {
         // TODO Auto-generated method stub
 		boolean[] canBuild = new boolean[bluprintBuilding.ingredients.size()];
+				
 		for (int i = 0; i < bluprintBuilding.ingredients.size(); i++) {
 			String ingredient = (String) bluprintBuilding.ingredients.keySet().toArray()[i];
 			int value = bluprintBuilding.ingredients.get(ingredient);
+
+			int invTotal = 0;
+
 			for (int j = 0; j < ingredientSlot.length; j++) {
+
+
+
 				if(ingredientSlot[j].type == null) continue;
-				if(ingredientSlot[j].items.get(0).name.equals(ingredient) && ingredientSlot[j].items.size() >= value){
-					canBuild[i] = true;
-					break;
-				}else{
-					canBuild[i] = false;
+				if(ingredientSlot[j].items.get(0).name.equals(ingredient)){
+					invTotal += ingredientSlot[j].items.size();
+					if(invTotal >= value){
+						canBuild[i] = true;
+						break;
+					}
 				}
+			}
+
+			if(invTotal < value){
+				canBuild[i] = false;
 			}
 		}
 		for (int i = 0; i < canBuild.length; i++) {
@@ -157,13 +169,15 @@ public class PlayerInventory {
 			int value = bluprintBuilding.ingredients.get(ingredient);
 			for (int j = 0; j < ingredientSlot.length; j++) {
 				if(ingredientSlot[j].type == null) continue;
-				if(ingredientSlot[j].items.get(0).name.equals(ingredient) && ingredientSlot[j].items.size() >= value){
-					while(value > 0){
+				if(ingredientSlot[j].items.get(0).name.equals(ingredient) && ingredientSlot[j].items.size() > 0){
+					while(ingredientSlot[j].items.size() > 0){
 						ingredientSlot[j].removeItem(ingredientSlot[j].items.remove(ingredientSlot[j].items.size()-1));
 						value--;
+						if(value == 0) break;
 					}
-					break;
+					
 				}
+				if(value == 0) break;
 			}
 		}
 	}

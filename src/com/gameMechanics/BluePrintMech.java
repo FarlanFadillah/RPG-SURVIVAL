@@ -32,10 +32,15 @@ public class BluePrintMech {
     public void setBlueprint(){
         blueprints[0].addItem(new BluePrint(0, 0, ID.Blueprint, "BlueHouse", 1,1));
         blueprints[0].bluePrintStored.ingredients.put("Wood", 2);
-        blueprints[0].bluePrintStored.ingredients.put("Money", 2);
 
         blueprints[1].addItem(new BluePrint(0, 0, ID.Blueprint, "Castle", 2,1));
+        blueprints[1].bluePrintStored.ingredients.put("Wood", 3);
+        
         blueprints[2].addItem(new BluePrint(0, 0, ID.Blueprint, "Tower", 3,1));
+        blueprints[2].bluePrintStored.ingredients.put("Wood", 2);
+
+        blueprints[3].addItem(new BluePrint(0, 0, ID.Blueprint, "Chest", 4, 1));
+        blueprints[3].bluePrintStored.ingredients.put("Wood", 1);
     }
     
 }

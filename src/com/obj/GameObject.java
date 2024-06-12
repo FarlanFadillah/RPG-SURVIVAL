@@ -18,7 +18,7 @@ public abstract class GameObject {
     public abstract Rectangle getBound();
     public abstract Rectangle renderOrder();
     public abstract Rectangle getSize();
-    public abstract void hit();
+    public abstract void hit(int damage);
     
     public int start, stop = 0;
 

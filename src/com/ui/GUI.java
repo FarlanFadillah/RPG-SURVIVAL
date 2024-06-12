@@ -58,7 +58,7 @@ public class GUI {
             g2d.drawString(word, Game.WIDTH-inv.getWidthString(g2d, word)-16, 32);
             ps.drawPlayerIcon(g2d);
             ps.drawPlayerStats(g2d);
-            mh.drawMiniMap(g2d, (int)game.camera.getX(), (int)game.camera.getY());
+            // mh.drawMiniMap(g2d, (int)game.camera.getX(), (int)game.camera.getY());
             if(sm.messages.size() > 0){
                 sm.showMessage(g2d, 128);
             }

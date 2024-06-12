@@ -184,7 +184,8 @@ public class InventoryGUI {
 				 * but the number of drawn items is only placed until the slot is full.
 				 * */
 				}else if(temp.items.size() > 0 && dragged == true && temp.type.equals(slotDragged.type) && temp.full == false && slotDragged.items.size()+temp.items.size() > temp.MAX == true && slotDragged.items.get(0).getItemType() == itemType) {
-					temp.fillUntilFull(slotDragged, slotDragged.items.size() - temp.items.size());
+					temp.fillUntilFull(slotDragged, temp.MAX - temp.items.size());
+					System.out.println("ss");
 					draggedSlotNum = slotDragged.items.size();
 					return;
 				}else if(temp.items.size() > 0 && dragged == false && game.key.holdShift == true && game.getPlayerObject().isOpeningChest){

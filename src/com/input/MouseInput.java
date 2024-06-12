@@ -138,6 +138,8 @@ public class MouseInput extends MouseAdapter{
 					// 	gui.blueprintGUI.open = true;
 					// }
 					game.gameState = game.BlueprintWindow;
+				}else if(player.holdingTools == player.building){
+					player.holdingTools = player.hammer;
 				}
 			}else if(game.gameState == game.BlueprintWindow){
 				if(player.holdingTools == player.hammer){
@@ -149,6 +151,10 @@ public class MouseInput extends MouseAdapter{
         	if(game.gameState == game.playState){
 				player.automationEquipment(e);
     			player.checkEquipment(e);
+
+				if(player.holdingTools == player.building){
+					player.holdingTools = player.hammer;
+				}
 
     		}else if(game.gameState == game.InventoryState) {
     

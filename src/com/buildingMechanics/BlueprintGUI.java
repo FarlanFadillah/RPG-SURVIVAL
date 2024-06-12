@@ -5,12 +5,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
+import com.blockList.Castle;
+import com.blockList.Chest;
 import com.blockList.House;
+import com.blockList.Tower;
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.BluePrintMech;
 import com.gameMechanics.Slot;
-import com.id.BlockType;
-import com.id.ID;
 import com.main.Game;
 import com.obj.BluePrint;
 
@@ -70,9 +71,16 @@ public class BlueprintGUI {
                 game.getPlayerObject().holdingTools = game.getPlayerObject().building;
 
                 if(temp.bluePrintStored.name == "BlueHouse"){
-                    temp.bluePrintStored.buildingImage = new House(i, i, null, null, game).image;
+                    temp.bluePrintStored.building = new House(i, i, null, null, game);
+                }else if(temp.bluePrintStored.name == "Castle"){
+                    temp.bluePrintStored.building = new Castle(i, i, null, null, game);
+                }else if(temp.bluePrintStored.name == "Tower"){
+                    temp.bluePrintStored.building = new Tower(i, i, null, null, game);
+                }else if(temp.bluePrintStored.name == "Chest"){
+                    temp.bluePrintStored.building = new Chest(i, i, null, null, game);
                 }
                 game.gui.tileMec.bluprintBuilding = temp.bluePrintStored;
+                return;
             }else{
                 temp.select = false;
             }
