@@ -2,6 +2,7 @@ package com.ui;
 
 import com.buildingMechanics.BlueprintGUI;
 import com.buildingMechanics.TileInteractionGui;
+import com.id.ID;
 import com.main.Game;
 import com.map.MapHandler;
 import com.obj.Entity;
@@ -42,14 +43,14 @@ public class GUI {
     }
     public void tick(){
         sm.tick();
-        inv.tick(game.gameState == game.InventoryState);
-        skillUi.tick(game.gameState == game.skillTabState);
+        inv.tick(game.gameState == ID.INVENT_STATE);
+        skillUi.tick(game.gameState == ID.SKILLTAB_STATE);
         blueprintGUI.tick();
         tileMec.hoverTilesIfPlayerMoving();
     }
     
     public void draw(Graphics2D g2d){
-        if(game.gameState == game.mapState){
+        if(game.gameState == ID.MAP_STATE){
             mh.drawMap(g2d, mapX, mapY, currentScale);
         }else{
 

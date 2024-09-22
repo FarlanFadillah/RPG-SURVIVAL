@@ -83,7 +83,8 @@ public class Island extends Biome{
         drawAnimation(g2d, foam,terrainLayer.get(0), 58, 64, 32, xx, yy);
         drawTerrainLayer(g2d, xx, yy, tileSet, terrainLayer.get(1), tilem);
         drawObjectLayer(g2d, objects);
-        if(game.gameState == game.playState){
+        
+        if(game.gameState == ID.PLAY_STATE){
             objects.clear();
         }
     }

@@ -12,6 +12,7 @@ import com.blockList.Tower;
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.BluePrintMech;
 import com.gameMechanics.Slot;
+import com.id.ID;
 import com.main.Game;
 import com.obj.BluePrint;
 
@@ -30,7 +31,7 @@ public class BlueprintGUI {
     }
 
     public void tick(){
-        if(game.gameState == game.BlueprintWindow){
+        if(game.gameState == ID.BPWINDOW_STATE){
             if(y < ystop){
                 y += 32;
             }
@@ -67,7 +68,7 @@ public class BlueprintGUI {
             Slot<BluePrint> temp = bpm.blueprints[i];
             if(temp.getBound(x, y).contains(e.getPoint())){
                 temp.select = true;
-                game.gameState = game.playState;
+                game.gameState = ID.PLAY_STATE;
                 game.getPlayerObject().holdingTools = game.getPlayerObject().building;
 
                 if(temp.bluePrintStored.name == "BlueHouse"){

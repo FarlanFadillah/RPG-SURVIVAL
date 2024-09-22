@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.Slot;
+import com.id.ID;
 import com.id.ItemType;
 import com.main.Game;
 import com.obj.Entity;
@@ -215,7 +216,7 @@ public class InventoryGUI {
     }
     
     public void drawDraggedItem(Graphics2D g2d) {
-    	if(game.gameState == game.InventoryState && dragged){
+    	if(game.gameState == ID.INVENT_STATE && dragged){
 			g2d.drawImage(dragItem, mx-dragItem.getWidth()/2, my-dragItem.getHeight()/2, null);
 			g2d.setFont(f1);
 			g2d.setColor(Color.white);
@@ -250,7 +251,7 @@ public class InventoryGUI {
 			consumeTab.pressed = false;
 			itemType = ItemType.ingredient;
 		}else if(closeTab.getBoundButton().contains(e.getPoint())){
-			game.gameState = game.playState;
+			game.gameState = ID.PLAY_STATE;
 		}
 	}
 

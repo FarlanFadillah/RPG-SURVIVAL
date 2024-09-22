@@ -12,6 +12,7 @@ import com.ui.GUI;
 
 
 import com.blockList.Tree;
+import com.id.ID;
 
 public class MouseInput extends MouseAdapter{
 	
@@ -35,9 +36,9 @@ public class MouseInput extends MouseAdapter{
 	
 	@Override
 	public void mouseDragged(MouseEvent e){
-		if(game.gameState == game.skillTabState){
+		if(game.gameState == ID.SKILLTAB_STATE){
 			gui.skillUi.checkPlusButtonHover(e);
-		}else if(game.gameState == game.mapState){
+		}else if(game.gameState == ID.MAP_STATE){
 			if(!new Rectangle(game.gui.mapX, game.gui.mapY, (int)(game.gui.mh.worldMap.getWidth() * game.gui.currentScale), (int)(game.gui.mh.worldMap.getHeight() * game.gui.currentScale)).contains(new Rectangle(prevX, prevY, 1,1)))return;
 			
 
@@ -63,7 +64,7 @@ public class MouseInput extends MouseAdapter{
 		mx = e.getX();
 		my = e.getY();
 		Rectangle mouse = new Rectangle(e.getX()+(int)game.camera.getX(), e.getY()+(int)game.camera.getY(), 1, 1);
-		if(game.gameState == game.InventoryState) {
+		if(game.gameState == ID.INVENT_STATE) {
 			gui.inv.mx = mx;
 			gui.inv.my = my;
 			try {
@@ -76,11 +77,11 @@ public class MouseInput extends MouseAdapter{
 			if(game.getPlayerObject().isOpeningChest){
 				gui.inv.chestInventory.hoverSlotChest(e);
 			}
-		}else if(game.gameState == game.playState){
+		}else if(game.gameState == ID.PLAY_STATE){
 			gui.skillUi.slotHover(e);
 			game.getPlayerObject().checkMouseHoverOnObject(mouse);
 			gui.tileMec.hoverTiles(e);
-		}else if(game.gameState == game.skillTabState){
+		}else if(game.gameState == ID.SKILLTAB_STATE){
 			gui.skillUi.slotHover(e);
 			gui.skillUi.mousePos(e);
 			gui.skillUi.skillTreeHover(e);
@@ -98,14 +99,14 @@ public class MouseInput extends MouseAdapter{
 		prevX = e.getX();
 		prevY = e.getY();
         if (e.getButton() == MouseEvent.BUTTON1){
-        	if(game.gameState == game.playState){
+        	if(game.gameState == ID.PLAY_STATE){
 				player.automationEquipment(e);
 				player.checkEquipment(e);
 				player.openChest(e);
 				game.gui.skillUi.checkSlot(e);
 				game.gui.tileMec.tileClick(e);
 				
-    		}else if(game.gameState == game.InventoryState) {
+    		}else if(game.gameState == ID.INVENT_STATE) {
 				gui.inv.checkButton(e);
 
 				//for condition opening chest
@@ -121,34 +122,34 @@ public class MouseInput extends MouseAdapter{
 					// game.gui.inv.dropItem();
 					// game.gameState = game.playState;
 				}
-    		}else if(game.gameState == game.skillTabState){
+    		}else if(game.gameState == ID.SKILLTAB_STATE){
 				game.gui.skillUi.checkSlot(e);
 				game.gui.skillUi.checkSkillTree(e);
 				gui.skillUi.checkPlusButton(e, true);
-			}else if(game.gameState == game.BlueprintWindow){
+			}else if(game.gameState == ID.BPWINDOW_STATE){
 				game.gui.blueprintGUI.checkBlueprintClick(e);
 			}
             
         } else if (e.getButton() == MouseEvent.BUTTON2){
-			if(game.gameState == game.playState){
+			if(game.gameState == ID.PLAY_STATE){
 				if(player.holdingTools == player.hammer){
 					// if(gui.blueprintGUI.open){
 					// 	gui.blueprintGUI.open = false;
 					// }else{
 					// 	gui.blueprintGUI.open = true;
 					// }
-					game.gameState = game.BlueprintWindow;
+					game.gameState = ID.BPWINDOW_STATE;
 				}else if(player.holdingTools == player.building){
 					player.holdingTools = player.hammer;
 				}
-			}else if(game.gameState == game.BlueprintWindow){
+			}else if(game.gameState == ID.BPWINDOW_STATE){
 				if(player.holdingTools == player.hammer){
-					game.gameState = game.playState;
+					game.gameState = ID.PLAY_STATE;
 				}
 			}
             
         } else if (e.getButton() == MouseEvent.BUTTON3) {
-        	if(game.gameState == game.playState){
+        	if(game.gameState == ID.PLAY_STATE){
 				player.automationEquipment(e);
     			player.checkEquipment(e);
 
@@ -156,7 +157,7 @@ public class MouseInput extends MouseAdapter{
 					player.holdingTools = player.hammer;
 				}
 
-    		}else if(game.gameState == game.InventoryState) {
+    		}else if(game.gameState == ID.INVENT_STATE) {
     
     		}
             
@@ -166,7 +167,7 @@ public class MouseInput extends MouseAdapter{
 	@Override
 	public void mouseReleased(MouseEvent e){
 		player.attack2();
-		if(game.gameState == game.skillTabState){
+		if(game.gameState == ID.SKILLTAB_STATE){
 			gui.skillUi.checkPlusButton(e, false);
 		}
 	}

@@ -3,6 +3,7 @@ package com.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import com.id.ID;
 import com.main.Game;
 import com.obj.Entity;
 import com.ui.Message;
@@ -25,21 +26,21 @@ public class KeyInput implements KeyListener{
         int key = e.getKeyChar();
         if(key == KeyEvent.VK_TAB){
             // game.gui.inv.getBlurBackground();
-            if(game.gameState == game.playState || game.gameState == game.skillTabState){
-                game.gameState = game.InventoryState;
-            }else if(game.gameState == game.InventoryState){
-                game.gameState = game.playState;
+            if(game.gameState == ID.PLAY_STATE || game.gameState == ID.SKILLTAB_STATE){
+                game.gameState = ID.INVENT_STATE;
+            }else if(game.gameState == ID.INVENT_STATE){
+                game.gameState = ID.PLAY_STATE;
                 game.getPlayerObject().isOpeningChest = false;
             }
         }else if(key == 'q' || key == 'Q'){
-            if(game.gameState == game.playState || game.gameState == game.InventoryState){
-                game.gameState = game.skillTabState;
-            }else if(game.gameState == game.skillTabState){
-                game.gameState = game.playState;
+            if(game.gameState == ID.PLAY_STATE || game.gameState == ID.INVENT_STATE){
+                game.gameState = ID.SKILLTAB_STATE;
+            }else if(game.gameState == ID.SKILLTAB_STATE){
+                game.gameState = ID.PLAY_STATE;
                 game.getPlayerObject().isOpeningChest = false;
             }
         }else if(key == 'e' || key == 'E'){
-            if(game.gameState == game.playState){
+            if(game.gameState == ID.PLAY_STATE){
                 System.out.println("ss");
                 game.tryWorld.entity.remove(game.tryWorld.player);
                 if(game.tryWorld.player.equals(game.tryWorld.fighter)){
@@ -52,16 +53,16 @@ public class KeyInput implements KeyListener{
                 player = game.tryWorld.player;
             }
         }else if(key == 'm' || key == 'M'){
-            if(game.gameState == game.playState && game.gui.mh.mapDone){
-                game.gameState = game.mapState;
-            }else if(game.gameState == game.playState && !game.gui.mh.mapDone){
+            if(game.gameState == ID.PLAY_STATE && game.gui.mh.mapDone){
+                game.gameState = ID.MAP_STATE;
+            }else if(game.gameState == ID.PLAY_STATE && !game.gui.mh.mapDone){
                 game.gui.sm.addMessage(new Message("Generating Map, please wait!", game.second, 2));
             }else{
-                game.gameState = game.playState;
+                game.gameState = ID.PLAY_STATE;
                 game.gui.resetMap();
             }
         }
-        if(game.gameState == game.playState){
+        if(game.gameState == ID.PLAY_STATE){
             char keyChar = e.getKeyChar();
             if (Character.isDigit(keyChar)) {
                 int x = Integer.parseInt(String.valueOf(keyChar));
@@ -74,7 +75,7 @@ public class KeyInput implements KeyListener{
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        if(game.gameState == game.playState) {
+        if(game.gameState == ID.PLAY_STATE) {
         	if(key == KeyEvent.VK_W) player.setUp(true);
         	if(key == KeyEvent.VK_S) player.setDown(true);
         	if(key == KeyEvent.VK_D) player.setRight(true);
@@ -88,8 +89,19 @@ public class KeyInput implements KeyListener{
                     player.changeEquipment(player.hands);
                 }
             }
+            
+            if(e.getKeyCode() == KeyEvent.VK_G)
+            {
+            	game.setShowBounds(!game.showBounds());
+            }
+            
+            if(e.getKeyCode() == KeyEvent.VK_H)
+            {
+            	game.setShowGrid(!game.showGrid());
+            }
+            
         	
-        }else if(game.gameState == game.InventoryState) {
+        }else if(game.gameState == ID.INVENT_STATE) {
         	if(key == KeyEvent.VK_CONTROL) {
         		holdCtrl = true;
         	}else if(e.getKeyCode() == KeyEvent.VK_SHIFT){
@@ -102,13 +114,13 @@ public class KeyInput implements KeyListener{
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
-        if(game.gameState == game.playState) {
+        if(game.gameState == ID.PLAY_STATE) {
         	if(key == KeyEvent.VK_W) player.setUp(false);
         	if(key == KeyEvent.VK_S) player.setDown(false);
         	if(key == KeyEvent.VK_D) player.setRight(false);
         	if(key == KeyEvent.VK_A) player.setLeft(false);
         	
-        }else if(game.gameState == game.InventoryState) {
+        }else if(game.gameState == ID.INVENT_STATE) {
         	if(key == KeyEvent.VK_CONTROL) {
         		holdCtrl = false;
         	}else if(e.getKeyCode() == KeyEvent.VK_SHIFT){

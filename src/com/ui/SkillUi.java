@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.Skills;
 import com.gameMechanics.Slot;
+import com.id.ID;
 import com.main.Game;
 import com.obj.Entity;
 import com.obj.Skill;
@@ -104,7 +105,7 @@ public class SkillUi {
     }
     private void drawSkillDragged(Graphics2D g2d) {
         // TODO Auto-generated method stub
-        if(skillSelect && selectSkill.icon != null && game.gameState == game.skillTabState){
+        if(skillSelect && selectSkill.icon != null && game.gameState == ID.SKILLTAB_STATE){
             g2d.drawImage(selectSkill.icon, mx-(selectSkill.icon.getWidth()/2), my-(selectSkill.icon.getHeight()/2), 64,64,null);
         }
     }
@@ -169,12 +170,12 @@ public class SkillUi {
                 selectSkill.select = false;
                 selectSkill = null;
                 return;
-            }else if(temp.getBound(x, y).contains(e.getPoint()) && skillSelect == false && game.gameState == game.skillTabState && temp.skill != null){
+            }else if(temp.getBound(x, y).contains(e.getPoint()) && skillSelect == false && game.gameState == ID.SKILLTAB_STATE && temp.skill != null){
                 selectSkill = temp.CopySkillSlot();
                 temp.emptySlot(1);
                 skillSelect = true;
                 return;
-            }else if(temp.getBound(x, y).contains(e.getPoint()) && skillSelect == false && game.gameState == game.playState){
+            }else if(temp.getBound(x, y).contains(e.getPoint()) && skillSelect == false && game.gameState == ID.PLAY_STATE){
                 
             }
         }

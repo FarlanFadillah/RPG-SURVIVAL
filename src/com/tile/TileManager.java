@@ -1,5 +1,6 @@
 package com.tile;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -86,6 +87,15 @@ public class TileManager {
 						// 	colScreen = 0;
 						// 	rowScreen++;
 						// }
+						
+						if(game.showGrid())
+						{
+							String text = "" + col + ", " + row;
+							g2.setColor(Color.white);
+							g2.drawRect(col*pixels, row*pixels, pixels,pixels);
+							g2.drawString(text, col*pixels, (row*pixels)+pixels);
+							g2.setColor(Color.black);
+						}
 					}
 				}	
 			    col++;

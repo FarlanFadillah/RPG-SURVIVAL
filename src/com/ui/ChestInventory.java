@@ -9,6 +9,7 @@ import com.blockList.Chest;
 import com.filehandler.SpriteSheet;
 import com.gameMechanics.PlayerEquipment;
 import com.gameMechanics.Slot;
+import com.id.ID;
 import com.id.ItemType;
 import com.main.Game;
 import com.obj.Item;
@@ -33,7 +34,7 @@ public class ChestInventory {
         if(state){
             if(x > stop && chestOpen.openCounter >= 5){
                 x -= 50;
-                game.gameState = game.InventoryState;
+                game.gameState = ID.INVENT_STATE;
             }
         }else{
             if(x < start){

@@ -3,6 +3,7 @@ package com.input;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+import com.id.ID;
 import com.main.Game;
 
 public class MouseWheelHandler implements MouseWheelListener{
@@ -14,7 +15,7 @@ public class MouseWheelHandler implements MouseWheelListener{
     @Override
     public void mouseWheelMoved(MouseWheelEvent e)
     {
-        if(game.gameState == game.mapState){
+        if(game.gameState == ID.MAP_STATE){
             double scale;
             if (e.getWheelRotation() < 0)
             {

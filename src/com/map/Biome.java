@@ -1,5 +1,7 @@
 package com.map;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -75,7 +77,15 @@ public abstract class Biome {
         }
 
         for (int i = 0; i < objects.size(); i++) {
-            objects.get(i).render(g);           
+            objects.get(i).render(g);   
+            if(game.showBounds())
+            {
+            	GameObject temp = objects.get(i);
+            	g.setColor(Color.red);
+            	g.setStroke(new BasicStroke(2.0f));
+            	g.drawRect(temp.getBound().x, temp.getBound().y, temp.getBound().width, temp.getBound().height);
+            	g.setColor(Color.black);
+            }
         }
         
     }

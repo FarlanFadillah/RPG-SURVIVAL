@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
 import com.ai.Pathfinder;
+import com.id.ID;
 import com.input.Camera;
 import com.input.KeyInput;
 import com.input.MouseInput;
@@ -32,14 +33,6 @@ public class Game extends Canvas implements Runnable{
 
     //Game State Section
     public int gameState = 0;
-    public int playState = 1;
-    public int pauseState = 2;
-    public int menuState = 3;
-    public int InventoryState = 4;
-    public int skillTabState = 5;
-    public int mapState = 6;
-    public int BlueprintWindow = 7;
-
 
 	public Frame frame;
 
@@ -60,7 +53,7 @@ public class Game extends Canvas implements Runnable{
     public Thread twoThread;
     public Game(){
     	
-        gameState = playState;
+        gameState = ID.PLAY_STATE;
 		frame = new Frame(WIDTH, HEIGHT, "RPG SURVIVAL", this);
 		key = new KeyInput(this);
         key.player = getPlayerObject();
@@ -119,7 +112,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     private void tick() {
-        if(gameState == playState){
+        if(gameState == ID.PLAY_STATE){
             camera.tick(this);
             tryWorld.tick(camera.getX(), camera.getY());
         }else{
@@ -175,5 +168,27 @@ public class Game extends Canvas implements Runnable{
     public Entity getPlayerObject(){
         return tryWorld.player;
     }
+    private boolean showBounds = false;
+	public boolean showBounds() {
+		// TODO Auto-generated method stub
+		
+		return showBounds;
+	}
+	
+	public void setShowBounds(boolean bool)
+	{
+		showBounds = bool;
+	}
+	
+	private boolean showGrid = false;
+	public boolean showGrid() {
+		// TODO Auto-generated method stub
+		return showGrid;
+	}
+	
+	public void setShowGrid(boolean bool)
+	{
+		showGrid = bool;
+	}
 	
 }
