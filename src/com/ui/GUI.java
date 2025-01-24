@@ -57,6 +57,8 @@ public class GUI {
             g2d.setFont(ps.f1);
             String word = "FPS :" +String.valueOf(game.Guifps);
             g2d.drawString(word, Game.WIDTH-inv.getWidthString(g2d, word)-16, 32);
+            word = "TICK :" + String.valueOf(game.Guitick);
+            g2d.drawString(word, Game.WIDTH-inv.getWidthString(g2d, word)-16, 64);
             ps.drawPlayerIcon(g2d);
             ps.drawPlayerStats(g2d);
             // mh.drawMiniMap(g2d, (int)game.camera.getX(), (int)game.camera.getY());

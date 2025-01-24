@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable{
 
     //GUI FPS
     public double Guifps = 0;
-
+    public int    Guitick = 0;
 
     public SecondThread thread;
     public Thread twoThread;
@@ -174,7 +174,7 @@ public class Game extends Canvas implements Runnable{
 		long curentTime=0;
 		
 		double fps=0;
-        double tick=0;
+        int tick=0;
 		long timer=0;
 		
 		while(running) {
@@ -195,6 +195,7 @@ public class Game extends Canvas implements Runnable{
 			if(timer >= 1000000000) {
                 //System.out.println("tick : " + tick + ", fps : " + fps);
                 this.Guifps = fps;
+                this.Guitick = tick;
                 tick = 0;
 				fps = 0;
 				timer=0;
