@@ -121,44 +121,81 @@ public class Game extends Canvas implements Runnable{
         
         gui.tick();
     }
+//    @Override
+//    public void run() {
+//        this.requestFocus();
+//		double draw = 1000000000/60;
+//		long time = System.nanoTime();
+//		long curentTime=0;
+//		
+//		double fps=0;
+//		long timer=0;
+//        double nextdraw = System.nanoTime() + draw;
+//		
+//		while(running) {
+//			curentTime = System.nanoTime();
+//			
+//			timer +=curentTime - time;
+//			time = curentTime;
+//			tick();
+//            render();
+//            fps++;
+//            try {
+//            double remain = nextdraw - System.nanoTime();
+//                remain = remain / 1000000;
+//
+//                if(remain <0){
+//                    remain = 0;
+//                }
+//                Thread.sleep((long) remain);
+//
+//                nextdraw += draw;
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//			
+//
+//			if(timer >= 1000000000) {
+//                second++;
+//                this.Guifps = fps;
+//				fps = 0;
+//				timer=0;
+//			}
+//		}
+//		stop();
+//    }
+    
     @Override
     public void run() {
         this.requestFocus();
-		double draw = 1000000000/60;
+		double draw = 1000000000;
 		long time = System.nanoTime();
+		double delta=0;
 		long curentTime=0;
 		
 		double fps=0;
+        double tick=0;
 		long timer=0;
-        double nextdraw = System.nanoTime() + draw;
 		
 		while(running) {
 			curentTime = System.nanoTime();
+			delta += (curentTime - time) / (draw/60);
 			
 			timer +=curentTime - time;
 			time = curentTime;
-			tick();
+			
+			if(delta >= 1) {
+                tick();
+                tick++;
+                delta--;
+			}
+			
             render();
             fps++;
-            try {
-            double remain = nextdraw - System.nanoTime();
-                remain = remain / 1000000;
-
-                if(remain <0){
-                    remain = 0;
-                }
-                Thread.sleep((long) remain);
-
-                nextdraw += draw;
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-			
-
 			if(timer >= 1000000000) {
-                second++;
+                //System.out.println("tick : " + tick + ", fps : " + fps);
                 this.Guifps = fps;
+                tick = 0;
 				fps = 0;
 				timer=0;
 			}
@@ -170,8 +207,6 @@ public class Game extends Canvas implements Runnable{
     }
     private boolean showBounds = false;
 	public boolean showBounds() {
-		// TODO Auto-generated method stub
-		
 		return showBounds;
 	}
 	
@@ -182,7 +217,6 @@ public class Game extends Canvas implements Runnable{
 	
 	private boolean showGrid = false;
 	public boolean showGrid() {
-		// TODO Auto-generated method stub
 		return showGrid;
 	}
 	

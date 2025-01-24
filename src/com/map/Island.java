@@ -65,6 +65,9 @@ public class Island extends Biome{
     @Override
     public void tick(double xx, double yy) {
         // TODO Auto-generated method stub
+    	if(game.gameState == ID.PLAY_STATE){
+            objects.clear();
+        }
         animHandler.spriteCounter8Frame();
         objects.addAll(entity);
         objects = qt.GetObject(new Rectangle((int)game.camera.getX()-320, (int)game.camera.getY()-256, Game.WIDTH+320, Game.HEIGHT+256), qt, objects);
@@ -72,6 +75,7 @@ public class Island extends Biome{
         for (int i = 0; i < objects.size(); i++) {
             objects.get(i).tick();
         }
+        
         // qt.tick(new Rectangle((int)player.x-(Game.WIDTH/2)-320, (int)player.y-(Game.HEIGHT/2)-256, Game.WIDTH+320, Game.HEIGHT+256), qt);
     }
 
@@ -84,9 +88,7 @@ public class Island extends Biome{
         drawTerrainLayer(g2d, xx, yy, tileSet, terrainLayer.get(1), tilem);
         drawObjectLayer(g2d, objects);
         
-        if(game.gameState == ID.PLAY_STATE){
-            objects.clear();
-        }
+        
     }
 
     @Override

@@ -73,8 +73,6 @@ public class Tree extends Block {
             }
         }else if(hp <= 0){
             if(!itemDroped){
-                Random rand = new Random();
-                int r = rand.nextInt(2)+1;
                     game.tryWorld.qt.insert(new QuadNode(new Point(x-32, y+96), new Wood(x-32, y+96, ID.Item, ItemType.ingredient)),game.tryWorld.entity, null);
                     game.tryWorld.qt.insert(new QuadNode(new Point(x+32, y+32), new Wood(x+32, y+32, ID.Item, ItemType.ingredient)),game.tryWorld.entity, null);
                     game.tryWorld.qt.insert(new QuadNode(new Point(x+64, y+96), new Wood(x+64, y+96, ID.Item, ItemType.ingredient)),game.tryWorld.entity, null);
